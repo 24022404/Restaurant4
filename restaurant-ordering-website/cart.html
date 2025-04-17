@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ Hàng - Việt Delights</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        /* Header và navigation styles */
+        header {
+            background-color: #c0392b;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo img {
+            height: 60px;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav li {
+            margin: 0 10px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        nav a.active {
+            background-color: white;
+            color: #c0392b;
+        }
+
+        /* Auth buttons styles */
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .auth-btn {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+        }
+        
+        .auth-btn:hover {
+            background-color: white;
+            color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        /* User account styles */
+        .user-account {
+            display: none;
+            position: relative;
+        }
+        
+        .user-account-btn {
+            display: flex;
+            align-items: center;
+            background-color: transparent;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .user-account-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #fff;
+            color: #c0392b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .user-name {
+            margin-right: 5px;
+            font-weight: 500;
+        }
+        
+        .dropdown-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .user-account-btn:hover .dropdown-icon {
+            transform: rotate(180deg);
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 200px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .user-dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .user-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            transform: rotate(45deg);
+        }
+        
+        .user-dropdown-item {
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .user-dropdown-item:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .user-dropdown-item i {
+            margin-right: 10px;
+            color: #c0392b;
+        }
+        
+        .user-dropdown-divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 0;
+        }
+
+        /* Cart section styles */
+        .cart-section {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h1 {
+            font-size: 2.5rem;
+            color: #c0392b;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        /* Empty cart styles */
+        .cart-empty {
+            text-align: center;
+            padding: 50px 0;
+            animation: fadeIn 1s ease;
+        }
+
+        .cart-empty i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .cart-empty p {
+            color: #777;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .menu-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #c0392b;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid #c0392b;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .menu-btn:hover {
+            transform: translateY(-3px);
+            background-color: #a5281e;
+            box-shadow: 0 4px 15px rgba(192, 57, 43, 0.4);
+        }
+
+        /* Cart layout styles */
+        .cart-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            animation: fadeIn 1s ease;
+        }
+
+        .cart-items-container {
+            flex: 1.5;
+            min-width: 300px;
+        }
+        
+        .cart-item {
+            display: flex;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cart-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .cart-item-image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex: 1;
+            padding: 15px;
+            position: relative;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .cart-item-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .cart-item-price {
+            color: #c0392b;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Quantity control styles */
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background-color: #f5f5f5;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .quantity-input {
+            width: 40px;
+            height: 30px;
+            text-align: center;
+            border: none;
+            background-color: #fff;
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            color: #c0392b;
+        }
+
+        .cart-item-subtotal {
+            position: absolute;
+            right: 15px;
+            bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* Sidebar styles */
+        .cart-sidebar {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .order-options, .cart-summary {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .option-title {
+            margin-top: 0;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 600;
+        }
+
+        .option-title i {
+            margin-right: 10px;
+            color: #c0392b;
+        }
+        
+        .dining-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Dining options */
+        .dining-option {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .dining-option:hover {
+            border-color: #c0392b;
+        }
+
+        .dining-option.active {
+            border-color: #c0392b;
+            background-color: #fff5f5;
+        }
+
+        .dining-option-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .option-radio {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .option-radio:checked {
+            border-color: #c0392b;
+        }
+
+        .option-radio:checked::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background-color: #c0392b;
+            border-radius: 50%;
+        }
+
+        .dining-option-label {
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .dining-option-description {
+            color: #666;
+            padding-left: 30px;
+            font-size: 0.95rem;
+        }
+
+        /* Address form */
+        .address-form {
+            margin-top: 20px;
+            display: none;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .address-form.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .form-control:focus {
+            border-color: #c0392b;
+            outline: none;
+        }
+
+        .map-container {
+            height: 200px;
+            border-radius: 5px;
+            margin-top: 15px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        .current-location-btn {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .current-location-btn:hover {
+            background-color: #e9e9e9;
+            border-color: #ccc;
+        }
+
+        .current-location-btn i {
+            color: #c0392b;
+        }
+        
+        /* Cart summary */
+        .summary-title {
+            margin-top: 0;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 600;
+        }
+
+        .summary-title i {
+            margin-right: 10px;
+            color: #c0392b;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #555;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .summary-line.total {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #333;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #c0392b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .checkout-btn:hover {
+            background-color: #a5281e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(192, 57, 43, 0.3);
+        }
+
+        .checkout-btn:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin-bottom: 5px;
+            }
+            
+            .cart-layout {
+                flex-direction: column;
+            }
+            
+            .cart-sidebar {
+                min-width: 100%;
+            }
+            
+            .auth-buttons {
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/images/logo.svg" alt="Việt Delights Logo">
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Trang Chủ</a></li>
+                    <li><a href="menu.html">Thực Đơn</a></li>
+                    <li><a href="pages/booking.html">Đặt Bàn</a></li>
+                    <li><a href="cart.html" class="active">Giỏ Hàng</a></li>
+                    <li><a href="about.html">Giới Thiệu</a></li>
+                    <li><a href="contact.html">Liên Hệ</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons" id="authButtons">
+                <button class="auth-btn" id="loginBtn">Đăng nhập</button>
+                <button class="auth-btn" id="registerBtn">Đăng ký</button>
+            </div>
+            
+            <div class="user-account" id="userAccount" style="display: none;">
+                <button class="user-account-btn" id="userAccountBtn">
+                    <div class="user-avatar" id="userAvatar">D</div>
+                    <span class="user-name" id="userName">Người dùng</span>
+                    <i class="fas fa-angle-down dropdown-icon"></i>
+                </button>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="pages/profile.html" class="user-dropdown-item">
+                        <i class="fas fa-user"></i>
+                        Hồ sơ của tôi
+                    </a>
+                    <a href="pages/orders.html" class="user-dropdown-item">
+                        <i class="fas fa-shopping-bag"></i>
+                        Đơn hàng
+                    </a>
+                    <a href="pages/reservations.html" class="user-dropdown-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        Lịch đặt bàn
+                    </a>
+                    <div class="user-dropdown-divider"></div>
+                    <a href="#" class="user-dropdown-item" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Đăng xuất
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="cart-section">
+            <div class="section-title">
+                <h1>Giỏ Hàng</h1>
+            </div>
+            
+            <!-- Empty cart state -->
+            <div class="cart-empty" id="emptyCart" style="display: none;">
+                <i class="fas fa-shopping-cart"></i>
+                <h2>Giỏ hàng của bạn đang trống</h2>
+                <p>Hãy thêm một số món ăn từ thực đơn của chúng tôi!</p>
+                <a href="menu.html" class="menu-btn">Xem Thực Đơn</a>
+            </div>
+            
+            <!-- Cart content -->
+            <div class="cart-layout" id="cartContent">
+                <div class="cart-items-container">
+                    <div id="cartItems">
+                        <!-- Cart items will be dynamically populated here -->
+                    </div>
+                </div>
+                
+                <div class="cart-sidebar">
+                    <!-- Dining options -->
+                    <div class="order-options">
+                        <h2 class="option-title">
+                            <i class="fas fa-utensils"></i>
+                            Chọn phương thức đặt món
+                        </h2>
+                        
+                        <div class="dining-options">
+                            <div class="dining-option active" id="dineInOption">
+                                <div class="dining-option-header">
+                                    <input type="radio" name="diningOption" id="dineIn" class="option-radio" checked>
+                                    <label for="dineIn" class="dining-option-label">Ăn tại nhà hàng</label>
+                                </div>
+                                <div class="dining-option-description">
+                                    Quý khách đến nhà hàng và thưởng thức món ăn tại chỗ.
+                                </div>
+                            </div>
+                            
+                            <div class="dining-option" id="deliveryOption">
+                                <div class="dining-option-header">
+                                    <input type="radio" name="diningOption" id="delivery" class="option-radio">
+                                    <label for="delivery" class="dining-option-label">Giao hàng tận nơi</label>
+                                </div>
+                                <div class="dining-option-description">
+                                    Chúng tôi sẽ giao đồ ăn đến địa chỉ của quý khách. Phí giao hàng tùy thuộc vào khoảng cách.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Delivery address form (hidden by default) -->
+                        <div class="address-form" id="addressForm">
+                            <button type="button" class="current-location-btn" id="currentLocationBtn">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Sử dụng vị trí hiện tại
+                            </button>
+                            
+                            <div class="form-group">
+                                <label for="addressInput">Địa chỉ giao hàng</label>
+                                <input type="text" id="addressInput" class="form-control" placeholder="Nhập địa chỉ của bạn">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="noteInput">Ghi chú thêm (tùy chọn)</label>
+                                <textarea id="noteInput" class="form-control" placeholder="VD: Tòa nhà, số tầng, hướng dẫn giao hàng..."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phoneInput">Số điện thoại liên hệ</label>
+                                <input type="tel" id="phoneInput" class="form-control" placeholder="VD: 0912345678">
+                            </div>
+                            
+                            <div class="map-container">
+                                <div id="map"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Order summary -->
+                    <div class="cart-summary">
+                        <h2 class="summary-title">
+                            <i class="fas fa-clipboard-list"></i>
+                            Tóm tắt đơn hàng
+                        </h2>
+                        
+                        <div class="summary-line">
+                            <span>Tổng tiền hàng:</span>
+                            <span id="subtotal">0 ₫</span>
+                        </div>
+                        
+                        <div class="summary-line">
+                            <span>Phí giao hàng:</span>
+                            <span id="deliveryFee">0 ₫</span>
+                        </div>
+                        
+                        <div class="summary-line total">
+                            <span>Thành tiền:</span>
+                            <span id="total">0 ₫</span>
+                        </div>
+                        
+                        <button id="checkoutBtn" class="checkout-btn">
+                            Tiến hành thanh toán
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 Việt Delights. Đã đăng ký bản quyền.</p>
+    </footer>
+    
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Kiểm tra trạng thái đăng nhập
+        checkLoginStatus();
+        
+        // Tải giỏ hàng
+        loadCart();
+        
+        // Xử lý chọn phương thức đặt món
+        setupDiningOptions();
+        
+        // Xử lý Google Maps cho địa chỉ giao hàng
+        initMap();
+        
+        // Nút tiến hành thanh toán
+        document.getElementById('checkoutBtn').addEventListener('click', function() {
+            proceedToCheckout();
+        });
+        
+        // Các nút đăng nhập/đăng ký
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            window.location.href = 'pages/login.html';
+        });
+        
+        document.getElementById('registerBtn').addEventListener('click', function() {
+            window.location.href = 'pages/register.html';
+        });
+        
+        // Toggle user account dropdown
+        const userAccountBtn = document.getElementById('userAccountBtn');
+        const userDropdown = document.getElementById('userDropdown');
+        
+        if (userAccountBtn) {
+            userAccountBtn.addEventListener('click', function() {
+                userDropdown.classList.toggle('active');
+            });
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (userAccountBtn && !userAccountBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+                userDropdown.classList.remove('active');
+            }
+        });
+        
+        // Đăng xuất
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('loggedInUser');
+            window.location.reload();
+        });
+    });
+    
+    // Kiểm tra trạng thái đăng nhập
+    function checkLoginStatus() {
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        if (loggedInUser) {
+            const userData = JSON.parse(loggedInUser);
+            displayLoggedInUI(userData);
+        }
+    }
+    
+    // Hiển thị giao diện đã đăng nhập
+    function displayLoggedInUI(userData) {
+        document.getElementById('authButtons').style.display = 'none';
+        document.getElementById('userAccount').style.display = 'block';
+        
+        const userName = document.getElementById('userName');
+        const userAvatar = document.getElementById('userAvatar');
+        
+        userName.textContent = userData.fullName || userData.email;
+        if (userData.fullName) {
+            userAvatar.textContent = userData.fullName.charAt(0).toUpperCase();
+        } else if (userData.email) {
+            userAvatar.textContent = userData.email.charAt(0).toUpperCase();
+        }
+    }
+    
+    // Tải dữ liệu giỏ hàng
+    function loadCart() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartItems = document.getElementById('cartItems');
+        const emptyCart = document.getElementById('emptyCart');
+        const cartContent = document.getElementById('cartContent');
+        
+        if (cart.length === 0) {
+            emptyCart.style.display = 'block';
+            cartContent.style.display = 'none';
+            return;
+        }
+        
+        emptyCart.style.display = 'none';
+        cartContent.style.display = 'flex';
+        
+        cartItems.innerHTML = '';
+        
+        let subtotal = 0;
+        
+        // Hiển thị mỗi món trong giỏ hàng
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            subtotal += itemTotal;
+            
+            const cartItemElement = document.createElement('div');
+            cartItemElement.className = 'cart-item';
+            cartItemElement.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                <div class="cart-item-details">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-price">${formatCurrency(item.price)}</div>
+                    <div class="cart-item-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus-btn" data-id="${item.id}">-</button>
+                            <input type="text" class="quantity-input" value="${item.quantity}" readonly>
+                            <button class="quantity-btn plus-btn" data-id="${item.id}">+</button>
+                        </div>
+                        <button class="remove-btn" data-id="${item.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    <div class="cart-item-subtotal">
+                        ${formatCurrency(itemTotal)}
+                    </div>
+                </div>
+            `;
+            
+            cartItems.appendChild(cartItemElement);
+        });
+        
+        // Cập nhật tổng tiền
+        updateOrderSummary(subtotal);
+        
+        // Thêm event listeners cho các nút điều khiển số lượng và xóa
+        attachCartControlEvents();
+    }
+    
+    // Thêm sự kiện cho các nút điều khiển giỏ hàng
+    function attachCartControlEvents() {
+        // Nút giảm số lượng
+        document.querySelectorAll('.minus-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = parseInt(this.dataset.id);
+                updateItemQuantity(id, -1);
+            });
+        });
+        
+        // Nút tăng số lượng
+        document.querySelectorAll('.plus-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = parseInt(this.dataset.id);
+                updateItemQuantity(id, 1);
+            });
+        });
+        
+        // Nút xóa món
+        document.querySelectorAll('.remove-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = parseInt(this.dataset.id);
+                removeCartItem(id);
+            });
+        });
+    }
+    
+    // Cập nhật số lượng món ăn trong giỏ hàng
+    function updateItemQuantity(id, change) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const itemIndex = cart.findIndex(item => item.id === id);
+        
+        if (itemIndex !== -1) {
+            cart[itemIndex].quantity += change;
+            
+            if (cart[itemIndex].quantity <= 0) {
+                removeCartItem(id);
+                return;
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+    }
+    
+    // Xóa món ăn khỏi giỏ hàng
+    function removeCartItem(id) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart = cart.filter(item => item.id !== id);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCart();
+    }
+    
+    // Cập nhật phần tóm tắt đơn hàng
+    function updateOrderSummary(subtotal) {
+        const deliveryOption = document.getElementById('delivery').checked;
+        let deliveryFee = 0;
+        
+        // Tính phí giao hàng nếu chọn phương thức giao hàng
+        if (deliveryOption) {
+            deliveryFee = calculateDeliveryFee();
+        }
+        
+        const total = subtotal + deliveryFee;
+        
+        document.getElementById('subtotal').textContent = formatCurrency(subtotal);
+        document.getElementById('deliveryFee').textContent = formatCurrency(deliveryFee);
+        document.getElementById('total').textContent = formatCurrency(total);
+    }
+    
+    // Tính phí giao hàng dựa trên khoảng cách
+    function calculateDeliveryFee() {
+        // Giả lập, trong thực tế sẽ tính dựa trên khoảng cách từ Google Maps API
+        return 20000; // Phí giao hàng cố định 20,000₫
+    }
+    
+    // Định dạng tiền tệ
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        }).format(amount);
+    }
+    
+    // Thiết lập các tùy chọn đặt món
+    function setupDiningOptions() {
+        const dineInOption = document.getElementById('dineInOption');
+        const deliveryOption = document.getElementById('deliveryOption');
+        const addressForm = document.getElementById('addressForm');
+        const dineInRadio = document.getElementById('dineIn');
+        const deliveryRadio = document.getElementById('delivery');
+        
+        // Khi click vào option
+        dineInOption.addEventListener('click', function() {
+            dineInRadio.checked = true;
+            dineInOption.classList.add('active');
+            deliveryOption.classList.remove('active');
+            addressForm.classList.remove('active');
+            
+            // Cập nhật tóm tắt đơn hàng
+            const subtotal = calculateSubtotal();
+            updateOrderSummary(subtotal);
+        });
+        
+        deliveryOption.addEventListener('click', function() {
+            deliveryRadio.checked = true;
+            deliveryOption.classList.add('active');
+            dineInOption.classList.remove('active');
+            addressForm.classList.add('active');
+            
+            // Cập nhật tóm tắt đơn hàng kèm phí giao hàng
+            const subtotal = calculateSubtotal();
+            updateOrderSummary(subtotal);
+        });
+        
+        // Khi click vào radio button
+        dineInRadio.addEventListener('change', function() {
+            if (this.checked) {
+                dineInOption.classList.add('active');
+                deliveryOption.classList.remove('active');
+                addressForm.classList.remove('active');
+                
+                const subtotal = calculateSubtotal();
+                updateOrderSummary(subtotal);
+            }
+        });
+        
+        deliveryRadio.addEventListener('change', function() {
+            if (this.checked) {
+                deliveryOption.classList.add('active');
+                dineInOption.classList.remove('active');
+                addressForm.classList.add('active');
+                
+                const subtotal = calculateSubtotal();
+                updateOrderSummary(subtotal);
+            }
+        });
+    }
+    
+    // Tính tổng tiền hàng
+    function calculateSubtotal() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    }
+    
+    // Khởi tạo Google Maps
+    function initMap() {
+        // Kiểm tra nếu Google Maps API đã được tải
+        if (typeof google !== 'undefined' && google.maps) {
+            const mapDiv = document.getElementById('map');
+            
+            // Vị trí mặc định (Hà Nội)
+            const defaultLocation = { lat: 21.0278, lng: 105.8342 };
+            
+            const map = new google.maps.Map(mapDiv, {
+                center: defaultLocation,
+                zoom: 13
+            });
+            
+            // Marker hiển thị vị trí
+            const marker = new google.maps.Marker({
+                position: defaultLocation,
+                map: map,
+                draggable: true
+            });
+            
+            // Cập nhật địa chỉ khi kéo marker
+            google.maps.event.addListener(marker, 'dragend', function() {
+                const position = marker.getPosition();
+                reverseGeocode(position);
+            });
+            
+            // Autocomplete địa chỉ
+            const addressInput = document.getElementById('addressInput');
+            const autocomplete = new google.maps.places.Autocomplete(addressInput);
+            
+            // Cập nhật map khi chọn địa chỉ từ autocomplete
+            autocomplete.addListener('place_changed', function() {
+                const place = autocomplete.getPlace();
+                if (!place.geometry) return;
+                
+                // Cập nhật vị trí map và marker
+                map.setCenter(place.geometry.location);
+                marker.setPosition(place.geometry.location);
+            });
+            
+            // Nút lấy vị trí hiện tại
+            document.getElementById('currentLocationBtn').addEventListener('click', function() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        const pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        
+                        map.setCenter(pos);
+                        marker.setPosition(pos);
+                        reverseGeocode(pos);
+                    }, function() {
+                        alert('Không thể xác định vị trí của bạn.');
+                    });
+                } else {
+                    alert('Trình duyệt của bạn không hỗ trợ định vị.');
+                }
+            });
+            
+            // Chuyển đổi tọa độ thành địa chỉ
+            function reverseGeocode(location) {
+                const geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ location: location }, function(results, status) {
+                    if (status === 'OK') {
+                        if (results[0]) {
+                            document.getElementById('addressInput').value = results[0].formatted_address;
+                        }
+                    }
+                });
+            }
+        }
+    }
+    
+    // Xử lý tiến hành thanh toán
+    function proceedToCheckout() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        if (cart.length === 0) {
+            alert('Giỏ hàng của bạn đang trống. Vui lòng thêm món ăn trước khi thanh toán.');
+            return;
+        }
+        
+        const isDineIn = document.getElementById('dineIn').checked;
+        
+        // Nếu là giao hàng, kiểm tra và lưu thông tin giao hàng
+        if (!isDineIn) {
+            const address = document.getElementById('addressInput').value;
+            const note = document.getElementById('noteInput').value;
+            const phone = document.getElementById('phoneInput').value;
+            
+            if (!address) {
+                alert('Vui lòng nhập địa chỉ giao hàng.');
+                return;
+            }
+            
+            if (!phone) {
+                alert('Vui lòng nhập số điện thoại liên hệ.');
+                return;
+            }
+            
+            // Lưu thông tin giao hàng
+            const deliveryInfo = {
+                address: address,
+                note: note,
+                phone: phone
+            };
+            
+            localStorage.setItem('deliveryInfo', JSON.stringify(deliveryInfo));
+        }
+        
+        // Lưu thông tin phương thức đặt món
+        localStorage.setItem('diningOption', isDineIn ? 'dineIn' : 'delivery');
+        
+        // Chuyển đến trang thanh toán
+        window.location.href = 'checkout.html';
+    }
+</script>
+</body>
+</html>

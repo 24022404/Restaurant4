@@ -1,0 +1,593 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới Thiệu - Việt Delights</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: #c0392b;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo img {
+            height: 60px;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav li {
+            margin: 0 10px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        nav a.active {
+            background-color: white;
+            color: #c0392b;
+        }
+        
+        main {
+            margin-top: 90px;
+            min-height: calc(100vh - 90px - 60px);
+            padding: 40px 0;
+        }
+        
+        .about-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .section-title h1 {
+            font-size: 2.5rem;
+            color: #c0392b;
+            margin-bottom: 15px;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeIn 1.8s ease;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 50px;
+            animation: fadeIn 2s ease;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-text h2 {
+            color: #c0392b;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .about-text p {
+            margin-bottom: 25px;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .team-section {
+            margin-top: 80px;
+        }
+        
+        .team-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .team-title h2 {
+            font-size: 2rem;
+            color: #c0392b;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .team-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: #c0392b;
+            bottom: -10px;
+            left: 25%;
+        }
+        
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .team-member {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .member-image {
+            height: 280px;
+            overflow: hidden;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+        
+        .member-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .member-info h3 {
+            margin: 0 0 5px;
+            color: #333;
+        }
+        
+        .member-position {
+            color: #c0392b;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .member-bio {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        /* Auth buttons styles */
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .auth-btn {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+        }
+        
+        .auth-btn:hover {
+            background-color: white;
+            color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        /* User account styles */
+        .user-account {
+            display: none;
+            position: relative;
+        }
+        
+        .user-account-btn {
+            display: flex;
+            align-items: center;
+            background-color: transparent;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .user-account-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #fff;
+            color: #c0392b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .user-name {
+            margin-right: 5px;
+            font-weight: 500;
+        }
+        
+        .dropdown-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 200px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .user-dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .user-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            transform: rotate(45deg);
+        }
+        
+        .user-dropdown-item {
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .user-dropdown-item:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .user-dropdown-item i {
+            margin-right: 10px;
+            color: #c0392b;
+        }
+        
+        .user-dropdown-divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .auth-buttons {
+                margin-top: 15px;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .team-members {
+                grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/images/logo.svg" alt="Việt Delights Logo">
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Trang Chủ</a></li>
+                    <li><a href="menu.html">Thực Đơn</a></li>
+                    <li><a href="pages/booking.html">Đặt Bàn</a></li>
+                    <li><a href="cart.html">Giỏ Hàng</a></li>
+                    <li><a href="about.html" class="active">Giới Thiệu</a></li>
+                    <li><a href="contact.html">Liên Hệ</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons" id="authButtons">
+                <button class="auth-btn" id="loginBtn">Đăng nhập</button>
+                <button class="auth-btn" id="registerBtn">Đăng ký</button>
+            </div>
+            
+            <div class="user-account" id="userAccount" style="display: none;">
+                <button class="user-account-btn" id="userAccountBtn">
+                    <div class="user-avatar" id="userAvatar">D</div>
+                    <span class="user-name" id="userName">ducminh192005</span>
+                    <i class="fas fa-angle-down dropdown-icon"></i>
+                </button>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="pages/profile.html" class="user-dropdown-item">
+                        <i class="fas fa-user"></i>
+                        Hồ sơ của tôi
+                    </a>
+                    <a href="pages/orders.html" class="user-dropdown-item">
+                        <i class="fas fa-shopping-bag"></i>
+                        Đơn hàng
+                    </a>
+                    <a href="pages/reservations.html" class="user-dropdown-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        Lịch đặt bàn
+                    </a>
+                    <div class="user-dropdown-divider"></div>
+                    <a href="#" class="user-dropdown-item" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Đăng xuất
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <section class="about-section">
+            <div class="section-title">
+                <h1>Giới Thiệu Về Chúng Tôi</h1>
+                <p>Nhà hàng Việt Delights tự hào mang đến những trải nghiệm ẩm thực Việt Nam đích thực với không gian hiện đại và sang trọng</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Câu Chuyện Của Chúng Tôi</h2>
+                    <p>Nhà hàng Việt Delights được thành lập vào năm 2018, với sứ mệnh mang hương vị ẩm thực Việt Nam đích thực đến với thực khách. Chúng tôi tự hào về nguồn nguyên liệu tươi ngon, được tuyển chọn kỹ lưỡng từ các vùng miền trên khắp Việt Nam.</p>
+                    <p>Đội ngũ đầu bếp của chúng tôi được đào tạo chuyên nghiệp, mang đến những món ăn truyền thống được chế biến tinh tế, giữ trọn hương vị đặc trưng nhưng vẫn có những điểm nhấn hiện đại để làm hài lòng khẩu vị của thực khách.</p>
+                    
+                    <h2>Triết Lý Của Chúng Tôi</h2>
+                    <p>Tại Việt Delights, chúng tôi tin rằng ẩm thực không chỉ là hương vị mà còn là một trải nghiệm toàn diện - từ không gian, cách phục vụ đến từng chi tiết nhỏ trong mỗi món ăn. Chúng tôi nỗ lực mỗi ngày để mang đến cho khách hàng những trải nghiệm ẩm thực tốt nhất.</p>
+                </div>
+                <div class="about-image">
+                    <img src="assets/images/about-restaurant.jpg" alt="Nhà hàng Việt Delights">
+                </div>
+            </div>
+            
+            <div class="team-section">
+                <div class="team-title">
+                    <h2>Đội Ngũ Của Chúng Tôi</h2>
+                </div>
+                
+                <div class="team-members">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="assets/images/chef-1.jpg" alt="Đầu bếp trưởng">
+                        </div>
+                        <div class="member-info">
+                            <h3>Nguyễn Văn An</h3>
+                            <div class="member-position">Đầu bếp trưởng</div>
+                            <p class="member-bio">Với hơn 15 năm kinh nghiệm trong ẩm thực Việt Nam, Chef An mang đến những hương vị truyền thống đặc sắc nhất.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="assets/images/chef-2.jpg" alt="Bếp trưởng món tráng miệng">
+                        </div>
+                        <div class="member-info">
+                            <h3>Trần Thị Hương</h3>
+                            <div class="member-position">Bếp trưởng món tráng miệng</div>
+                            <p class="member-bio">Chef Hương chuyên về các món tráng miệng truyền thống Việt Nam với phong cách trình bày hiện đại.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="assets/images/manager.jpg" alt="Quản lý nhà hàng">
+                        </div>
+                        <div class="member-info">
+                            <h3>Lê Minh Tuấn</h3>
+                            <div class="member-position">Quản lý nhà hàng</div>
+                            <p class="member-bio">Anh Tuấn đảm bảo mọi trải nghiệm của khách hàng tại Việt Delights luôn hoàn hảo từ lúc bước vào đến khi ra về.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Việt Delights. Đã đăng ký bản quyền.</p>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Kiểm tra trạng thái đăng nhập
+            checkLoginStatus();
+            
+            // Nút đăng nhập/đăng ký
+            document.getElementById('loginBtn').addEventListener('click', function() {
+                window.location.href = 'login.html';
+            });
+            
+            document.getElementById('registerBtn').addEventListener('click', function() {
+                window.location.href = 'register.html';
+            });
+            
+            // Toggle dropdown tài khoản
+            const userAccountBtn = document.getElementById('userAccountBtn');
+            const userDropdown = document.getElementById('userDropdown');
+            
+            if (userAccountBtn) {
+                userAccountBtn.addEventListener('click', function() {
+                    userDropdown.classList.toggle('active');
+                });
+            }
+            
+            // Đóng dropdown khi click bên ngoài
+            document.addEventListener('click', function(e) {
+                if (userAccountBtn && !userAccountBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+                    userDropdown.classList.remove('active');
+                }
+            });
+            
+            // Đăng xuất
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('loggedInUser');
+                window.location.reload();
+            });
+            
+            // Kiểm tra trạng thái đăng nhập
+            function checkLoginStatus() {
+                const loggedInUser = localStorage.getItem('loggedInUser');
+                if (loggedInUser) {
+                    const userData = JSON.parse(loggedInUser);
+                    displayLoggedInUI(userData);
+                }
+            }
+            
+            // Hiển thị UI cho người dùng đã đăng nhập
+            function displayLoggedInUI(userData) {
+                document.getElementById('authButtons').style.display = 'none';
+                document.getElementById('userAccount').style.display = 'block';
+                
+                const userName = document.getElementById('userName');
+                const userAvatar = document.getElementById('userAvatar');
+                
+                userName.textContent = userData.fullName || userData.email;
+                if (userData.fullName) {
+                    userAvatar.textContent = userData.fullName.charAt(0).toUpperCase();
+                } else if (userData.email) {
+                    userAvatar.textContent = userData.email.charAt(0).toUpperCase();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

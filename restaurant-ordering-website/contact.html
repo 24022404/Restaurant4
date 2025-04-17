@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên Hệ - Việt Delights</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: #c0392b;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo img {
+            height: 60px;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+        
+        .main-nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .nav-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-item {
+            margin: 0 10px;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link.active {
+            background-color: white;
+            color: #c0392b;
+        }
+        
+        main {
+            margin-top: 100px;
+            min-height: calc(100vh - 90px - 60px);
+            padding: 40px 0;
+        }
+        
+        .contact-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            width: 100%;
+        }
+        
+        .section-title h1 {
+            font-size: 2.5rem;
+            color: #c0392b;
+            margin-bottom: 15px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeIn 1.3s ease;
+        }
+        
+        .contact-form-container {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .info-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .info-title {
+            font-size: 1.5rem;
+            color: #c0392b;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-title i {
+            margin-right: 10px;
+        }
+        
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .info-item i {
+            color: #c0392b;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+        
+        .info-item-content {
+            flex: 1;
+        }
+        
+        .info-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .map-container {
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .form-control:focus {
+            border-color: #c0392b;
+            outline: none;
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: #c0392b;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .submit-btn:hover {
+            background-color: #a5281e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(192, 57, 43, 0.3);
+        }
+        
+        .success-message {
+            display: none;
+            padding: 15px;
+            background-color: #d4edda;
+            border-radius: 5px;
+            color: #155724;
+            margin-bottom: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        /* Auth buttons styles */
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .auth-btn {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.9rem;
+        }
+        
+        .auth-btn:hover {
+            background-color: white;
+            color: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        /* User account styles */
+        .user-account {
+            position: relative;
+            margin-left: 20px;
+        }
+        
+        .user-account-btn {
+            display: flex;
+            align-items: center;
+            background-color: transparent;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .user-account-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #fff;
+            color: #c0392b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .user-name {
+            margin-right: 5px;
+            font-weight: 500;
+        }
+        
+        .dropdown-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .user-account-btn:hover .dropdown-icon {
+            transform: rotate(180deg);
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 200px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .user-dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .user-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            transform: rotate(45deg);
+        }
+        
+        .user-dropdown-item {
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .user-dropdown-item:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .user-dropdown-item i {
+            margin-right: 10px;
+            color: #c0392b;
+        }
+        
+        .user-dropdown-divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            .nav-list {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .auth-buttons, .user-account {
+                margin-top: 15px;
+            }
+            
+            .contact-section {
+                flex-direction: column;
+            }
+        }
+
+        /* Thêm đoạn CSS này vào phần style */
+        .social-link {
+            color: inherit;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            filter: brightness(1.2);
+        }
+
+        .social-facebook { color: #3b5998; }
+        .social-instagram { color: #E1306C; }
+        .social-twitter { color: #1DA1F2; }
+        .social-youtube { color: #FF0000; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/images/logo.svg" alt="Việt Delights Logo">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Trang Chủ</a></li>
+                    <li class="nav-item"><a href="menu.html" class="nav-link">Thực Đơn</a></li>
+                    <li class="nav-item"><a href="pages/booking.html" class="nav-link">Đặt Bàn</a></li>
+                    <li class="nav-item"><a href="cart.html" class="nav-link">Giỏ Hàng</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">Giới Thiệu</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link active">Liên Hệ</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons" id="authButtons">
+                <button class="auth-btn" id="loginBtn">Đăng nhập</button>
+                <button class="auth-btn" id="registerBtn">Đăng ký</button>
+            </div>
+            
+            <div class="user-account" id="userAccount" style="display: none;">
+                <button class="user-account-btn" id="userAccountBtn">
+                    <div class="user-avatar" id="userAvatar">D</div>
+                    <span class="user-name" id="userName">ducminh192005</span>
+                    <i class="fas fa-angle-down dropdown-icon"></i>
+                </button>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="pages/profile.html" class="user-dropdown-item">
+                        <i class="fas fa-user"></i>
+                        Hồ sơ của tôi
+                    </a>
+                    <a href="pages/orders.html" class="user-dropdown-item">
+                        <i class="fas fa-shopping-bag"></i>
+                        Đơn hàng
+                    </a>
+                    <a href="pages/reservations.html" class="user-dropdown-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        Lịch đặt bàn
+                    </a>
+                    <div class="user-dropdown-divider"></div>
+                    <a href="#" class="user-dropdown-item" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Đăng xuất
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="contact-section">
+            <div class="section-title">
+                <h1>Liên Hệ Với Chúng Tôi</h1>
+                <p>Chúng tôi luôn sẵn sàng lắng nghe ý kiến của quý khách. Hãy liên hệ với chúng tôi nếu bạn có bất kỳ câu hỏi nào.</p>
+            </div>
+            
+            <div class="contact-form-container">
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i> Cảm ơn bạn đã liên hệ với chúng tôi! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.
+                </div>
+                
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Họ và tên</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Số điện thoại</label>
+                        <input type="tel" id="phone" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Chủ đề</label>
+                        <select id="subject" class="form-control" required>
+                            <option value="" selected disabled>Chọn chủ đề</option>
+                            <option value="question">Câu hỏi chung</option>
+                            <option value="reservation">Thắc mắc về đặt bàn</option>
+                            <option value="feedback">Góp ý về dịch vụ</option>
+                            <option value="complaint">Khiếu nại</option>
+                            <option value="other">Vấn đề khác</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Nội dung tin nhắn</label>
+                        <textarea id="message" class="form-control" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Gửi tin nhắn
+                    </button>
+                </form>
+            </div>
+            
+            <div class="contact-info">
+                <div class="info-card">
+                    <div class="info-title">
+                        <i class="fas fa-info-circle"></i>
+                        Thông tin liên hệ
+                    </div>
+                    
+                    <ul class="info-list">
+                        <li class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="info-item-content">
+                                <div class="info-item-title">Địa chỉ</div>
+                                <div>123 Đường Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh</div>
+                            </div>
+                        </li>
+                        
+                        <li class="info-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div class="info-item-content">
+                                <div class="info-item-title">Điện thoại</div>
+                                <div>028 1234 5678</div>
+                            </div>
+                        </li>
+                        
+                        <li class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div class="info-item-content">
+                                <div class="info-item-title">Email</div>
+                                <div>info@vietdelights.vn</div>
+                            </div>
+                        </li>
+                        
+                        <li class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <div class="info-item-content">
+                                <div class="info-item-title">Giờ mở cửa</div>
+                                <div>Thứ 2-Thứ 6: 10:00 - 22:00<br>Thứ 7-Chủ nhật: 08:00 - 23:00</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.394873374441!2d106.70255601531151!3d10.777038062106195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4670702e31%3A0xe4039383f22d22e4!2zMTIzIE5ndXnhu4VuIEh14buHLCBC4bq_biBOZ2jDqSwgUXXhuq1uIDEsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1650338644921!5m2!1svi!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-title">
+                        <i class="fas fa-share-alt"></i>
+                        Kết nối với chúng tôi
+                    </div>
+                    
+                    <div style="display: flex; gap: 15px; margin-top: 15px;">
+                        <a href="https://www.facebook.com/vietdelights" target="_blank" rel="noopener noreferrer" class="social-link social-facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/vietdelights" target="_blank" rel="noopener noreferrer" class="social-link social-instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://twitter.com/vietdelights" target="_blank" rel="noopener noreferrer" class="social-link social-twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/vietdelights" target="_blank" rel="noopener noreferrer" class="social-link social-youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Việt Delights. Đã đăng ký bản quyền.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Kiểm tra trạng thái đăng nhập
+            checkLoginStatus();
+            
+            // Nút đăng nhập/đăng ký
+            document.getElementById('loginBtn').addEventListener('click', function() {
+                window.location.href = 'login.html';
+            });
+            
+            document.getElementById('registerBtn').addEventListener('click', function() {
+                window.location.href = 'register.html';
+            });
+            
+            // Toggle dropdown tài khoản
+            const userAccountBtn = document.getElementById('userAccountBtn');
+            const userDropdown = document.getElementById('userDropdown');
+            
+            if (userAccountBtn) {
+                userAccountBtn.addEventListener('click', function() {
+                    userDropdown.classList.toggle('active');
+                });
+            }
+            
+            // Đóng dropdown khi click bên ngoài
+            document.addEventListener('click', function(e) {
+                if (userAccountBtn && !userAccountBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+                    userDropdown.classList.remove('active');
+                }
+            });
+            
+            // Đăng xuất
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('loggedInUser');
+                window.location.reload();
+            });
+            
+            // Kiểm tra trạng thái đăng nhập
+            function checkLoginStatus() {
+                const loggedInUser = localStorage.getItem('loggedInUser');
+                if (loggedInUser) {
+                    const userData = JSON.parse(loggedInUser);
+                    displayLoggedInUI(userData);
+                }
+            }
+            
+            // Hiển thị UI cho người dùng đã đăng nhập
+            function displayLoggedInUI(userData) {
+                document.getElementById('authButtons').style.display = 'none';
+                document.getElementById('userAccount').style.display = 'block';
+                
+                const userName = document.getElementById('userName');
+                const userAvatar = document.getElementById('userAvatar');
+                
+                userName.textContent = userData.fullName || userData.email;
+                if (userData.fullName) {
+                    userAvatar.textContent = userData.fullName.charAt(0).toUpperCase();
+                } else if (userData.email) {
+                    userAvatar.textContent = userData.email.charAt(0).toUpperCase();
+                }
+            }
+            
+            // Xử lý form liên hệ
+            const contactForm = document.getElementById('contactForm');
+            const successMessage = document.getElementById('successMessage');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Lấy thông tin form
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    subject: document.getElementById('subject').value,
+                    message: document.getElementById('message').value
+                };
+                
+                // Trong thực tế, bạn sẽ gửi formData đến server
+                console.log('Form data:', formData);
+                
+                // Hiển thị thông báo thành công
+                successMessage.style.display = 'block';
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Ẩn thông báo sau 5 giây
+                setTimeout(function() {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>

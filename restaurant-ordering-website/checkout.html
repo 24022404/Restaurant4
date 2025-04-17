@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán - Việt Delights</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: #c0392b;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo img {
+            height: 60px;
+            transition: transform 0.3s ease;
+        }
+        
+        .checkout-section {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h1 {
+            font-size: 2.5rem;
+            color: #c0392b;
+            margin-bottom: 15px;
+        }
+        
+        .checkout-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .checkout-main {
+            flex: 1.5;
+            min-width: 300px;
+        }
+        
+        .checkout-sidebar {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .checkout-section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            color: #333;
+        }
+        
+        .checkout-section-title i {
+            color: #c0392b;
+            margin-right: 10px;
+        }
+        
+        .checkout-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .delivery-address {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .delivery-icon {
+            color: #c0392b;
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+        
+        .delivery-details {
+            flex: 1;
+        }
+        
+        .delivery-address-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .edit-btn {
+            color: #c0392b;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .edit-btn i {
+            margin-right: 5px;
+        }
+        
+        .delivery-address-text {
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .delivery-note {
+            background-color: #f8f9fa;
+            padding: 12px;
+            border-radius: 5px;
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+        }
+        
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .payment-method {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-method:hover {
+            border-color: #c0392b;
+        }
+        
+        .payment-method.active {
+            border-color: #c0392b;
+            background-color: #fff5f5;
+        }
+        
+        .payment-method-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .payment-radio {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .payment-radio:checked {
+            border-color: #c0392b;
+        }
+        
+        .payment-radio:checked::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background-color: #c0392b;
+            border-radius: 50%;
+        }
+        
+        .payment-method-label {
+            font-weight: 600;
+            flex: 1;
+        }
+        
+        .payment-method-icon {
+            margin-left: 10px;
+            color: #c0392b;
+            font-size: 1.2rem;
+        }
+        
+        .payment-method-description {
+            color: #666;
+            padding-left: 30px;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+        
+        .qr-code-container {
+            display: none;
+            padding: 20px;
+            margin-top: 15px;
+            text-align: center;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px dashed #ddd;
+        }
+        
+        .qr-code-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .qr-code-wrapper {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .qr-code-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .qr-code-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .qr-code-logo img {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+        }
+        
+        .qr-code-instructions {
+            font-size: 0.95rem;
+            color: #666;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+        
+        .bank-info {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            text-align: left;
+        }
+        
+        .bank-info-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .bank-info-line:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .bank-info-value {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        .copy-btn {
+            background: none;
+            border: none;
+            color: #c0392b;
+            cursor: pointer;
+            padding: 5px;
+            margin-left: 5px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background-color: rgba(192, 57, 43, 0.1);
+        }
+        
+        .copy-success {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #2ecc71;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 9999;
+        }
+        
+        .copy-success.show {
+            display: block;
+            animation: fadeInOut 2s ease;
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(20px); }
+            20% { opacity: 1; transform: translateY(0); }
+            80% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+        
+        .order-summary {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .summary-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .summary-title i {
+            margin-right: 10px;
+            color: #c0392b;
+        }
+        
+        .order-items {
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .order-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .order-item-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        
+        .order-item-details {
+            flex: 1;
+        }
+        
+        .order-item-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .order-item-price {
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .summary-line.total {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #333;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        
+        .place-order-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #c0392b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .place-order-btn:hover {
+            background-color: #a5281e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(192, 57, 43, 0.3);
+        }
+        
+        .place-order-btn:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .checkout-layout {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/images/logo.svg" alt="Việt Delights Logo">
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <section class="checkout-section">
+            <div class="section-title">
+                <h1>Thanh toán</h1>
+            </div>
+            
+            <div class="checkout-layout">
+                <div class="checkout-main">
+                    <!-- Delivery Information -->
+                    <div class="checkout-card" id="deliveryInfoCard">
+                        <h2 class="checkout-section-title">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Thông tin đặt món
+                        </h2>
+                        
+                        <div id="dineInInfo" style="display: none;">
+                            <div class="delivery-address">
+                                <i class="fas fa-utensils delivery-icon"></i>
+                                <div class="delivery-details">
+                                    <div class="delivery-address-title">Ăn tại nhà hàng</div>
+                                    <div class="delivery-address-text">
+                                        Quý khách vui lòng đến nhà hàng để thưởng thức món ăn.<br>
+                                        Nhà hàng Việt Delights, 123 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="deliveryInfo" style="display: none;">
+                            <div class="delivery-address">
+                                <i class="fas fa-shipping-fast delivery-icon"></i>
+                                <div class="delivery-details">
+                                    <div class="delivery-address-title">
+                                        Giao hàng đến
+                                        <button class="edit-btn" onclick="window.location.href='cart.html'">
+                                            <i class="fas fa-pen"></i> Sửa
+                                        </button>
+                                    </div>
+                                    <div class="delivery-address-text" id="deliveryAddressText"></div>
+                                    <div class="delivery-address-text" id="deliveryPhoneText"></div>
+                                    
+                                    <div class="delivery-note" id="deliveryNoteText">
+                                        <!-- Delivery note will be inserted here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Methods -->
+                    <div class="checkout-card">
+                        <h2 class="checkout-section-title">
+                            <i class="fas fa-credit-card"></i>
+                            Phương thức thanh toán
+                        </h2>
+                        
+                        <div class="payment-methods">
+                            <div class="payment-method active" id="cashPayment">
+                                <div class="payment-method-header">
+                                    <input type="radio" name="paymentMethod" id="cash" class="payment-radio" checked>
+                                    <label for="cash" class="payment-method-label">Thanh toán tiền mặt</label>
+                                    <i class="fas fa-money-bill-wave payment-method-icon"></i>
+                                </div>
+                                <div class="payment-method-description" id="cashDescription">
+                                    Quý khách thanh toán bằng tiền mặt khi nhận hàng.
+                                </div>
+                            </div>
+                            
+                            <div class="payment-method" id="bankTransferPayment">
+                                <div class="payment-method-header">
+                                    <input type="radio" name="paymentMethod" id="bankTransfer" class="payment-radio">
+                                    <label for="bankTransfer" class="payment-method-label">Chuyển khoản ngân hàng</label>
+                                    <i class="fas fa-university payment-method-icon"></i>
+                                </div>
+                                <div class="payment-method-description">
+                                    Chuyển khoản trước khi nhận hàng. Đơn hàng sẽ được xử lý sau khi thanh toán thành công.
+                                </div>
+                                
+                                <!-- QR Code for Bank Transfer -->
+                                <div class="qr-code-container" id="qrCodeContainer">
+                                    <div class="qr-code-wrapper">
+                                        <img src="assets/images/payment-qr-code.png" alt="Mã QR Thanh toán" class="qr-code-image">
+                                        <div class="qr-code-overlay">
+                                            <div class="qr-code-logo">
+                                                <img src="assets/images/logo-icon.png" alt="Việt Delights Logo">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="qr-code-instructions">
+                                        Quét mã QR bằng ứng dụng ngân hàng để thanh toán nhanh chóng
+                                    </div>
+                                    
+                                    <div class="bank-info">
+                                        <div class="bank-info-line">
+                                            <span>Ngân hàng:</span>
+                                            <span class="bank-info-value">
+                                                Vietcombank
+                                                <button class="copy-btn" data-copy="Vietcombank">
+                                                    <i class="far fa-copy"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <div class="bank-info-line">
+                                            <span>Số tài khoản:</span>
+                                            <span class="bank-info-value">
+                                                1234567890
+                                                <button class="copy-btn" data-copy="1234567890">
+                                                    <i class="far fa-copy"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <div class="bank-info-line">
+                                            <span>Chủ tài khoản:</span>
+                                            <span class="bank-info-value">
+                                                VIET DELIGHTS RESTAURANT
+                                                <button class="copy-btn" data-copy="VIET DELIGHTS RESTAURANT">
+                                                    <i class="far fa-copy"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <div class="bank-info-line">
+                                            <span>Số tiền:</span>
+                                            <span class="bank-info-value" id="transferAmount"></span>
+                                            <button class="copy-btn" data-copy="" id="transferAmountCopyBtn">
+                                                <i class="far fa-copy"></i>
+                                            </button>
+                                        </div>
+                                        <div class="bank-info-line">
+                                            <span>Nội dung CK:</span>
+                                            <span class="bank-info-value">
+                                                <span id="transferContent">VIETDELIGHTS</span>
+                                                <button class="copy-btn" data-copy="VIETDELIGHTS">
+                                                    <i class="far fa-copy"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checkout-sidebar">
+                    <div class="order-summary">
+                        <h2 class="summary-title">
+                            <i class="fas fa-receipt"></i>
+                            Chi tiết đơn hàng
+                        </h2>
+                        
+                        <div class="order-items" id="orderItems">
+                            <!-- Order items will be populated dynamically -->
+                        </div>
+                        
+                        <div class="summary-line">
+                            <span>Tổng tiền hàng:</span>
+                            <span id="subtotal">0 ₫</span>
+                        </div>
+                        
+                        <div class="summary-line">
+                            <span>Phí giao hàng:</span>
+                            <span id="deliveryFee">0 ₫</span>
+                        </div>
+                        
+                        <div class="summary-line total">
+                            <span>Thành tiền:</span>
+                            <span id="total">0 ₫</span>
+                        </div>
+                        
+                        <button id="placeOrderBtn" class="place-order-btn">
+                            Đặt hàng
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 Việt Delights. Đã đăng ký bản quyền.</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get cart and summary information
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartSummary = JSON.parse(localStorage.getItem('cartSummary')) || {
+                subtotal: 0,
+                deliveryFee: 0,
+                total: 0
+            };
+            
+            // Get dining option
+            const diningOption = localStorage.getItem('diningOption') || 'dineIn';
+            const isDineIn = diningOption === 'dineIn';
+            
+            // Show appropriate dining info
+            document.getElementById('dineInInfo').style.display = isDineIn ? 'block' : 'none';
+            document.getElementById('deliveryInfo').style.display = isDineIn ? 'none' : 'block';
+            
+            // If delivery, show delivery address
+            if (!isDineIn) {
+                const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo')) || {};
+                
+                document.getElementById('deliveryAddressText').textContent = deliveryInfo.address || 'Địa chỉ không được cung cấp';
+                document.getElementById('deliveryPhoneText').textContent = 'Số điện thoại: ' + (deliveryInfo.phone || 'Không có');
+                
+                if (deliveryInfo.note) {
+                    document.getElementById('deliveryNoteText').textContent = 'Ghi chú: ' + deliveryInfo.note;
+                } else {
+                    document.getElementById('deliveryNoteText').style.display = 'none';
+                }
+                
+                // Update cash payment description
+                document.getElementById('cashDescription').textContent = 'Quý khách thanh toán bằng tiền mặt khi nhận hàng tại địa chỉ đã cung cấp.';
+            } else {
+                // Update cash payment description for dine-in
+                document.getElementById('cashDescription').textContent = 'Quý khách thanh toán bằng tiền mặt khi đến nhà hàng.';
+            }
+            
+            // Initialize payment methods
+            const cashPayment = document.getElementById('cashPayment');
+            const bankTransferPayment = document.getElementById('bankTransferPayment');
+            const qrCodeContainer = document.getElementById('qrCodeContainer');
+            
+            cashPayment.addEventListener('click', function() {
+                document.getElementById('cash').checked = true;
+                cashPayment.classList.add('active');
+                bankTransferPayment.classList.remove('active');
+                qrCodeContainer.classList.remove('active');
+            });
+            
+            bankTransferPayment.addEventListener('click', function() {
+                document.getElementById('bankTransfer').checked = true;
+                bankTransferPayment.classList.add('active');
+                cashPayment.classList.remove('active');
+                qrCodeContainer.classList.add('active');
+            });
+            
+            // Copy button functionality
+            document.querySelectorAll('.copy-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const textToCopy = this.dataset.copy;
+                    navigator.clipboard.writeText(textToCopy)
+                        .then(() => {
+                            const originalIcon = this.innerHTML;
+                            this.innerHTML = '<i class="fas fa-check"></i>';
+                            setTimeout(() => {
+                                this.innerHTML = originalIcon;
+                            }, 1500);
+                        })
+                        .catch(err => {
+                            console.error('Could not copy text: ', err);
+                        });
+                });
+            });
+            
+            // Update order summary
+            document.getElementById('subtotal').textContent = formatCurrency(cartSummary.subtotal);
+            document.getElementById('deliveryFee').textContent = formatCurrency(cartSummary.deliveryFee);
+            document.getElementById('total').textContent = formatCurrency(cartSummary.total);
+            document.getElementById('transferAmount').textContent = formatCurrency(cartSummary.total);
+            
+            // Display order items
+            const orderItemsContainer = document.getElementById('orderItems');
+            
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('order-item');
+                
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="order-item-image">
+                    <div class="order-item-details">
+                        <div class="order-item-name">
+                            <span>${item.name}</span>
+                            <span>x${item.quantity}</span>
+                        </div>
+                        <div class="order-item-price">
+                            <span>${formatCurrency(item.price)}</span>
+                            <span>${formatCurrency(item.price * item.quantity)}</span>
+                        </div>
+                    </div>
+                `;
+                
+                orderItemsContainer.appendChild(itemElement);
+            });
+            
+            // Format currency function
+            function formatCurrency(amount) {
+                return new Intl.NumberFormat('vi-VN', { 
+                    style: 'currency', 
+                    currency: 'VND',
+                    maximumFractionDigits: 0
+                }).format(amount);
+            }
+            
+            // Place order button functionality
+            const placeOrderBtn = document.getElementById('placeOrderBtn');
+            placeOrderBtn.addEventListener('click', function() {
+                if (cart.length === 0) {
+                    alert('Giỏ hàng của bạn đang trống!');
+                    return;
+                }
+                
+                // Get payment method
+                const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').id;
+                
+                // Create order object
+                const order = {
+                    id: 'OD' + Date.now(),
+                    items: cart,
+                    summary: cartSummary,
+                    diningOption: diningOption,
+                    paymentMethod: paymentMethod,
+                    status: 'processing',
+                    createdAt: new Date().toISOString()
+                };
+                
+                // If delivery, add delivery info
+                if (!isDineIn) {
+                    const deliveryInfo = JSON.parse(localStorage.getItem('deliveryInfo'));
+                    order.deliveryInfo = deliveryInfo;
+                }
+                
+                // Save order to localStorage 
+                // In a real app, you would send this to a server
+                const orders = JSON.parse(localStorage.getItem('orders')) || [];
+                orders.push(order);
+                localStorage.setItem('orders', JSON.stringify(orders));
+                
+                // Clear cart
+                localStorage.removeItem('cart');
+                
+                // Show success message and redirect
+                showOrderConfirmation(order);
+            });
+            
+            // Show order confirmation
+            function showOrderConfirmation(order) {
+                // Create confirmation modal
+                const confirmationModal = document.createElement('div');
+                confirmationModal.className = 'modal confirmation-modal active';
+                
+                const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').id;
+                const orderIdDisplay = paymentMethod === 'bankTransfer' ? 
+                    `<div class="order-reference">Vui lòng sử dụng mã đơn hàng <strong>${order.id}</strong> trong nội dung chuyển khoản</div>` : '';
+                
+                confirmationModal.innerHTML = `
+                    <div class="modal-content">
+                        <div class="confirmation-header">
+                            <i class="fas fa-check-circle"></i>
+                            <h2>Đặt hàng thành công!</h2>
+                        </div>
+                        <div class="confirmation-body">
+                            <p>Cảm ơn bạn đã đặt món tại Việt Delights.</p>
+                            <p>Mã đơn hàng của bạn: <strong>${order.id}</strong></p>
+                            ${orderIdDisplay}
+                        </div>
+                        <div class="confirmation-footer">
+                            <button id="viewOrdersBtn" class="btn">Xem đơn hàng</button>
+                            <button id="continueShoppingBtn" class="btn btn-outline">Tiếp tục mua sắm</button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(confirmationModal);
+                
+                // Add style for the confirmation modal
+                const style = document.createElement('style');
+                style.textContent = `
+                    .confirmation-modal {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: rgba(0, 0, 0, 0.7);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        z-index: 2000;
+                    }
+                    
+                    .modal-content {
+                        background-color: white;
+                        border-radius: 10px;
+                        width: 90%;
+                        max-width: 500px;
+                        padding: 30px;
+                        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+                        animation: modalFadeIn 0.5s ease;
+                    }
+                    
+                    @keyframes modalFadeIn {
+                        from { opacity: 0; transform: translateY(-50px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+                    
+                    .confirmation-header {
+                        text-align: center;
+                        margin-bottom: 20px;
+                    }
+                    
+                    .confirmation-header i {
+                        font-size: 50px;
+                        color: #2ecc71;
+                        margin-bottom: 10px;
+                    }
+                    
+                    .confirmation-header h2 {
+                        color: #2ecc71;
+                        margin: 0;
+                    }
+                    
+                    .confirmation-body {
+                        text-align: center;
+                        margin-bottom: 20px;
+                    }
+                    
+                    .order-reference {
+                        background-color: #f8f9fa;
+                        padding: 10px;
+                        border-radius: 5px;
+                        margin-top: 10px;
+                        font-size: 0.9rem;
+                    }
+                    
+                    .confirmation-footer {
+                        display: flex;
+                        justify-content: center;
+                        gap: 15px;
+                    }
+                    
+                    .btn {
+                        padding: 10px 20px;
+                        background-color: #c0392b;
+                        color: white;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-size: 1rem;
+                        transition: all 0.3s ease;
+                    }
+                    
+                    .btn:hover {
+                        background-color: #a5281e;
+                        transform: translateY(-2px);
+                    }
+                    
+                    .btn-outline {
+                        background-color: transparent;
+                        border: 1px solid #c0392b;
+                        color: #c0392b;
+                    }
+                    
+                    .btn-outline:hover {
+                        background-color: #c0392b;
+                        color: white;
+                    }
+                `;
+                
+                document.head.appendChild(style);
+                
+                // Add event listeners for confirmation buttons
+                document.getElementById('viewOrdersBtn').addEventListener('click', function() {
+                    window.location.href = 'pages/orders.html';
+                });
+                
+                document.getElementById('continueShoppingBtn').addEventListener('click', function() {
+                    window.location.href = 'menu.html';
+                });
+            }
+            
+            // Check if cart is empty and disable order button
+            if (cart.length === 0) {
+                placeOrderBtn.disabled = true;
+                placeOrderBtn.textContent = 'Giỏ hàng trống';
+            }
+        });
+        
+        // Format currency function
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN', { 
+                style: 'currency', 
+                currency: 'VND',
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        // Display order items
+        const orderItemsContainer = document.getElementById('orderItems');
+
+        cart.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.classList.add('order-item');
+            
+            itemElement.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" class="order-item-image">
+                <div class="order-item-details">
+                    <div class="order-item-name">
+                        <span>${item.name}</span>
+                        <span>x${item.quantity}</span>
+                    </div>
+                    <div class="order-item-price">
+                        <span>${formatCurrency(item.price)}</span>
+                        <span>${formatCurrency(item.price * item.quantity)}</span>
+                    </div>
+                </div>
+            `;
+            
+            orderItemsContainer.appendChild(itemElement);
+        });
+
+        // Update the transfer amount copy button data
+        document.getElementById('transferAmountCopyBtn').dataset.copy = cartSummary.total;
+
+        // Enhanced copy button functionality
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const textToCopy = this.dataset.copy;
+                const textToDisplay = this.id === 'transferAmountCopyBtn' ? 
+                    formatCurrency(textToCopy) : textToCopy;
+                    
+                navigator.clipboard.writeText(textToCopy)
+                    .then(() => {
+                        // Show success message
+                        const successMsg = document.createElement('div');
+                        successMsg.className = 'copy-success';
+                        successMsg.innerHTML = `
+                            <i class="fas fa-check-circle"></i>
+                            Đã sao chép: ${textToDisplay}
+                        `;
+                        document.body.appendChild(successMsg);
+                        
+                        setTimeout(() => {
+                            successMsg.classList.add('show');
+                        }, 10);
+                        
+                        setTimeout(() => {
+                            successMsg.remove();
+                        }, 2000);
+                        
+                        // Change button icon
+                        const originalIcon = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(() => {
+                            this.innerHTML = originalIcon;
+                        }, 1500);
+                    })
+                    .catch(err => {
+                        console.error('Could not copy text: ', err);
+                    });
+            });
+        });
+    </script>
+</body>
+</html>
