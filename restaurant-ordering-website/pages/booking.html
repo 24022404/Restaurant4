@@ -878,50 +878,509 @@
                 margin: 5px;
             }
         }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1500;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.active {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            position: relative;
+            background-color: white;
+            max-width: 500px;
+            margin: 80px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+            animation: modalSlideIn 0.3s forwards;
+        }
+        
+        @keyframes modalSlideIn {
+            to { transform: translateY(0); }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            color: #c0392b;
+        }
+        
+        .modal-title {
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: #333;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        
+        .switch-form {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        
+        .switch-form a {
+            color: #c0392b;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #c0392b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: #a5281e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(192, 57, 43, 0.3);
+        }
+        
+        .login-message {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background-color: #2ecc71;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.3s ease;
+            z-index: 2000;
+        }
+        
+        .login-message.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .login-message i {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-btn {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .auth-btn:hover {
+            background-color: white;
+            color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Đảm bảo các nút trong modal cũng sử dụng màu nhất quán */
+        .submit-btn {
+            background-color: #c0392b;
+            border-color: #c0392b;
+        }
+
+        .submit-btn:hover {
+            background-color: #a5281e;
+        }
+
+        /* Đảm bảo màu các liên kết trong modal cũng nhất quán */
+        .switch-form a {
+            color: #c0392b;
+        }
+
+        /* Styles for login/register system */
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-btn {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .auth-btn:hover {
+            background-color: white;
+            color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            max-height: 90vh; /* Giới hạn chiều cao tối đa */
+            overflow-y: auto; /* Cho phép cuộn nếu nội dung quá dài */
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #c0392b;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            color: #c0392b;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            text-shadow: none;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333; /* Đảm bảo màu nhãn rõ ràng */
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+            color: #333; /* Đảm bảo màu chữ rõ ràng */
+            background-color: #fff; /* Đảm bảo nền trắng */
+        }
+
+        .form-control::placeholder {
+            color: #aaa; /* Màu placeholder nhạt hơn */
+            opacity: 1; /* Đảm bảo hiển thị trên tất cả trình duyệt */
+        }
+
+        .form-control:focus {
+            border-color: #c0392b;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.2); /* Hiệu ứng khi focus */
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            box-shadow: 0 4px 10px rgba(192, 57, 43, 0.3);
+        }
+
+        .switch-form {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .switch-form a {
+            color: #c0392b;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .switch-form a:hover {
+            text-decoration: underline;
+        }
+
+        /* User account dropdown styles */
+        .user-account {
+            display: none; /* Hidden by default, shown after login */
+            position: relative;
+        }
+
+        .user-account-btn {
+            display: flex;
+            align-items: center;
+            background-color: transparent;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .user-account-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #fff;
+            color: #c0392b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .user-name {
+            margin-right: 5px;
+            font-weight: 500;
+        }
+
+        .dropdown-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .user-account-btn:hover .dropdown-icon {
+            transform: rotate(180deg);
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 200px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .user-dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .user-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            transform: rotate(45deg);
+        }
+
+        .user-dropdown-item {
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .user-dropdown-item:first-child {
+            border-radius: 8px 8px 0 0;
+        }
+
+        .user-dropdown-item:last-child {
+            border-radius: 0 0 8px 8px;
+        }
+
+        .user-dropdown-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .user-dropdown-item i {
+            margin-right: 10px;
+            color: #c0392b;
+        }
+
+        .user-dropdown-divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 0;
+        }
+
+        /* Login message notification */
+        .login-message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #2ecc71;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 2000;
+        }
+
+        .login-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Box sizing for all elements */
+        * {
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 576px) {
+            .modal-content {
+                padding: 20px;
+                width: 95%;
+                margin: 10px;
+            }
+            
+            .form-control {
+                padding: 8px 10px;
+                font-size: 14px;
+            }
+            
+            .form-group {
+                margin-bottom: 15px;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="header-container">
     <div class="logo">
-        <a href="../index.html">
-            <img src="../assets/images/logo.svg" alt="Việt Delights Logo">
-        </a>
+        <!-- Logo HTML -->
     </div>
     <nav class="main-nav">
-        <ul class="nav-list">
-            <li class="nav-item"><a href="../index.html" class="nav-link">Trang Chủ</a></li>
-            <li class="nav-item"><a href="../menu.html" class="nav-link">Thực Đơn</a></li>
-            <li class="nav-item"><a href="booking.html" class="nav-link active">Đặt Bàn</a></li>
-            <li class="nav-item"><a href="../cart.html" class="nav-link">Giỏ Hàng</a></li>
-            <li class="nav-item"><a href="../about.html" class="nav-link">Giới Thiệu</a></li>
-            <li class="nav-item"><a href="../contact.html" class="nav-link">Liên Hệ</a></li>
-        </ul>
-    </nav>
+    <ul class="nav-list">
+        <li class="nav-item"><a href="../index.html" class="nav-link">Trang Chủ</a></li>
+        <li class="nav-item"><a href="../menu.html" class="nav-link">Thực Đơn</a></li>
+        <li class="nav-item"><a href="booking.html" class="nav-link active">Đặt Bàn</a></li>
+        <li class="nav-item"><a href="../cart.html" class="nav-link">Giỏ Hàng</a></li>
+        <li class="nav-item"><a href="../about.html" class="nav-link">Giới Thiệu</a></li>
+        <li class="nav-item"><a href="../contact.html" class="nav-link">Liên Hệ</a></li>
+    </ul>
+</nav>
+
+    
+    <!-- Auth Buttons (Shown when logged out) -->
     <div class="auth-buttons" id="authButtons">
         <button class="auth-btn" id="loginBtn">Đăng nhập</button>
         <button class="auth-btn" id="registerBtn">Đăng ký</button>
     </div>
     
+    <!-- User account dropdown (Shown when logged in) -->
     <div class="user-account" id="userAccount" style="display: none;">
         <button class="user-account-btn" id="userAccountBtn">
             <div class="user-avatar" id="userAvatar">D</div>
-            <span class="user-name" id="userName">ducminh192005</span>
+            <span class="user-name" id="userName">Người dùng</span>
             <i class="fas fa-angle-down dropdown-icon"></i>
         </button>
         <div class="user-dropdown" id="userDropdown">
-            <a href="profile.html" class="user-dropdown-item">
-                <i class="fas fa-user"></i>
-                Hồ sơ của tôi
-            </a>
-            <a href="orders.html" class="user-dropdown-item">
-                <i class="fas fa-shopping-bag"></i>
-                Đơn hàng
-            </a>
-            <a href="reservations.html" class="user-dropdown-item">
-                <i class="fas fa-calendar-alt"></i>
-                Lịch đặt bàn
-            </a>
+    <a href="profile.html" class="user-dropdown-item">
+        <i class="fas fa-user"></i>
+        Hồ sơ của tôi
+    </a>
+    <a href="orders.html" class="user-dropdown-item">
+        <i class="fas fa-shopping-bag"></i>
+        Đơn hàng
+    </a>
+    <a href="reservations.html" class="user-dropdown-item">
+        <i class="fas fa-calendar-alt"></i>
+        Lịch đặt bàn
+    </a>
+</div>
+
             <div class="user-dropdown-divider"></div>
             <a href="#" class="user-dropdown-item" id="logoutBtn">
                 <i class="fas fa-sign-out-alt"></i>
@@ -1222,12 +1681,136 @@
             checkLoginStatus();
 
             // Thiết lập sự kiện cho các nút đăng nhập/đăng ký
+            // Thay vì chuyển hướng đến trang khác, mở modal
             document.getElementById('loginBtn').addEventListener('click', function() {
-                window.location.href = 'login.html';
+                loginModal.classList.add('active'); // Mở modal đăng nhập
             });
 
             document.getElementById('registerBtn').addEventListener('click', function() {
-                window.location.href = 'register.html';
+                // window.location.href = 'register.html'; -- Code cũ, chuyển hướng đến trang khác
+                registerModal.classList.add('active'); // Mở modal đăng ký
+            });
+
+            // Modal elements - Thêm các biến để điều khiển modal
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const closeLogin = document.getElementById('closeLogin');
+            const closeRegister = document.getElementById('closeRegister');
+            const switchToRegister = document.getElementById('switchToRegister');
+            const switchToLogin = document.getElementById('switchToLogin');
+            const loginMessage = document.getElementById('loginMessage');
+            const authMessage = document.getElementById('authMessage');
+            
+            // Đóng modal đăng nhập
+            closeLogin.addEventListener('click', function() {
+                loginModal.classList.remove('active');
+            });
+
+            // Đóng modal đăng ký
+            closeRegister.addEventListener('click', function() {
+                registerModal.classList.remove('active');
+            });
+
+            // Chuyển từ đăng nhập sang đăng ký
+            switchToRegister.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.classList.remove('active');
+                setTimeout(function() {
+                    registerModal.classList.add('active');
+                }, 300);
+            });
+
+            // Chuyển từ đăng ký sang đăng nhập  
+            switchToLogin.addEventListener('click', function(e) {
+                e.preventDefault();
+                registerModal.classList.remove('active');
+                setTimeout(function() {
+                    loginModal.classList.add('active');
+                }, 300);
+            });
+
+            // Đóng modal khi click vào bên ngoài
+            window.addEventListener('click', function(e) {
+                if (e.target === loginModal) {
+                    loginModal.classList.remove('active');
+                }
+                if (e.target === registerModal) {
+                    registerModal.classList.remove('active');
+                }
+            });
+
+            // Xử lý submit form đăng nhập
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                // Giả lập đăng nhập thành công (trong app thực tế sẽ là API call)
+                const userData = {
+                    email: email,
+                    fullName: email.split('@')[0], // Chỉ là placeholder
+                    loggedInAt: new Date()
+                };
+                
+                // Lưu thông tin user vào localStorage
+                localStorage.setItem('loggedInUser', JSON.stringify(userData));
+                
+                // Cập nhật UI hiển thị trạng thái đã đăng nhập
+                displayLoggedInUI(userData);
+                
+                // Đóng modal
+                loginModal.classList.remove('active');
+                
+                // Hiển thị thông báo thành công
+                authMessage.textContent = "Đăng nhập thành công!";
+                loginMessage.classList.add('show');
+                setTimeout(function() {
+                    loginMessage.classList.remove('show');
+                }, 3000);
+            });
+
+            // Xử lý submit form đăng ký
+            document.getElementById('registerForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Kiểm tra mật khẩu trùng khớp
+                const password = document.getElementById('regPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                if (password !== confirmPassword) {
+                    alert('Mật khẩu xác nhận không khớp!');
+                    return;
+                }
+                
+                // Lấy thông tin người dùng
+                const fullName = document.getElementById('regFullName').value;
+                const email = document.getElementById('regEmail').value;
+                const phone = document.getElementById('regPhone').value;
+                
+                // Tạo đối tượng thông tin user (trong app thực tế sẽ gửi lên server)
+                const userData = {
+                    fullName: fullName,
+                    email: email,
+                    phone: phone,
+                    registeredAt: new Date()
+                };
+                
+                // Lưu thông tin user vào localStorage
+                localStorage.setItem('loggedInUser', JSON.stringify(userData));
+                
+                // Cập nhật UI hiển thị trạng thái đã đăng nhập
+                displayLoggedInUI(userData);
+                
+                // Đóng modal
+                registerModal.classList.remove('active');
+                
+                // Hiển thị thông báo thành công
+                authMessage.textContent = "Đăng ký thành công!";
+                loginMessage.classList.add('show');
+                setTimeout(function() {
+                    loginMessage.classList.remove('show');
+                }, 3000);
             });
 
             // Mở/đóng menu dropdown khi click vào avatar
@@ -1844,5 +2427,285 @@
             }
         });
     </script>
+    
+    <!-- Thêm các modal đăng nhập và đăng ký vào trước thẻ đóng </body> -->
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeLogin">&times;</span>
+            <h2 class="modal-title">Đăng nhập</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email hoặc số điện thoại</label>
+                    <input type="text" class="form-control" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Mật khẩu</label>
+                    <input type="password" class="form-control" id="loginPassword" required>
+                </div>
+                <button type="submit" class="submit-btn">Đăng nhập</button>
+            </form>
+            <p class="switch-form">Chưa có tài khoản? <a href="#" id="switchToRegister">Đăng ký ngay</a></p>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeRegister">&times;</span>
+            <h2 class="modal-title">Đăng ký tài khoản</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="fullName">Họ và tên</label>
+                    <input type="text" class="form-control" id="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="birthDate">Ngày tháng năm sinh</label>
+                    <input type="date" class="form-control" id="birthDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Số điện thoại liên hệ</label>
+                    <input type="tel" class="form-control" id="phone" pattern="[0-9]{10}" title="Vui lòng nhập số điện thoại 10 số" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Địa chỉ nhà</label>
+                    <textarea class="form-control" id="address" rows="2" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" class="form-control" id="password" minlength="6" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Xác nhận mật khẩu</label>
+                    <input type="password" class="form-control" id="confirmPassword" minlength="6" required>
+                </div>
+                <button type="submit" class="submit-btn">Đăng ký</button>
+            </form>
+            <p class="switch-form">Đã có tài khoản? <a href="#" id="switchToLogin">Đăng nhập</a></p>
+        </div>
+    </div>
+
+    <!-- Login success message -->
+    <div class="login-message" id="loginMessage">
+        <i class="fas fa-check-circle"></i> <span id="authMessageText">Đăng nhập thành công!</span>
+    </div>
+
+    <script>
+    // Authentication system
+    document.addEventListener('DOMContentLoaded', function() {
+        // Modal elements
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const closeLogin = document.getElementById('closeLogin');
+        const closeRegister = document.getElementById('closeRegister');
+        const switchToRegister = document.getElementById('switchToRegister');
+        const switchToLogin = document.getElementById('switchToLogin');
+        
+        // Account elements
+        const authButtons = document.getElementById('authButtons');
+        const userAccount = document.getElementById('userAccount');
+        const userName = document.getElementById('userName');
+        const userAvatar = document.getElementById('userAvatar');
+        const userAccountBtn = document.getElementById('userAccountBtn');
+        const userDropdown = document.getElementById('userDropdown');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const loginMessage = document.getElementById('loginMessage');
+        const authMessageText = document.getElementById('authMessageText');
+        
+        // Check if user is logged in (from localStorage)
+        function checkLoginStatus() {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                // User is logged in, show account info
+                const userData = JSON.parse(loggedInUser);
+                displayLoggedInUI(userData);
+            }
+        }
+        
+        // Run on page load
+        checkLoginStatus();
+        
+        // Display logged-in UI
+        function displayLoggedInUI(userData) {
+            // Hide auth buttons and show user account
+            authButtons.style.display = 'none';
+            userAccount.style.display = 'block';
+            
+            // Set user name and avatar initial
+            userName.textContent = userData.fullName || userData.email;
+            if (userData.fullName) {
+                userAvatar.textContent = userData.fullName.charAt(0).toUpperCase();
+            } else if (userData.email) {
+                userAvatar.textContent = userData.email.charAt(0).toUpperCase();
+            }
+        }
+        
+        // Open login modal
+        loginBtn.addEventListener('click', function() {
+            loginModal.classList.add('active');
+        });
+        
+        // Open register modal
+        registerBtn.addEventListener('click', function() {
+            registerModal.classList.add('active');
+        });
+        
+        // Close login modal
+        closeLogin.addEventListener('click', function() {
+            loginModal.classList.remove('active');
+        });
+        
+        // Close register modal
+        closeRegister.addEventListener('click', function() {
+            registerModal.classList.remove('active');
+        });
+        
+        // Switch from login to register
+        switchToRegister.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginModal.classList.remove('active');
+            setTimeout(function() {
+                registerModal.classList.add('active');
+            }, 300);
+        });
+        
+        // Switch from register to login
+        switchToLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            registerModal.classList.remove('active');
+            setTimeout(function() {
+                loginModal.classList.add('active');
+            }, 300);
+        });
+        
+        // Toggle user dropdown
+        userAccountBtn.addEventListener('click', function() {
+            userDropdown.classList.toggle('active');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (userAccountBtn && !userAccountBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+                userDropdown.classList.remove('active');
+            }
+        });
+        
+        // Logout functionality
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Remove user data from localStorage
+            localStorage.removeItem('loggedInUser');
+            
+            // Show auth buttons, hide user account
+            authButtons.style.display = 'flex';
+            userAccount.style.display = 'none';
+            userDropdown.classList.remove('active');
+            
+            // Show logout message
+            authMessageText.textContent = "Đăng xuất thành công!";
+            loginMessage.classList.add('show');
+            setTimeout(function() {
+                loginMessage.classList.remove('show');
+            }, 3000);
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === loginModal) {
+                loginModal.classList.remove('active');
+            }
+            if (e.target === registerModal) {
+                registerModal.classList.remove('active');
+            }
+        });
+        
+        // Form submission - Login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values (in a real app, you would validate with server)
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Simulate successful login (in real app would be API call)
+            const userData = {
+                email: email,
+                // In a real app you would NOT store the password in localStorage
+                fullName: email.split('@')[0], // Just a placeholder
+                loggedInAt: new Date()
+            };
+            
+            // Store user data in localStorage
+            localStorage.setItem('loggedInUser', JSON.stringify(userData));
+            
+            // Update UI to show logged in state
+            displayLoggedInUI(userData);
+            
+            // Close modal
+            loginModal.classList.remove('active');
+            
+            // Show success message
+            authMessageText.textContent = "Đăng nhập thành công!";
+            loginMessage.classList.add('show');
+            setTimeout(function() {
+                loginMessage.classList.remove('show');
+            }, 3000);
+        });
+        
+        // Form submission - Register
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Password confirmation validation
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('Mật khẩu xác nhận không khớp!');
+                return;
+            }
+            
+            // Get user information
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const birthDate = document.getElementById('birthDate').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            
+            // Create user object (in real app would be sent to server)
+            const userData = {
+                fullName: fullName,
+                email: email,
+                birthDate: birthDate,
+                phone: phone,
+                address: address,
+                // In a real app you would NOT store the password in localStorage
+                registeredAt: new Date()
+            };
+            
+            // Store user data in localStorage
+            localStorage.setItem('loggedInUser', JSON.stringify(userData));
+            
+            // Update UI to show logged in state
+            displayLoggedInUI(userData);
+            
+            // Close modal
+            registerModal.classList.remove('active');
+            
+            // Show success message
+            authMessageText.textContent = "Đăng ký thành công!";
+            loginMessage.classList.add('show');
+            setTimeout(function() {
+                loginMessage.classList.remove('show');
+            }, 3000);
+        });
+    });
+</script>
 </body>
 </html>

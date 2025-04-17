@@ -292,6 +292,8 @@
             transform: translateY(-50px);
             opacity: 0;
             transition: all 0.4s ease;
+            max-height: 90vh; /* Giới hạn chiều cao tối đa */
+            overflow-y: auto; /* Cho phép cuộn nếu nội dung quá dài */
         }
         
         .modal.active .modal-content {
@@ -318,6 +320,8 @@
             color: #c0392b;
             margin-bottom: 20px;
             text-align: center;
+            font-weight: 600;
+            text-shadow: none;
         }
         
         .form-group {
@@ -328,7 +332,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: #555;
+            color: #333; /* Đảm bảo màu nhãn rõ ràng */
         }
         
         .form-control {
@@ -338,11 +342,20 @@
             border-radius: 5px;
             font-size: 16px;
             transition: border-color 0.3s;
+            box-sizing: border-box;
+            color: #333; /* Đảm bảo màu chữ rõ ràng */
+            background-color: #fff; /* Đảm bảo nền trắng */
         }
-        
+
+        .form-control::placeholder {
+            color: #aaa; /* Màu placeholder nhạt hơn */
+            opacity: 1; /* Đảm bảo hiển thị trên tất cả trình duyệt */
+        }
+
         .form-control:focus {
             border-color: #c0392b;
             outline: none;
+            box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.2); /* Hiệu ứng khi focus */
         }
         
         .submit-btn {
@@ -356,6 +369,8 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-weight: 500;
+            text-shadow: none;
         }
         
         .submit-btn:hover {
@@ -521,6 +536,38 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Thêm CSS sau vào phần style trong head */
+        * {
+            box-sizing: border-box;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 576px) {
+            .modal-content {
+                padding: 20px;
+                width: 95%;
+                margin: 10px;
+            }
+            
+            .form-control {
+                padding: 8px 10px;
+                font-size: 14px;
+            }
+            
+            .form-group {
+                margin-bottom: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -642,7 +689,7 @@
             <p class="switch-form">Chưa có tài khoản? <a href="#" id="switchToRegister">Đăng ký ngay</a></p>
         </div>
     </div>
-    
+
     <!-- Register Modal -->
     <div class="modal" id="registerModal">
         <div class="modal-content">
@@ -682,10 +729,10 @@
             <p class="switch-form">Đã có tài khoản? <a href="#" id="switchToLogin">Đăng nhập</a></p>
         </div>
     </div>
-    
+
     <!-- Login success message -->
     <div class="login-message" id="loginMessage">
-        <i class="fas fa-check-circle"></i> Đăng nhập thành công!
+        <i class="fas fa-check-circle"></i> <span id="authMessageText">Đăng nhập thành công!</span>
     </div>
     
     <script src="assets/js/main.js"></script>
