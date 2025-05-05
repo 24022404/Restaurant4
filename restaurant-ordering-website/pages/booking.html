@@ -731,130 +731,42 @@
             font-weight: 400;
         }
 
-        .main-nav {
-            flex: 1;
-            display: flex;
-            justify-content: center;
+        /* Adjusting the nav styles to match exactly with index page */
+        nav {
+            /* Removing display:flex from here */
+            width: auto; /* Ensure nav takes its natural width, not expanding */
         }
 
-        .nav-list {
+        nav ul {
             display: flex;
             list-style: none;
             margin: 0;
             padding: 0;
+            /* Removing justify-content: center - this was causing the width difference */
+            width: auto; /* Match index.html nav ul width */
+            flex-wrap: nowrap; /* Prevent wrapping of items */
         }
-
-        .nav-item {
+        
+        /* Explicitly set consistent padding/margins for navigation items */
+        nav li {
             margin: 0 10px;
+            white-space: nowrap; /* Prevent text wrapping in nav items */
         }
-
-        .nav-link {
+        
+        nav a {
             color: white;
             text-decoration: none;
             font-weight: 500;
+            font-size: 1rem;
             padding: 8px 15px;
             border-radius: 4px;
             transition: all 0.3s ease;
-            display: block;
-        }
-
-        .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .nav-link.active {
-            background-color: white;
-            color: #c0392b;
+            /* Removing display:inline-block from here to match index.html */
         }
 
         .user-account {
             position: relative;
             margin-left: 20px;
-        }
-
-        .user-account-btn {
-            display: flex;
-            align-items: center;
-            background-color: transparent;
-            color: white;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
-
-        .user-account-btn:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: #fff;
-            color: #c0392b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-
-        .user-name {
-            margin-right: 5px;
-            font-weight: 500;
-        }
-
-        .dropdown-icon {
-            transition: transform 0.3s ease;
-        }
-
-        .user-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            width: 200px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-top: 10px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .user-dropdown.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .user-dropdown-item {
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            color: #333;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        .user-dropdown-item:hover {
-            background-color: #f9f9f9;
-        }
-
-        .user-dropdown-item i {
-            margin-right: 10px;
-            color: #c0392b;
-        }
-
-        .user-dropdown-divider {
-            height: 1px;
-            background-color: #eee;
-            margin: 0;
         }
 
         /* Điều chỉnh khi responsive */
@@ -1178,7 +1090,6 @@
             text-decoration: underline;
         }
 
-        /* User account dropdown styles */
         .user-account {
             display: none; /* Hidden by default, shown after login */
             position: relative;
@@ -1337,59 +1248,58 @@
 </head>
 <body>
     <header>
-        <div class="header-container">
-    <div class="logo">
-        <!-- Logo HTML -->
-    </div>
-    <nav class="main-nav">
-    <ul class="nav-list">
-        <li class="nav-item"><a href="../index.html" class="nav-link">Trang Chủ</a></li>
-        <li class="nav-item"><a href="../menu.html" class="nav-link">Thực Đơn</a></li>
-        <li class="nav-item"><a href="booking.html" class="nav-link active">Đặt Bàn</a></li>
-        <li class="nav-item"><a href="../cart.html" class="nav-link">Giỏ Hàng</a></li>
-        <li class="nav-item"><a href="../about.html" class="nav-link">Giới Thiệu</a></li>
-        <li class="nav-item"><a href="../contact.html" class="nav-link">Liên Hệ</a></li>
-    </ul>
-</nav>
-
-    
-    <!-- Auth Buttons (Shown when logged out) -->
-    <div class="auth-buttons" id="authButtons">
-        <button class="auth-btn" id="loginBtn">Đăng nhập</button>
-        <button class="auth-btn" id="registerBtn">Đăng ký</button>
-    </div>
-    
-    <!-- User account dropdown (Shown when logged in) -->
-    <div class="user-account" id="userAccount" style="display: none;">
-        <button class="user-account-btn" id="userAccountBtn">
-            <div class="user-avatar" id="userAvatar">D</div>
-            <span class="user-name" id="userName">Người dùng</span>
-            <i class="fas fa-angle-down dropdown-icon"></i>
-        </button>
-        <div class="user-dropdown" id="userDropdown">
-    <a href="profile.html" class="user-dropdown-item">
-        <i class="fas fa-user"></i>
-        Hồ sơ của tôi
-    </a>
-    <a href="orders.html" class="user-dropdown-item">
-        <i class="fas fa-shopping-bag"></i>
-        Đơn hàng
-    </a>
-    <a href="reservations.html" class="user-dropdown-item">
-        <i class="fas fa-calendar-alt"></i>
-        Lịch đặt bàn
-    </a>
-</div>
-
-            <div class="user-dropdown-divider"></div>
-            <a href="#" class="user-dropdown-item" id="logoutBtn">
-                <i class="fas fa-sign-out-alt"></i>
-                Đăng xuất
+    <div class="header-container">
+        <div class="logo">
+            <a href="../index.html">
+                <img src="../assets/images/logo.svg" alt="Logo Nhà Hàng Việt Delights">
             </a>
         </div>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Trang Chủ</a></li>
+                <li><a href="../menu.html">Thực Đơn</a></li>
+                <li><a href="booking.html" class="active">Đặt Bàn</a></li>
+                <li><a href="../cart.html">Giỏ Hàng</a></li>
+                <li><a href="../about.html">Giới Thiệu</a></li>
+                <li><a href="../contact.html">Liên Hệ</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Auth Buttons (Shown when logged out) -->
+        <div class="auth-buttons" id="authButtons">
+            <button class="auth-btn" id="loginBtn">Đăng nhập</button>
+            <button class="auth-btn" id="registerBtn">Đăng ký</button>
+        </div>
+        
+        <!-- User account dropdown (Shown when logged in) -->
+        <div class="user-account" id="userAccount" style="display: none;">
+            <button class="user-account-btn" id="userAccountBtn">
+                <div class="user-avatar" id="userAvatar">D</div>
+                <span class="user-name" id="userName">Người dùng</span>
+                <i class="fas fa-angle-down dropdown-icon"></i>
+            </button>
+            <div class="user-dropdown" id="userDropdown">
+                <a href="profile.html" class="user-dropdown-item">
+                    <i class="fas fa-user"></i>
+                    Hồ sơ của tôi
+                </a>
+                <a href="orders.html" class="user-dropdown-item">
+                    <i class="fas fa-shopping-bag"></i>
+                    Đơn hàng
+                </a>
+                <a href="reservations.html" class="user-dropdown-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    Lịch đặt bàn
+                </a>
+                <div class="user-dropdown-divider"></div>
+                <a href="#" class="user-dropdown-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Đăng xuất
+                </a>
+            </div>
+        </div>
     </div>
-</div>
-    </header>
+</header>
 
     <main class="booking-container">
         <div class="section-title">

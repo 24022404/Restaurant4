@@ -827,6 +827,26 @@
                 margin-bottom: 15px;
             }
         }
+        
+        /* Navigation width fix - consistent across site */
+        nav {
+            width: auto; /* Ensure nav takes its natural width, not expanding */
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            width: auto; /* Match with other pages */
+            flex-wrap: nowrap; /* Prevent wrapping of items */
+        }
+        
+        /* Explicitly set consistent padding/margins for navigation items */
+        .nav-item {
+            margin: 0 10px;
+            white-space: nowrap; /* Prevent text wrapping in nav items */
+        }
     </style>
 </head>
 <body>

@@ -1,0 +1,929 @@
+Tài Liệu Tầm Nhìn
+cho
+
+Dự Án Website
+Đặt Đồ Ăn Nhà Hàng
+Phiên bản 1.0
+
+Được chuẩn bị bởi
+Nhóm 6
+Vũ Nguyệt Hằng
+Dương Quốc Khánh
+Nguyễn Thị Thu Trang
+Nguyễn Văn Sơn
+Nguyễn Trường Giang
+
+22028079
+22028090
+22028254
+22028020
+19021259
+
+Giảng viên:
+Khóa học: 
+Trợ giảng:
+Ngày:
+
+22028079@vnu.edu.vn
+22028090@vnu.edu.vn
+22028254@vnu.edu.vn
+22028020@vnu.edu.vn
+19021259@vnu.edu.vn
+
+PGS. TS. Đặng Đức Hạnh
+INT2208E_23
+Kiều Văn Tuyên
+05/05/2024
+
+TÀI LIỆU TẦM NHÌN CHO
+
+MỤC LỤC
+1. Giới thiệu ............................................................................................................................................. 5
+1.1 Mục đích .............................................................................................................................................. 5
+1.2 Phạm vi ............................................................................................................................................... 5
+1.3 Định nghĩa, từ viết tắt và các chữ viết tắt ........................................................................................... 5
+1.4 Quy ước tài liệu ................................................................................................................................... 5
+1.5 Tài liệu tham khảo ............................................................................................................................... 5
+2. Định vị ................................................................................................................................................... 5
+2.1 Cơ hội kinh doanh ............................................................................................................................... 5
+2.2 Phát biểu vấn đề .................................................................................................................................. 6
+2.3 Tuyên bố vị thế sản phẩm ................................................................................................................... 6
+3. Mô tả các bên liên quan ....................................................................................................................... 7
+3.1 Nhân khẩu học thị trường .................................................................................................................... 7
+3.2 Tóm tắt các bên liên quan .................................................................................................................... 7
+3.3 Tóm tắt người dùng ............................................................................................................................. 8
+3.4 Môi trường người dùng ....................................................................................................................... 8
+3.5 Hồ sơ các bên liên quan ....................................................................................................................... 8
+3.5.1 Khách hàng nhà hàng ........................................................................................................................ 8
+3.5.2 Quản lý nhà hàng ............................................................................................................................... 9
+3.5.3 Nhà cung cấp dịch vụ thanh toán ...................................................................................................... 9
+3.5.4 Nhà phân tích hệ thống ................................................................................................................... 10
+3.5.5 Người kiểm thử ............................................................................................................................... 10
+3.5.6 Kiến trúc sư phần mềm ................................................................................................................... 11
+3.5.7 Quản lý dự án .................................................................................................................................. 11
+3.5.8 Đối tác tiếp thị ................................................................................................................................. 12
+3.5.9 Nhà phát triển .................................................................................................................................. 12
+3.6 Nhu cầu chính của các bên liên quan hoặc người dùng ..................................................................... 13
+4. Tổng quan sản phẩm ........................................................................................................................... 14
+4.1 Góc nhìn sản phẩm ............................................................................................................................ 14
+4.2 Tóm tắt các khả năng ........................................................................................................................ 14
+4.3 Giả định và phụ thuộc ....................................................................................................................... 15
+4.4 Chi phí và giá cả ................................................................................................................................. 16
+4.5 Giấy phép và cài đặt .......................................................................................................................... 16
+5. Tính năng sản phẩm ............................................................................................................................ 16
+5.1 Đăng nhập .......................................................................................................................................... 16
+5.2 Đăng ký .............................................................................................................................................. 17
+5.3 Đổi mật khẩu ..................................................................................................................................... 17
+5.4 Chỉnh sửa thông tin cá nhân ............................................................................................................. 17
+5.5 Tìm kiếm món ăn ............................................................................................................................... 17
+5.6 Lọc món ăn ........................................................................................................................................ 17
+5.7 Xem chi tiết món ăn .......................................................................................................................... 18
+5.8 Đặt món ăn ........................................................................................................................................ 18
+5.9 Xem đơn hàng .................................................................................................................................... 18
+5.10 Quản lý menu ................................................................................................................................... 18
+5.11 Thêm món ăn ................................................................................................................................... 18
+5.12 Xóa món ăn ...................................................................................................................................... 18
+5.13 Chỉnh sửa thông tin chi tiết món ăn ................................................................................................ 19
+5.14 Quản lý đơn hàng ............................................................................................................................ 19
+5.15 Xem món ăn nổi bật ......................................................................................................................... 19
+5.16 Đăng xuất ......................................................................................................................................... 19
+5.17 Giỏ hàng ........................................................................................................................................... 19
+5.18 Đánh giá và bình luận ...................................................................................................................... 19
+5.19 Theo dõi đơn hàng ........................................................................................................................... 19
+6. Ràng buộc ............................................................................................................................................ 20
+6.1 Chính sách quy định ........................................................................................................................... 20
+6.2 Giới hạn phần cứng ........................................................................................................................... 20
+6.3 Giao diện với các ứng dụng khác ...................................................................................................... 20
+6.4 Hoạt động song song ......................................................................................................................... 21
+6.5 Chức năng kiểm toán ......................................................................................................................... 21
+6.6 Chức năng kiểm soát ......................................................................................................................... 21
+6.7 Yêu cầu ngôn ngữ bậc cao ................................................................................................................. 21
+6.8 Giao thức bắt tay tín hiệu .................................................................................................................. 21
+6.9 Yêu cầu độ tin cậy ............................................................................................................................. 21
+6.10 Tính quan trọng của ứng dụng ........................................................................................................ 22
+6.11 Cân nhắc về an toàn và bảo mật ..................................................................................................... 22
+
+RESTAURANT ORDERING WEBSITE PROJECT
+
+REVISIONS
+Version
+
+Primary Author(s)
+
+Description of Version
+
+#1
+
+Group 6
+
+Initial Version
+
+Date Completed
+05/05/24
+
+RESTAURANT ORDERING WEBSITE PROJECT
+
+1. Giới thiệu
+1.1 Mục đích
+Mục đích của tài liệu tầm nhìn này là phác thảo các mục tiêu tổng thể, phạm vi và chức năng của Hệ thống Đặt Đồ Ăn Nhà Hàng. Tài liệu nhằm cung cấp một lộ trình rõ ràng cho việc phát triển và triển khai một nền tảng mang tính cách mạng trong trải nghiệm đặt món ăn cho cả khách hàng và nhà quản lý nhà hàng.
+
+1.2 Phạm vi
+Tài liệu tầm nhìn này bao gồm các tính năng và chức năng thiết yếu sẽ tạo nên cốt lõi của Hệ thống Đặt Đồ Ăn Nhà Hàng. Nó xác định đối tượng mục tiêu, nhu cầu của họ và cách nền tảng sẽ đáp ứng những nhu cầu đó để tạo ra trải nghiệm đặt món ăn liền mạch, an toàn và có khả năng mở rộng.
+
+1.3 Định nghĩa, từ viết tắt và các chữ viết tắt
+API - Giao diện lập trình ứng dụng
+POS - Hệ thống điểm bán hàng
+UI/UX - Giao diện người dùng/Trải nghiệm người dùng
+
+1.4 Quy ước tài liệu
+Tiêu đề
+Font Arial/cỡ chữ 16/Đậm
+Tiêu đề phụ
+Font Arial/cỡ chữ 14/Đậm
+Nội dung
+Font Times New Roman/cỡ chữ 11
+Văn bản màu xanh có gạch chân là các liên kết tham chiếu, đánh dấu đặc biệt được thực hiện bằng cách làm đậm văn bản để các từ khóa quan trọng có thể dễ dàng phân biệt.
+
+1.5 Tài liệu tham khảo
+Tài liệu Tầm nhìn RUP cho Hệ thống Điều khiển Thiết bị Gia dụng: Xác định Các bên liên quan, Mục tiêu và Thành phần COTS Báo cáo Kỹ thuật UTDCS-17-04
+Truy xuất từ: https://www.upc.edu/gessi/events/recots04/UTDCS-17-04.pdf
+Mẫu tài liệu tầm nhìn và ví dụ được cung cấp bởi trợ giảng.
+
+2. Định vị
+2.1 Cơ hội kinh doanh
+Hệ thống Đặt Đồ Ăn Nhà Hàng phục vụ hai nhóm chính: khách hàng tìm kiếm trải nghiệm ẩm thực tiện lợi và chất lượng, và nhà hàng muốn mở rộng dịch vụ của họ qua nền tảng trực tuyến. Khách hàng bị thu hút bởi sự tiện lợi khi có thể duyệt menu, đặt món, và thanh toán trực tuyến, trong khi nhà hàng được hưởng lợi bằng cách tiếp cận nhiều khách hàng hơn và tối ưu hóa quy trình đặt món. Nền tảng cung cấp giao diện dễ sử dụng cho cả hai bên, cho phép nhà hàng quản lý menu và đơn đặt hàng, và khách hàng tìm kiếm, đặt món và giao tiếp một cách liền mạch. Doanh thu được tạo ra thông qua hoa hồng và phí giao dịch, với tiềm năng tạo thêm thu nhập từ các tính năng cao cấp hoặc quảng cáo. Với nhu cầu ngày càng tăng về dịch vụ đặt đồ ăn trực tuyến và giao hàng tận nơi, nền tảng của chúng tôi có tiềm năng tăng trưởng đáng kể, mang lại lợi ích cho cả khách hàng và nhà hàng.
+
+2.2 Phát biểu vấn đề
+Vấn đề
+
+Khách hàng thường gặp phải thách thức trong việc tìm hiểu menu, đặt món ăn và thanh toán, đặc biệt là trong giờ cao điểm hoặc khi không có thời gian để đến nhà hàng. Họ gặp khó khăn trong việc tìm kiếm thông tin chính xác về món ăn, thành phần và giá cả. Trong khi đó, nhà hàng cố gắng mở rộng dịch vụ để phục vụ nhiều khách hàng hơn nhưng họ gặp khó khăn trong việc quản lý đơn đặt hàng, thanh toán và tiếp thị đến khách hàng tiềm năng.
+
+Ảnh hưởng đến
+
+Khách hàng tìm kiếm bữa ăn tiện lợi, người bận rộn, nhóm đặt tiệc, khách hàng quan tâm đến ẩm thực đặc biệt, nhà hàng, v.v.
+
+Tác động là
+
+Khách hàng có thể gặp phải sự thất vọng và bỏ lỡ cơ hội thưởng thức món ăn yêu thích, trong khi nhà hàng gặp hạn chế trong việc thu hút khách hàng và quản lý doanh nghiệp của họ một cách hiệu quả.
+
+Một giải pháp thành công sẽ là
+
+Việc tạo ra một trang web đặt đồ ăn nhà hàng toàn diện giải quyết các thách thức khác nhau trong ngành. Nền tảng này sẽ cung cấp đề xuất món ăn được cá nhân hóa dựa trên sở thích của người dùng, quản lý đơn hàng tập trung để xử lý đặt món hợp lý, và thông tin món ăn chính xác, cập nhật. Ngoài ra, chức năng đặt món và thanh toán tích hợp sẽ đảm bảo trải nghiệm đặt món liền mạch, kết hợp với giao diện thân thiện với người dùng được thiết kế để đơn giản hóa việc tìm kiếm, đặt món và quản lý đơn hàng.
+
+2.3 Tuyên bố vị thế sản phẩm
+Dành cho
+
+Khách hàng tìm kiếm bữa ăn tiện lợi, người bận rộn, nhóm đặt tiệc, khách hàng quan tâm đến ẩm thực đặc biệt, nhà hàng, v.v.
+
+Những người mà
+
+Thường gặp phải thách thức trong việc tìm hiểu menu, đặt món ăn và thanh toán, hoặc là nhà hàng muốn mở rộng dịch vụ nhưng gặp khó khăn trong việc tiếp cận khách hàng tiềm năng, quản lý đơn đặt hàng, thanh toán và tiếp thị.
+
+Hệ thống Đặt Đồ Ăn Nhà Hàng
+
+Là một sản phẩm phần mềm
+
+Không giống như
+
+Các nền tảng đặt đồ ăn chung chung khác, Hệ thống Đặt Đồ Ăn Nhà Hàng tập trung vào việc cung cấp trải nghiệm đặt món cá nhân hóa với thông tin chi tiết và chính xác về món ăn. Chúng tôi kết nối khách hàng với nhà hàng thông qua giao diện trực quan, giúp việc duyệt menu, đặt món và thanh toán trở nên đơn giản. Các tính năng độc đáo của Hệ thống Đặt Đồ Ăn Nhà Hàng bao gồm tùy chọn tìm kiếm dựa trên sở thích ẩm thực, thanh toán tiện lợi và công cụ quản lý đơn hàng dễ dàng.
+
+Sản phẩm của chúng tôi
+
+Được thiết kế để thân thiện với người dùng, cung cấp giao diện trực quan để dễ dàng duyệt menu, đặt món và thanh toán. Nó mang lại sự tiện lợi bằng cách khớp hiệu quả món ăn với khẩu vị của khách hàng, tiết kiệm cả thời gian và công sức. Với thông tin chi tiết và chính xác, nền tảng của chúng tôi đảm bảo trải nghiệm đặt món đáng tin cậy và an toàn, mang lại sự yên tâm cho khách hàng về chất lượng bữa ăn.
+
+3. Mô tả các bên liên quan
+3.1 Nhân khẩu học thị trường
+Nhân khẩu học thị trường cho hệ thống Đặt Đồ Ăn Nhà Hàng cho thấy một loạt đa dạng các nhóm khách hàng mục tiêu. Khách hàng, bao gồm người bận rộn, gia đình, nhóm bạn bè, và người ăn kiêng đặc biệt, tìm kiếm trải nghiệm ẩm thực tiện lợi và chất lượng hoặc thường gặp thách thức trong việc tìm hiểu menu và đặt món phù hợp với sở thích của họ. Trong khi đó, nhà hàng, với mục đích mở rộng dịch vụ, tăng doanh thu và quản lý hiệu quả đơn hàng, hưởng lợi từ nền tảng của Hệ thống Đặt Đồ Ăn Nhà Hàng. Tuy nhiên, họ gặp khó khăn trong việc tiếp cận khách hàng tiềm năng và tiếp thị menu của họ. Hệ thống Đặt Đồ Ăn Nhà Hàng đóng vai trò là cầu nối kết nối các nhóm này, cung cấp giao diện thân thiện với người dùng để tương tác và trải nghiệm đặt món liền mạch. Chúng tôi là người mới trong lĩnh vực này nhưng chúng tôi sẽ liên kết với một hoặc nhiều nhà hàng sẽ giúp chúng tôi thâm nhập thị trường.
+
+3.2 Tóm tắt các bên liên quan
+Các bên liên quan không phải người dùng
+Tên
+
+Mô tả
+
+Trách nhiệm
+
+Nhà cung cấp dịch vụ thanh toán
+
+Đây là các đơn vị bên thứ ba tạo điều kiện cho các giao dịch thanh toán giữa khách hàng và nhà hàng trên nền tảng.
+
+Nhà cung cấp dịch vụ thanh toán chịu trách nhiệm đảm bảo xử lý thanh toán an toàn và đáng tin cậy, xử lý các giao dịch tài chính và tuân thủ các quy định và tiêu chuẩn liên quan để bảo vệ thông tin tài chính của người dùng.
+
+Nhà phân tích hệ thống
+
+Phân tích nhu cầu người dùng và chuyển đổi thành yêu cầu kỹ thuật
+
+Xác định chức năng hệ thống, luồng dữ liệu và quy trình làm việc của người dùng
+
+Người kiểm thử
+
+Xem xét thiết kế kỹ thuật và mã cho chức năng và hiệu quả
+
+Đảm bảo tuân thủ các tiêu chuẩn mã và thực hành tốt nhất
+
+Kiến trúc sư phần mềm
+
+Thiết kế kiến trúc phần mềm tổng thể
+
+Xác định các thành phần hệ thống, tương tác của chúng và giao thức truyền thông
+
+Quản lý dự án
+
+Giám sát quá trình phát triển và quản lý tài nguyên
+
+Lập kế hoạch, lịch trình và giám sát tiến độ dự án, phân bổ tài nguyên, quản lý ngân sách
+
+Đối tác tiếp thị
+
+Đây là các tổ chức hoặc cá nhân bên ngoài tham gia vào việc quảng bá nền tảng đặt đồ ăn nhà hàng thông qua các kênh tiếp thị khác nhau.
+
+Đối tác tiếp thị hợp tác với nền tảng để phát triển và thực hiện các chiến dịch tiếp thị, tăng nhận thức về thương hiệu, thu hút khách hàng và nhà hàng mới, và thúc đẩy đơn đặt hàng. Họ có thể sử dụng các chiến lược như quảng cáo kỹ thuật số, tiếp thị truyền thông xã hội và hợp tác với người có ảnh hưởng để tiếp cận đối tượng mục tiêu.
+
+Nhà phát triển
+
+Kỹ sư phần mềm chịu trách nhiệm thiết kế, phát triển và duy trì nền tảng Hệ thống Đặt Đồ Ăn Nhà Hàng.
+
+Chuyển đổi các yêu cầu kỹ thuật thành các giải pháp phần mềm, thiết kế giao diện người dùng và hệ thống backend, kiểm tra mã để đảm bảo chức năng và hiệu suất, duy trì và cập nhật nền tảng để giải quyết lỗi và triển khai các tính năng mới.
+
+3.3 Tóm tắt người dùng
+Khách hàng nhà hàng
+
+Người dùng chính tìm kiếm và đặt món ăn
+
+Duyệt menu, đặt món, quản lý đơn hàng và thanh toán, đánh giá trải nghiệm ẩm thực.
+
+Quản lý nhà hàng
+
+Người dùng phụ quản lý menu và đơn hàng trên nền tảng
+
+Quản lý menu, cập nhật thông tin món ăn, theo dõi đơn hàng, nhận thanh toán, tuân thủ các chính sách của nền tảng.
+
+Nhân viên giao hàng
+
+Người dùng phụ trách giao đồ ăn đến khách hàng
+
+Nhận thông tin đơn hàng, thực hiện giao hàng đúng địa chỉ và thời gian, cập nhật trạng thái giao hàng.
+
+3.4 Môi trường người dùng
+Người dùng chủ yếu tương tác với nền tảng thông qua trình duyệt web trên máy tính để bàn, máy tính xách tay, máy tính bảng hoặc điện thoại thông minh. Kết nối internet ổn định là điều cần thiết cho cả khách hàng và nhà hàng để truy cập các chức năng của nền tảng và đảm bảo quy trình đặt món và quản lý đơn hàng suôn sẻ.
+
+3.5 Hồ sơ các bên liên quan
+3.5.1 Khách hàng nhà hàng
+Mô tả
+
+Cá nhân tìm kiếm trải nghiệm ẩm thực tiện lợi và chất lượng.
+
+Loại
+
+Người dùng chính, bên ngoài
+
+Trách nhiệm
+
+- Duyệt menu dựa trên sở thích, giá cả, và đánh giá.
+- Xem thông tin chi tiết và hình ảnh của món ăn.
+- Đặt món và quản lý đơn hàng một cách an toàn.
+- Truy cập và quản lý lịch sử đơn hàng.
+- Thanh toán an toàn và tiện lợi.
+- Đánh giá món ăn và dịch vụ.
+
+Tiêu chí thành công
+
+Tìm món ăn phù hợp với khẩu vị của họ, trải nghiệm đặt món liền mạch, bữa ăn ngon miệng và đảm bảo an toàn và bảo mật của họ.
+
+Tham gia
+
+Sử dụng nền tảng để tìm kiếm, đặt món, quản lý đơn hàng và đánh giá trải nghiệm ẩm thực.
+
+Sản phẩm bàn giao
+
+Không có
+
+Nhận xét/
+Vấn đề
+
+Có thể yêu cầu bộ lọc tìm kiếm thân thiện với người dùng hơn, đề xuất cá nhân hóa, để lại đánh giá và phản hồi về trải nghiệm ẩm thực của họ và giao tiếp trực tiếp với nhà hàng.
+
+3.5.2 Quản lý nhà hàng
+Mô tả
+
+Cá nhân quản lý nhà hàng và đơn đặt hàng trên nền tảng
+
+Loại
+
+Người dùng chính, bên ngoài.
+
+Trách nhiệm
+
+- Quản lý menu với mô tả chi tiết, hình ảnh và giá cả.
+- Cập nhật tình trạng sẵn có của món ăn.
+- Quản lý đơn đặt hàng.
+- Nhận thanh toán an toàn.
+- Theo dõi lịch sử đơn hàng.
+- Duy trì tiêu chuẩn cao về chất lượng món ăn và dịch vụ.
+- Tuân thủ các chính sách của nền tảng và quy định an toàn thực phẩm.
+
+Tiêu chí thành công
+
+Tiêu chí thành công cho quản lý nhà hàng bao gồm thu hút khách hàng đặt món tại nhà hàng của họ, tăng doanh số bán hàng, xây dựng danh tiếng tích cực với tư cách là nhà cung cấp dịch vụ ẩm thực chất lượng và đóng góp vào sự thành công và phát triển chung của nền tảng.
+
+Tham gia
+
+Sử dụng nền tảng để quản lý menu, đơn hàng và quảng bá nhà hàng của họ.
+
+Sản phẩm bàn giao
+
+Không có
+
+Nhận xét/
+Vấn đề
+
+Có thể yêu cầu thêm các công cụ tiếp thị và quảng bá để tiếp cận khách hàng tiềm năng, nhận đánh giá và xếp hạng cao từ khách hàng và giao tiếp trực tiếp với khách hàng.
+
+3.5.3 Nhà cung cấp dịch vụ thanh toán
+Mô tả
+
+Các công ty tạo điều kiện cho các giao dịch thanh toán an toàn.
+
+Loại
+
+Bên ngoài
+
+Trách nhiệm
+
+- Xử lý thanh toán cho các đơn đặt hàng.
+- Đảm bảo các giao dịch an toàn và tuân thủ.
+- Cung cấp hỗ trợ khách hàng cho các vấn đề thanh toán.
+
+Tiêu chí thành công
+
+Đảm bảo xử lý thanh toán an toàn và đáng tin cậy, giảm thiểu gian lận và rủi ro tài chính, đồng thời cung cấp trải nghiệm người dùng hợp lý cho các khoản thanh toán.
+
+Tham gia
+
+Tích hợp cổng thanh toán, kiểm tra bảo mật và báo cáo tuân thủ
+
+Sản phẩm bàn giao
+
+Thỏa thuận xử lý thanh toán và dữ liệu giao dịch.
+
+Nhận xét /
+Vấn đề
+
+Độ phức tạp của tích hợp và các khoản phí tiềm năng liên quan đến dịch vụ thanh toán.
+
+3.5.4 Nhà phân tích hệ thống
+Mô tả
+
+Phân tích nhu cầu người dùng và chuyển đổi thành yêu cầu kỹ thuật
+
+Loại
+
+Nội bộ hoặc Tư vấn
+
+Trách nhiệm
+
+- Xác định các yêu cầu hệ thống cho nền tảng.
+- Xác định các vấn đề kỹ thuật tiềm ẩn và đề xuất giải pháp.
+- Làm việc với các bên liên quan để đảm bảo các yêu cầu đáp ứng nhu cầu của họ.
+
+Tiêu chí thành công
+
+- Tài liệu yêu cầu kỹ thuật rõ ràng và được xác định rõ ràng
+- Thiết kế hệ thống đáp ứng tất cả các nhu cầu và chức năng của các bên liên quan
+- Thách thức kỹ thuật tối thiểu trong quá trình phát triển.
+
+Tham gia
+
+Cao trong giai đoạn phát triển ban đầu, xác định các yêu cầu và kiến trúc hệ thống.
+
+Sản phẩm bàn giao
+
+Tài liệu yêu cầu hệ thống (SRS).
+
+Nhận xét/
+Vấn đề
+
+Cần truyền đạt hiệu quả các khái niệm kỹ thuật cho các bên liên quan không phải là kỹ thuật.
+
+3.5.5 Người kiểm thử
+Mô tả
+
+Đánh giá tính khả thi và tính hợp lý về mặt kỹ thuật của thiết kế và triển khai nền tảng.
+
+Loại
+
+Nội bộ hoặc Tư vấn
+
+Trách nhiệm
+
+- Đánh giá các giải pháp kỹ thuật do nhà phát triển đề xuất.
+- Xác định các rủi ro kỹ thuật tiềm ẩn và đề xuất các chiến lược giảm thiểu.
+- Cung cấp phản hồi về chất lượng mã và tuân thủ các phương pháp hay nhất.
+
+Tiêu chí thành công
+
+Đảm bảo kiến trúc nền tảng được cấu trúc tốt và mạnh mẽ về mặt kỹ thuật, chủ động xác định và giảm thiểu các rủi ro kỹ thuật tiềm ẩn ở giai đoạn phát triển sớm và tạo ra mã chất lượng cao vừa có thể bảo trì vừa có thể mở rộng.
+
+Tham gia
+
+Trong suốt quá trình phát triển, cung cấp các đánh giá và phản hồi kỹ thuật liên tục.
+
+Sản phẩm bàn giao
+
+Báo cáo đánh giá kỹ thuật với các khuyến nghị.
+
+Nhận xét/
+Vấn đề
+
+Cần cân bằng các phương pháp hay nhất về kỹ thuật với nhu cầu kinh doanh và thời gian của dự án.
+
+3.5.6 Kiến trúc sư phần mềm
+Mô tả
+
+Thiết kế kiến trúc phần mềm tổng thể của nền tảng, xác định cấu trúc, thành phần và tương tác của nó.
+
+Loại
+
+Nội bộ hoặc Tư vấn
+
+Trách nhiệm
+
+- Xác định kiến trúc và các thành phần tổng thể của hệ thống.
+- Đảm bảo kiến trúc có thể mở rộng, bảo trì và an toàn.
+- Làm việc với các nhà phát triển để triển khai kiến trúc đã chọn.
+
+Tiêu chí thành công
+
+- Kiến trúc phần mềm được xác định rõ ràng và tài liệu đầy đủ.
+- Một nền tảng có thể mở rộng để đáp ứng sự phát triển và cơ sở người dùng trong tương lai.
+- Dễ dàng bảo trì và cập nhật nền tảng.
+
+Tham gia
+
+Cao trong giai đoạn phát triển ban đầu, xác định kiến trúc và làm việc với các nhà phát triển.
+
+Sản phẩm bàn giao
+
+Tài liệu kiến trúc phần mềm và thông số kỹ thuật kỹ thuật.
+
+Nhận xét/
+Vấn đề
+
+Cần xem xét các nhu cầu trong tương lai và tiềm năng tăng trưởng khi thiết kế kiến trúc.
+
+3.5.7 Quản lý dự án
+Mô tả
+
+Giám sát việc lập kế hoạch, thực hiện và bàn giao dự án trong phạm vi ngân sách, thời gian và phạm vi.
+
+Loại
+
+Nội bộ
+
+Trách nhiệm
+
+- Quản lý tiến độ dự án, tài nguyên và rủi ro.
+- Đảm bảo giao tiếp rõ ràng giữa các bên liên quan.
+- Theo dõi tiến độ dự án và giải quyết mọi trở ngại.
+
+Tiêu chí thành công
+
+Ra mắt nền tảng thành công đúng thời hạn và trong phạm vi ngân sách, đáp ứng phạm vi dự án và các chức năng như được xác định trong các yêu cầu.
+
+Tham gia
+
+Lập kế hoạch và thực hiện dự án, phân bổ và quản lý tài nguyên, xác định và giảm thiểu rủi ro.
+
+Sản phẩm bàn giao
+
+Kế hoạch dự án, báo cáo trạng thái.
+
+Nhận xét/
+Vấn đề
+
+Yêu cầu kỹ năng lãnh đạo, giao tiếp và tổ chức mạnh mẽ.
+
+3.5.8 Đối tác tiếp thị
+Mô tả
+
+Các công ty hoặc cá nhân quảng bá Hệ thống Đặt Đồ Ăn Nhà Hàng đến người dùng tiềm năng.
+
+Loại
+
+Bên ngoài
+
+Trách nhiệm
+
+- Hợp tác trong các chiến dịch tiếp thị để thu hút khách hàng và nhà hàng.
+- Tạo nhận thức về thương hiệu và thu hút người dùng.
+
+Tiêu chí thành công
+
+Tăng cơ sở người dùng và mức độ chấp nhận nền tảng, nhắm mục tiêu các nỗ lực tiếp thị để tiếp cận các đối tượng có liên quan.
+
+Tham gia
+
+Tham gia vào các sáng kiến tiếp thị và chiến dịch quảng cáo, tạo nội dung và tương tác trên mạng xã hội.
+
+Sản phẩm bàn giao
+
+Báo cáo chiến dịch tiếp thị và dữ liệu thu hút người dùng.
+
+Nhận xét/
+Vấn đề
+
+Căn chỉnh các mục tiêu và chiến lược tiếp thị với các đối tác khác nhau.
+
+3.5.9 Nhà phát triển
+Mô tả
+
+Kỹ sư phần mềm chịu trách nhiệm thiết kế, phát triển và duy trì nền tảng Hệ thống Đặt Đồ Ăn Nhà Hàng.
+
+Loại
+
+Nội bộ
+
+Trách nhiệm
+
+- Phân tích các yêu cầu kỹ thuật
+- Thiết kế và phát triển các giải pháp phần mềm
+- Kiểm tra và gỡ lỗi để đảm bảo chức năng trơn tru
+- Triển khai và duy trì nền tảng
+- Hợp tác hiệu quả
+- Cập nhật các xu hướng mới nhất.
+
+Tiêu chí thành công
+
+- Ra mắt nền tảng thành công đúng thời hạn.
+- Nền tảng có tính năng cao và thân thiện với người dùng đáp ứng nhu cầu và mong đợi của người dùng.
+- Lỗi và lỗi tối thiểu đảm bảo trải nghiệm người dùng mượt mà.
+- Nền tảng có thể mở rộng và bảo trì để có thể đáp ứng sự phát triển trong tương lai.
+- Quy trình phát triển hiệu quả với giao tiếp và cộng tác rõ ràng.
+
+Tham gia
+
+Đóng góp vào kế hoạch dự án, duy trì tài liệu kỹ thuật, tiến hành đánh giá mã và kiểm tra đơn vị, cộng tác phát triển UI/UX và tham gia vào các hoạt động triển khai và bảo trì.
+
+Sản phẩm bàn giao
+
+Mã phần mềm được kiểm tra kỹ lưỡng, tài liệu kỹ thuật toàn diện, báo cáo lỗi và bản sửa lỗi, và tham gia tích cực vào các đánh giá mã và quy trình triển khai cho nền tảng Hệ thống Đặt Đồ Ăn Nhà Hàng.
+
+Nhận xét/
+Vấn đề
+
+Quản lý thời hạn chặt chẽ trong khi đảm bảo chất lượng và bảo mật mã, cập nhật các công nghệ đang phát triển, thúc đẩy giao tiếp và cộng tác rõ ràng, đồng thời duy trì cách tiếp cận lấy người dùng làm trung tâm trong suốt chu kỳ phát triển.
+
+3.6 Nhu cầu chính của các bên liên quan hoặc người dùng
+Nhu cầu
+
+Ưu tiên
+
+Mối quan tâm
+
+Giải pháp hiện tại
+
+Giải pháp đề xuất
+
+Bảo mật và quyền riêng tư
+
+Cao
+
+Bảo vệ thông tin cá nhân và bảo mật thanh toán.
+
+Phương pháp xác thực và mã hóa dữ liệu.
+
+Tăng cường các biện pháp bảo mật, cung cấp mã hóa dữ liệu mạnh mẽ và tiến hành kiểm tra bảo mật thường xuyên để ngăn chặn vi phạm bảo mật.
+
+Khả năng mở rộng
+
+Vừa phải
+
+Xử lý tải người dùng và khối lượng dữ liệu ngày càng tăng.
+
+Không có
+
+Sử dụng cơ sở hạ tầng dựa trên đám mây, cân bằng tải và mở rộng theo chiều ngang để đáp ứng sự phát triển mà không bị gián đoạn dịch vụ.
+
+Dễ sử dụng và giao diện thân thiện với người dùng
+
+Cao
+
+Trải nghiệm người dùng đơn giản và thuận tiện.
+
+Giao diện đơn giản và thân thiện với người dùng
+
+Thiết kế giao diện thân thiện với người dùng với các tính năng rõ ràng và dễ tiếp cận để dễ sử dụng bất kể thiết bị đang sử dụng
+
+Phản hồi và tương tác nhanh chóng
+
+Từ vừa phải đến cao
+
+Hỗ trợ và phản hồi kịp thời.
+
+Không có
+
+Triển khai hệ thống hỗ trợ và tương tác nhanh chóng
+
+Linh hoạt
+
+Vừa phải
+
+Khả năng tùy chỉnh dễ dàng.
+
+Không có
+
+Thiết kế hệ thống linh hoạt và có thể tùy chỉnh để đáp ứng nhu cầu thay đổi của người dùng và doanh nghiệp.
+
+Ổn định và đáng tin cậy
+
+Cao
+
+Khả năng hoạt động ổn định và đáng tin cậy
+
+Không có
+
+Bảo trì thường xuyên, sử dụng các dịch vụ đám mây đáng tin cậy và thông báo kịp thời cho người dùng về bất kỳ sự cố hoặc thời gian ngừng hoạt động dự kiến nào.
+
+Lựa chọn đa dạng
+
+Từ vừa phải đến cao
+
+Đa dạng về tùy chọn món ăn
+
+Không có
+
+Mở rộng danh mục món ăn, thêm nhiều tùy chọn hơn về loại món, giá cả và khẩu vị để đáp ứng nhu cầu đa dạng của người dùng.
+
+Hỗ trợ khách hàng
+
+Cao
+
+Cung cấp hỗ trợ kịp thời và hiệu quả cho người dùng khi cần thiết.
+
+Hệ thống hỗ trợ qua email hoặc đường dây nóng điện thoại.
+
+Triển khai hệ thống hỗ trợ trong ứng dụng, cung cấp Câu hỏi thường gặp và thiết lập cơ chế phản hồi của người dùng để cải thiện dịch vụ hỗ trợ.
+
+4. Tổng quan sản phẩm
+4.1 Góc nhìn sản phẩm
+Hệ thống Đặt Đồ Ăn Nhà Hàng hoạt động như một sản phẩm độc lập và tự chứa trong ngành ẩm thực và dịch vụ. Nó giao diện với các thành phần khác nhau, bao gồm các công nghệ frontend như React, các công nghệ backend như Node.js và Express, và cơ sở dữ liệu MongoDB. Nền tảng này phục vụ cả khách hàng tìm kiếm trải nghiệm ẩm thực tiện lợi và chất lượng, và nhà hàng muốn mở rộng dịch vụ và tối ưu hóa quy trình đặt món.
+
+4.2 Tóm tắt các khả năng
+Trang web sẽ có một số chức năng cơ bản như sau:
+•
+•
+•
+
+Đăng ký tài khoản
+Đăng nhập vào trang web
+Chỉnh sửa thông tin tài khoản
+
+Bên cạnh đó, sẽ có các chức năng cụ thể cho từng loại người dùng:
+a) Đối với khách hàng
+•
+
+Xem menu và đặt món
+
+Khách hàng có thể duyệt menu dựa trên loại món, giá cả, đánh giá và các sở thích khác.
+Họ có thể xem danh sách đầy đủ các món ăn có sẵn với thông tin chi tiết.
+Xem chi tiết món ăn: Khách hàng có thể xem thông tin chi tiết về từng món ăn, bao gồm mô tả, hình ảnh, thành phần, giá cả và đánh giá của người dùng.
+Đặt món: Khách hàng có thể chọn món ăn mong muốn, chỉ định số lượng và tùy chỉnh theo yêu cầu, sau đó đặt món an toàn thông qua nền tảng.
+Quản lý đơn hàng: Khách hàng có thể xem và theo dõi đơn hàng của mình, bao gồm xem trạng thái đơn hàng và lịch sử đặt món.
+Bộ lọc tìm kiếm và sắp xếp: Khách hàng có thể sử dụng bộ lọc và tùy chọn sắp xếp để tìm kiếm món ăn dựa trên các tiêu chí như giá, đánh giá, loại món và thành phần.
+
+b) Đối với nhà hàng
+•
+•
+•
+
+Quản lý menu: Nhà hàng có thể tạo, chỉnh sửa và quản lý menu của họ, bao gồm thêm mô tả, hình ảnh, thành phần và giá cả.
+Cập nhật tình trạng món ăn: Nhà hàng có thể cập nhật tình trạng sẵn có của các món ăn theo thời gian thực, đảm bảo thông tin chính xác được hiển thị cho khách hàng.
+Quản lý đơn hàng: Nhà hàng có thể xem và quản lý danh sách đơn đặt hàng, bao gồm xác nhận đơn hàng, cập nhật trạng thái và xử lý hủy đơn.
+
+4.3 Giả định và phụ thuộc
+•
+
+•
+
+•
+
+•
+
+Sẵn có của API bên thứ ba: SRS giả định sự sẵn có và hỗ trợ liên tục của các API bên thứ ba cho các chức năng như xử lý thanh toán, dịch vụ bản đồ giao hàng và giao tiếp email. Bất kỳ thay đổi hoặc ngừng cung cấp các API này có thể yêu cầu điều chỉnh các yêu cầu phần mềm.
+Kết nối internet: Giả định rằng người dùng sẽ có kết nối internet đáng tin cậy để truy cập hệ thống đặt đồ ăn. Sự phụ thuộc vào kết nối internet để chức năng hệ thống ngụ ý rằng bất kỳ sự gián đoạn hoặc hạn chế nào trong kết nối có thể ảnh hưởng đến các yêu cầu phần mềm.
+Yêu cầu khả năng mở rộng: Giả định rằng hệ thống Đặt Đồ Ăn Nhà Hàng sẽ cần phải đáp ứng cơ sở người dùng ngày càng tăng và khối lượng đơn hàng ngày càng tăng theo thời gian. Bất kỳ thay đổi nào trong các yêu cầu khả năng mở rộng dự kiến có thể ảnh hưởng đến các yêu cầu phần mềm liên quan đến hiệu suất, lập kế hoạch năng lực và kiến trúc hệ thống.
+Sẵn có của cơ sở hạ tầng lưu trữ: SRS giả định sự sẵn có của cơ sở hạ tầng lưu trữ để triển khai và lưu trữ hệ thống Đặt Đồ Ăn Nhà Hàng, bao gồm máy chủ, lưu trữ và tài nguyên mạng. Những thay đổi trong sắp xếp lưu trữ hoặc hạn chế cơ sở hạ tầng có thể ảnh hưởng đến các yêu cầu phần mềm, đặc biệt là về các tùy chọn triển khai và khả năng mở rộng.
+
+4.4 Chi phí và giá cả
+•
+•
+•
+
+Phí hoa hồng: Tính phần trăm trên mỗi đơn hàng hoàn thành thông qua nền tảng.
+Phí giao dịch: Tính một khoản phí nhỏ cho mỗi giao dịch.
+Cấu trúc giá cụ thể sẽ phụ thuộc vào nghiên cứu thị trường và phân tích đối thủ cạnh tranh.
+
+4.5 Giấy phép và cài đặt
+•
+•
+•
+
+Hệ thống Đặt Đồ Ăn Nhà Hàng có thể được cung cấp dưới dạng mô hình Phần mềm như một Dịch vụ (SaaS).
+Người dùng truy cập nền tảng thông qua trình duyệt web. Không cần cài đặt phần mềm trên thiết bị của người dùng.
+Các thỏa thuận cấp phép sẽ được thiết lập cho nhà hàng nêu rõ các điều khoản và điều kiện sử dụng nền tảng.
+
+5. Tính năng sản phẩm
+5.1 Đăng nhập
+•
+•
+•
+•
+
+Cho phép người dùng xác thực bản thân để truy cập hệ thống.
+Tùy thuộc vào tài khoản người dùng đăng ký là khách hàng hoặc quản lý nhà hàng, khi đăng nhập vào hệ thống, giao diện chính xác sẽ được hiển thị theo loại tài khoản của người dùng.
+Nếu tài khoản người dùng đăng nhập có email hoặc mật khẩu sai, hệ thống sẽ báo lỗi và người dùng cần nhập lại chính xác.
+Nếu bất kỳ trường nào bị bỏ sót, hệ thống sẽ cảnh báo rằng trường đó là bắt buộc.
+
+5.2 Đăng ký
+•
+•
+•
+•
+•
+
+Đăng ký tài khoản khách hàng: Cho phép người dùng đăng ký tài khoản mới để sử dụng các chức năng của khách hàng.
+Đăng ký tài khoản nhà hàng: Cho phép người dùng đăng ký tài khoản mới để sử dụng các chức năng của nhà hàng.
+Các loại tài khoản khác nhau sẽ có các giao diện và chức năng khác nhau.
+Nếu tài khoản người dùng đã đăng ký đã tồn tại, hệ thống sẽ báo lỗi rằng tài khoản đã tồn tại.
+Nếu bất kỳ trường nào bị bỏ sót, hệ thống sẽ cảnh báo rằng trường đó là bắt buộc.
+
+5.3 Đổi mật khẩu
+•
+•
+•
+•
+
+Cho phép người dùng thay đổi mật khẩu hiện tại của họ thành mật khẩu khác.
+Để thay đổi mật khẩu, người dùng cần nhập mật khẩu hiện tại, mật khẩu mới và xác nhận mật khẩu.
+Nếu mật khẩu mới không khác với mật khẩu cũ, hệ thống sẽ báo lỗi.
+Nếu bất kỳ trường nào bị bỏ sót, hệ thống sẽ cảnh báo rằng trường đó là bắt buộc.
+
+5.4 Chỉnh sửa thông tin cá nhân
+•
+•
+•
+
+Cho phép người dùng chỉnh sửa thông tin hồ sơ của họ như tên, họ, địa chỉ giao hàng và số điện thoại.
+Email được cố định và không thay đổi.
+Nếu bất kỳ trường nào bị bỏ sót, hệ thống sẽ cảnh báo rằng trường đó là bắt buộc.
+
+5.5 Tìm kiếm món ăn
+•
+•
+•
+
+Cho phép khách hàng tìm kiếm các món ăn có sẵn dựa trên các tiêu chí đã chỉ định.
+Khách hàng có thể tìm kiếm món ăn theo tên, loại món, khoảng giá, đánh giá cao.
+Người dùng có thể nhấp vào nút xóa để tìm kiếm cho mục đích khác.
+
+5.6 Lọc món ăn
+•
+•
+•
+
+Cho phép người dùng lọc kết quả tìm kiếm món ăn theo các tiêu chí như giá, đánh giá, loại món, thành phần.
+Người dùng có thể nhấp vào nút xóa để tìm kiếm cho mục đích khác.
+Các trường là tùy chọn.
+
+5.7 Xem chi tiết món ăn
+•
+•
+
+Cho phép người dùng xem thông tin chi tiết về món ăn như mô tả, thành phần, hình ảnh, đánh giá và giá cả để có thể đưa ra lựa chọn đúng đắn.
+Nếu người dùng thích món ăn đó, người dùng có thể nhấp vào nút thêm vào giỏ hàng hoặc đặt ngay để đặt món ngay lập tức.
+
+5.8 Đặt món ăn
+•
+•
+
+•
+
+Cho phép khách hàng đặt món ăn sau khi chọn từ các tùy chọn có sẵn.
+Sau khi nhấn nút đặt ngay, biểu mẫu chi tiết đặt món sẽ xuất hiện trên màn hình với các khoản phí mà khách hàng phải trả, bao gồm giá món ăn, phí giao hàng (nếu có) và thuế. Bên cạnh đó là biểu mẫu chi tiết xác nhận để xác nhận thông tin của khách hàng có chính xác hay không, tổng số tiền phải trả và phương thức thanh toán.
+Khách hàng có thể thanh toán cho các đơn hàng bằng nhiều phương thức khác nhau như thẻ Visa, Mastercard, American Express, thanh toán khi nhận hàng, ví điện tử, v.v., trực tuyến ngay trên trang web mà không phải lo lắng về vấn đề bảo mật.
+
+5.9 Xem đơn hàng
+•
+
+Cho phép khách hàng xem danh sách các đơn hàng đã đặt, bao gồm thông tin món ăn, số lượng, trạng thái đơn hàng và tổng giá.
+
+5.10 Quản lý menu
+•
+
+Cung cấp cho nhà hàng giao diện để xem và quản lý menu của họ với các chức năng thêm, chỉnh sửa, xóa món ăn và xem danh sách đơn hàng.
+
+5.11 Thêm món ăn
+•
+•
+•
+
+Cho phép nhà hàng thêm món ăn mới, bao gồm các chi tiết như tên món, mô tả, thành phần, loại món, giá cả và thời gian chuẩn bị.
+Ngoài ra, nhà hàng cần tải lên ít nhất một hình ảnh của món ăn.
+Nếu bất kỳ trường nào bị bỏ sót, hệ thống sẽ cảnh báo rằng trường đó là bắt buộc.
+
+5.12 Xóa món ăn
+•
+
+Cho phép nhà hàng xóa các món ăn hiện có khỏi menu hoặc đánh dấu là không có sẵn.
+
+5.13 Chỉnh sửa thông tin chi tiết món ăn
+•
+
+Cho phép nhà hàng chỉnh sửa thông tin món ăn hiện có, bao gồm các chi tiết như mô tả, thành phần, loại món, giá cả, và có thể xóa ảnh cũ và thay thế bằng ảnh mới của món ăn đó.
+
+5.14 Quản lý đơn hàng
+•
+
+Cho phép nhà hàng xem và quản lý danh sách các đơn hàng với thông tin cụ thể như tên khách hàng, địa chỉ giao hàng, danh sách món ăn, số lượng, tổng tiền và trạng thái đơn hàng.
+
+5.15 Xem món ăn nổi bật
+•
+•
+•
+
+Cho phép người dùng xem các món ăn nổi bật được nhà hàng đề xuất.
+Người dùng có thể xem hiển thị tên món, hình ảnh, đánh giá ngắn và giá của các món ăn đó.
+Sau khi nhấn vào món ăn, người dùng có thể xem chi tiết món ăn.
+
+5.16 Đăng xuất
+•
+
+Cho phép người dùng đăng xuất khỏi tài khoản của họ một cách an toàn.
+
+5.17 Giỏ hàng
+•
+•
+•
+
+Cho phép khách hàng thêm món ăn vào giỏ hàng để đặt nhiều món cùng lúc.
+Khách hàng có thể chỉnh sửa số lượng hoặc xóa món ăn trong giỏ hàng.
+Hiển thị tổng giá trị đơn hàng và cho phép thanh toán một lần cho tất cả các món trong giỏ hàng.
+
+5.18 Đánh giá và bình luận
+•
+•
+
+Cho phép khách hàng đánh giá và bình luận về món ăn sau khi đã đặt và nhận được.
+Đánh giá bao gồm số sao (1-5) và bình luận văn bản tùy chọn.
+
+5.19 Theo dõi đơn hàng
+•
+•
+
+Cho phép khách hàng theo dõi trạng thái đơn hàng của họ theo thời gian thực.
+Các trạng thái bao gồm: đã đặt, đang chuẩn bị, đang giao hàng, đã giao hàng.
+
+6. Ràng buộc
+Các ràng buộc đối với hệ thống Đặt Đồ Ăn Nhà Hàng bao gồm:
+
+6.1 Chính sách quy định
+Tuân thủ các quy định về quyền riêng tư dữ liệu (ví dụ: GDPR) liên quan đến việc xử lý dữ liệu cá nhân được lưu trữ trong cơ sở dữ liệu MongoDB và các tiêu chuẩn ngành thẻ thanh toán (PCI DSS) áp đặt các ràng buộc về xử lý dữ liệu, các biện pháp bảo mật và xử lý thanh toán. Ngoài ra, cần tuân thủ các quy định về an toàn thực phẩm và thông tin về thành phần dị ứng.
+
+6.2 Giới hạn phần cứng
+•
+
+•
+
+•
+
+Dung lượng lưu trữ: Trang web cần có dung lượng lưu trữ lớn để lưu trữ thông tin về menu, hình ảnh món ăn, đơn hàng, tài khoản người dùng và các dữ liệu khác. Dung lượng lưu trữ hạn chế có thể hạn chế số lượng món ăn có thể hiển thị hoặc hạn chế lưu trữ dữ liệu lịch sử đơn hàng cho phân tích.
+Sức mạnh xử lý: Sức mạnh xử lý của máy chủ rất quan trọng để xử lý các hoạt động phức tạp như truy vấn tìm kiếm, xử lý đơn hàng đồng thời, thanh toán và phân tích dữ liệu. Sức mạnh xử lý không đủ có thể dẫn đến hiệu suất chậm và chậm trễ trong việc xử lý yêu cầu của người dùng.
+Khả năng mở rộng: Trang web nên được thiết kế để mở rộng theo chiều ngang hoặc chiều dọc để đáp ứng nhu cầu người dùng ngày càng tăng, đặc biệt là trong giờ cao điểm. Các giới hạn phần cứng có thể hạn chế khả năng mở rộng, khiến việc mở rộng dung lượng máy chủ hoặc nâng cấp các thành phần phần cứng để đáp ứng nhu cầu lưu lượng truy cập ngày càng tăng trở nên khó khăn.
+
+6.3 Giao diện với các ứng dụng khác
+Tích hợp với các ứng dụng và API bên ngoài cho các chức năng như dịch vụ bản đồ cho giao hàng, cổng thanh toán, hệ thống POS nhà hàng và giao tiếp email/SMS giới thiệu các ràng buộc liên quan đến khả năng tương thích, độ tin cậy và giao thức trao đổi dữ liệu.
+
+6.4 Hoạt động song song
+Các yêu cầu về hoạt động song song, chẳng hạn như xử lý nhiều đơn hàng đồng thời, quản lý nhiều phiên đặt hàng cùng lúc hoặc cập nhật trạng thái đơn hàng theo thời gian thực, có thể áp đặt các ràng buộc về khả năng mở rộng hệ thống, phân bổ tài nguyên và tối ưu hóa hiệu suất.
+
+6.5 Chức năng kiểm toán
+Các yêu cầu về kiểm toán hoạt động của người dùng, thay đổi hệ thống và nhật ký giao dịch áp đặt các ràng buộc về cơ chế ghi nhật ký dữ liệu, lưu trữ và truy xuất để đảm bảo tuân thủ các yêu cầu về dấu vết kiểm toán, đặc biệt là đối với các giao dịch tài chính và thay đổi giá món ăn.
+
+6.6 Chức năng kiểm soát
+Các yêu cầu về kiểm soát truy cập của người dùng, quản lý quyền và cơ chế ủy quyền áp đặt các ràng buộc về chức năng xác thực người dùng, quản lý phiên và kiểm soát truy cập dựa trên vai trò, đảm bảo rằng nhà hàng chỉ có thể quản lý menu và đơn hàng của họ.
+
+6.7 Yêu cầu ngôn ngữ bậc cao
+Việc sử dụng React để phát triển frontend, MongoDB để tương tác cơ sở dữ liệu và Node.js với Express để phát triển backend áp đặt các ràng buộc về lựa chọn ngôn ngữ lập trình, framework và thư viện, yêu cầu chuyên môn về JavaScript và các công nghệ liên quan.
+
+6.8 Giao thức bắt tay tín hiệu
+Các yêu cầu về giao thức bắt tay tín hiệu, chẳng hạn như XON-XOFF hoặc ACK-NACK, áp đặt các ràng buộc về truyền dữ liệu, phát hiện lỗi và cơ chế điều khiển luồng để đảm bảo giao tiếp đáng tin cậy giữa các thành phần hệ thống và xác nhận đơn hàng.
+
+6.9 Yêu cầu độ tin cậy
+Các yêu cầu về độ tin cậy của hệ thống, thời gian hoạt động và khả năng chịu lỗi áp đặt các ràng buộc về kiến trúc hệ thống, các biện pháp dự phòng và cơ chế khôi phục thảm họa để giảm thiểu sự gián đoạn dịch vụ và mất dữ liệu, đặc biệt quan trọng trong việc xử lý đơn hàng và thanh toán.
+
+6.10 Tính quan trọng của ứng dụng
+Đặt đồ ăn được coi là một dịch vụ quan trọng cho cả khách hàng và nhà hàng, đặc biệt là trong thời gian cao điểm hoặc sự kiện đặc biệt. Các yêu cầu về mức độ quan trọng của ứng dụng áp đặt các ràng buộc về thiết kế hệ thống, thử nghiệm và chiến lược triển khai để đáp ứng các mục tiêu về hiệu suất, tính khả dụng và bảo mật.
+
+6.11 Cân nhắc về an toàn và bảo mật
+Các yêu cầu về an toàn và bảo mật, bao gồm mã hóa dữ liệu cá nhân và thông tin thanh toán, kiểm soát truy cập và đánh giá lỗ hổng, áp đặt các ràng buộc về kiến trúc hệ thống, cấu hình và thực hành vận hành để giảm thiểu rủi ro và bảo vệ chống truy cập trái phép hoặc vi phạm dữ liệu. Đặc biệt quan trọng đối với thông tin thẻ tín dụng và địa chỉ giao hàng của khách hàng.
+

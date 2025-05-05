@@ -43,23 +43,33 @@
             transform: scale(1.05);
         }
         
+        nav {
+            width: auto; /* Ensure nav takes its natural width, not expanding */
+            display: flex; /* Thêm display flex để đảm bảo kích thước nhất quán */
+            justify-content: center; /* Căn giữa các mục menu */
+        }
+
         nav ul {
             display: flex;
             list-style: none;
             margin: 0;
             padding: 0;
+            width: auto; /* Match with other pages */
+            flex-wrap: nowrap; /* Prevent wrapping of items */
+            align-items: center; /* Căn giữa theo chiều dọc */
         }
         
         nav li {
-            margin: 0 10px;
+            margin: 0 12px; /* Tăng margin giữa các mục menu */
+            white-space: nowrap; /* Prevent text wrapping in nav items */
         }
         
         nav a {
             color: white;
             text-decoration: none;
             font-weight: 500;
-            font-size: 1rem;
-            padding: 8px 15px;
+            font-size: 1.05rem; /* Tăng kích thước font chữ */
+            padding: 10px 15px; /* Tăng padding để các mục menu lớn hơn */
             border-radius: 4px;
             transition: all 0.3s ease;
         }

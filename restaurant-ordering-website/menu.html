@@ -46,23 +46,33 @@
             transform: scale(1.05);
         }
         
+        nav {
+            width: auto; /* Ensure nav takes its natural width, not expanding */
+            display: flex; /* Thêm display flex để đảm bảo kích thước nhất quán */
+            justify-content: center; /* Căn giữa các mục menu */
+        }
+        
         nav ul {
             display: flex;
             list-style: none;
             margin: 0;
             padding: 0;
+            width: auto; /* Match with other pages */
+            flex-wrap: nowrap; /* Prevent wrapping of items */
+            align-items: center; /* Căn giữa theo chiều dọc */
         }
         
         nav li {
-            margin: 0 10px;
+            margin: 0 12px; /* Tăng margin giữa các mục menu */
+            white-space: nowrap; /* Prevent text wrapping in nav items */
         }
         
         nav a {
             color: white;
             text-decoration: none;
             font-weight: 500;
-            font-size: 1rem;
-            padding: 8px 15px;
+            font-size: 1.05rem; /* Tăng kích thước font chữ */
+            padding: 10px 15px; /* Tăng padding để các mục menu lớn hơn */
             border-radius: 4px;
             transition: all 0.3s ease;
         }
@@ -88,6 +98,34 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        /* Tối ưu hóa cho màn hình laptop */
+        @media (min-width: 1024px) and (max-width: 1440px) {
+            .menu-section {
+                max-width: 1000px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+            
+            .menu-item-image {
+                height: 180px;
+            }
+        }
+
+        /* Tối ưu cho laptop màn hình nhỏ hơn */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .menu-section {
+                max-width: 90%;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
         }
 
         .section-title {
@@ -651,6 +689,26 @@
             }
         }
 
+        /* Navigation width fix - consistent across site */
+        nav {
+            width: auto; /* Ensure nav takes its natural width, not expanding */
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            width: auto; /* Match with other pages */
+            flex-wrap: nowrap; /* Prevent wrapping of items */
+        }
+        
+        /* Explicitly set consistent padding/margins for navigation items */
+        nav li {
+            margin: 0 10px;
+            white-space: nowrap; /* Prevent text wrapping in nav items */
+        }
+
         /* Animation for menu items */
         .menu-item {
             opacity: 0;
@@ -1097,34 +1155,6 @@
                 <div>Tổng cộng:</div>
                 <div class="cart-total-price" id="cartTotal">0₫</div>
             </div>
-            <button class="checkout-btn" id="checkoutBtn">Tiến hành thanh toán</button>
-        </div>
-    </div>
-
-    <div class="overlay" id="overlay"></div>
-
-    <!-- Login Modal -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <span class="modal-close" id="closeLogin">&times;</span>
-            <h2 class="modal-title">Đăng nhập</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail">Email hoặc số điện thoại</label>
-                    <input type="text" class="form-control" id="loginEmail" required>
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword">Mật khẩu</label>
-                    <input type="password" class="form-control" id="loginPassword" required>
-                </div>
-                <button type="submit" class="submit-btn">Đăng nhập</button>
-            </form>
-            <p class="switch-form">Chưa có tài khoản? <a href="#" id="switchToRegister">Đăng ký ngay</a></p>
-        </div>
-    </div>
-
-    <!-- Register Modal -->
-    <div class="modal" id="registerModal">
         <div class="modal-content">
             <span class="modal-close" id="closeRegister">&times;</span>
             <h2 class="modal-title">Đăng ký tài khoản</h2>
