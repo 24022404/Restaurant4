@@ -24,26 +24,26 @@ Dưới đây là hình ảnh minh họa các tính năng chính của ứng d�
 
 ### 🏠 Trang Chủ
 <p>
-  <img src="restaurant-ordering-website/assets/images/Demo/home1.png" alt="Trang Chủ - Giao diện chính" width="48%" />
-  <img src="restaurant-ordering-website/assets/images/Demo/home2.png" alt="Trang Chủ - Phần giới thiệu" width="48%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/home1.png" alt="Trang Chủ - Giao diện chính" width="70%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/home2.png" alt="Trang Chủ - Phần giới thiệu" width="70%" />
 </p>
 
 ### 🍔 Trang Thực Đơn
 <p>
-  <img src="restaurant-ordering-website/assets/images/Demo/menu1.png" alt="Trang Thực Đơn - Danh sách món" width="48%" />
-  <img src="restaurant-ordering-website/assets/images/Demo/menu2.png" alt="Trang Thực Đơn - Chi tiết món" width="48%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/menu1.png" alt="Trang Thực Đơn - Danh sách món" width="70%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/menu2.png" alt="Trang Thực Đơn - Chi tiết món" width="70%" />
 </p>
 
 ### 🪑 Trang Đặt Bàn
 <p>
-  <img src="restaurant-ordering-website/assets/images/Demo/booking1.png" alt="Trang Đặt Bàn - Chọn ngày giờ" width="48%" />
-  <img src="restaurant-ordering-website/assets/images/Demo/booking2.png" alt="Trang Đặt Bàn - Chọn bàn" width="48%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/booking1.png" alt="Trang Đặt Bàn - Chọn ngày giờ" width="70%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/booking2.png" alt="Trang Đặt Bàn - Chọn bàn" width="70%" />
 </p>
 
 ### 🛒 Trang Giỏ Hàng
 <p>
-  <img src="restaurant-ordering-website/assets/images/Demo/cart1.png" alt="Trang Giỏ Hàng - Danh sách món" width="48%" />
-  <img src="restaurant-ordering-website/assets/images/Demo/cart2.png" alt="Trang Giỏ Hàng - Thông tin giao hàng" width="48%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/cart1.png" alt="Trang Giỏ Hàng - Danh sách món" width="70%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/cart2.png" alt="Trang Giỏ Hàng - Thông tin giao hàng" width="70%" />
 </p>
 
 </div>
@@ -89,7 +89,3 @@ restaurant-ordering-website
 - HTML
 - CSS
 - JavaScript
-
-## Đóng Góp
-
-Hãy thoải mái fork repository và gửi pull request cho bất kỳ cải tiến hoặc tính năng nào bạn muốn thêm vào.
