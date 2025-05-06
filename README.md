@@ -16,7 +16,7 @@ Dưới đây là một số hình ảnh demo của website:
 
 ### Trang Chủ
 ![Trang Chủ](restaurant-ordering-website/assets/images/Demo/Home.png)
-
+(restaurant-ordering-website/assets/images/Demo/Home.png)
 ### Trang Thực Đơn
 ![Trang Thực Đơn](./assets/images/demo/menu.png)
 
