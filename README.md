@@ -15,19 +15,19 @@ Dự án này là một ứng dụng web cho nhà hàng cho phép người dùng
 Dưới đây là một số hình ảnh demo của website:
 
 ### Trang Chủ
-![Trang Chủ - Giao diện chính](restaurant-ordering-website/assets/images/Demo/home.png) ![Trang Chủ - Phần giới thiệu](restaurant-ordering-website/assets/images/Demo/home.png)
+![Trang Chủ - Giao diện chính](restaurant-ordering-website/assets/images/Demo/home1.png) ![Trang Chủ - Phần giới thiệu](restaurant-ordering-website/assets/images/Demo/home2.png)
 
 ### Trang Thực Đơn
-![Trang Thực Đơn - Danh sách món](./assets/images/demo/menu.png) ![Trang Thực Đơn - Chi tiết món](./assets/images/demo/menu-2.png)
+![Trang Thực Đơn - Danh sách món](restaurant-ordering-website/assets/images/Demo/menu1.png) ![Trang Thực Đơn - Chi tiết món](restaurant-ordering-website/assets/images/Demo/menu2.png)
 
 ### Trang Đặt Bàn
-![Trang Đặt Bàn - Chọn ngày giờ](./assets/images/demo/booking.png) ![Trang Đặt Bàn - Chọn bàn](./assets/images/demo/booking-2.png)
+![Trang Đặt Bàn - Chọn ngày giờ](restaurant-ordering-website/assets/images/Demo/booking1.png) ![Trang Đặt Bàn - Chọn bàn](restaurant-ordering-website/assets/images/Demo/booking2.png)
 
 ### Trang Giỏ Hàng
-![Trang Giỏ Hàng - Danh sách món](./assets/images/demo/cart.png) ![Trang Giỏ Hàng - Thông tin giao hàng](./assets/images/demo/cart-2.png)
+![Trang Giỏ Hàng - Danh sách món](restaurant-ordering-website/assets/images/Demo/cart1.png) ![Trang Giỏ Hàng - Thông tin giao hàng](restaurant-ordering-website/assets/images/Demo/cart2.png)
 
 ### Trang Thanh Toán
-![Trang Thanh Toán - Tổng hợp đơn hàng](./assets/images/demo/checkout.png) ![Trang Thanh Toán - Phương thức thanh toán](./assets/images/demo/checkout-2.png)
+![Trang Thanh Toán - Tổng hợp đơn hàng](restaurant-ordering-website/assets/images/Demo/checkout1.png) ![Trang Thanh Toán - Phương thức thanh toán](restaurant-ordering-website/assets/images/Demo/checkout2.png)
 
 ## Cấu Trúc Dự Án
 
