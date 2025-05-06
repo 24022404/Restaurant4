@@ -15,7 +15,7 @@ Dự án này là một ứng dụng web cho nhà hàng cho phép người dùng
 Dưới đây là một số hình ảnh demo của website:
 
 ### Trang Chủ
-![Trang Chủ - Giao diện chính](restaurant-ordering-website/assets/images/Demo/Home.png) ![Trang Chủ - Phần giới thiệu](restaurant-ordering-website/assets/images/Demo/Home.png)
+![Trang Chủ - Giao diện chính](restaurant-ordering-website/assets/images/Demo/home.png) ![Trang Chủ - Phần giới thiệu](restaurant-ordering-website/assets/images/Demo/home.png)
 
 ### Trang Thực Đơn
 ![Trang Thực Đơn - Danh sách món](./assets/images/demo/menu.png) ![Trang Thực Đơn - Chi tiết món](./assets/images/demo/menu-2.png)
