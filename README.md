@@ -1,33 +1,52 @@
-# Website Đặt Món & Đặt Bàn Nhà Hàng
+# 🍽️ Website Đặt Món & Đặt Bàn Nhà Hàng
 
-Dự án này là một ứng dụng web cho nhà hàng cho phép người dùng đặt món ăn trực tuyến và đặt bàn. Người dùng có thể duyệt thực đơn, thêm món ăn vào giỏ hàng và lựa chọn giao hàng hoặc đặt bàn để dùng bữa tại nhà hàng.
+[![HTML](https://img.shields.io/badge/HTML-5-orange)](https://www.w3.org/html/)
+[![CSS](https://img.shields.io/badge/CSS-3-blue)](https://www.w3.org/Style/CSS/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)](https://www.ecma-international.org/ecma-262/)
+[![Responsive](https://img.shields.io/badge/Responsive-Yes-green)](https://en.wikipedia.org/wiki/Responsive_web_design)
 
-## Tính Năng
+## 📋 Tổng quan
+Dự án này là một ứng dụng web hiện đại cho nhà hàng, cung cấp trải nghiệm đặt món trực tuyến và đặt bàn liền mạch. Khách hàng có thể dễ dàng duyệt qua thực đơn, thêm món vào giỏ hàng và lựa chọn giữa giao hàng hoặc đặt bàn để thưởng thức tại nhà hàng.
 
-- **Đặt Món Trực Tuyến**: Người dùng có thể xem thực đơn và đặt món để giao hàng.
-- **Đặt Bàn**: Người dùng có thể đặt bàn trước, chọn ngày, giờ và số lượng khách.
-- **Giỏ Hàng**: Người dùng có thể thêm món vào giỏ hàng, xem lựa chọn của họ và tiến hành thanh toán.
-- **Thiết Kế Responsive**: Website được thiết kế thân thiện với thiết bị di động, đảm bảo trải nghiệm người dùng tốt trên mọi thiết bị.
-- **Hiệu Ứng**: Các hiệu ứng chuyển đổi và animation mượt mà nâng cao trải nghiệm người dùng xuyên suốt website.
+## ✨ Tính Năng Chính
 
-## Demo
+- **🛒 Đặt Món Trực Tuyến** - Duyệt thực đơn đầy đủ và đặt hàng để giao đến tận nơi
+- **📅 Đặt Bàn** - Đặt chỗ trước với lựa chọn ngày, giờ và số lượng khách linh hoạt
+- **🧺 Giỏ Hàng Thông Minh** - Quản lý lựa chọn món ăn và tiến hành thanh toán dễ dàng
+- **📱 Thiết Kế Responsive** - Trải nghiệm người dùng mượt mà trên mọi thiết bị
+- **✨ Hiệu Ứng Tinh Tế** - Các animation và chuyển đổi mượt mà nâng cao trải nghiệm duyệt web
 
-Dưới đây là một số hình ảnh demo của website:
+## 🖼️ Demo & Trải Nghiệm Người Dùng
 
-### Trang Chủ
-![Trang Chủ - Giao diện chính](restaurant-ordering-website/assets/images/Demo/home1.png) ![Trang Chủ - Phần giới thiệu](restaurant-ordering-website/assets/images/Demo/home2.png)
+Dưới đây là hình ảnh minh họa các tính năng chính của ứng dụng:
 
-### Trang Thực Đơn
-![Trang Thực Đơn - Danh sách món](restaurant-ordering-website/assets/images/Demo/menu1.png) ![Trang Thực Đơn - Chi tiết món](restaurant-ordering-website/assets/images/Demo/menu2.png)
+<div align="center">
 
-### Trang Đặt Bàn
-![Trang Đặt Bàn - Chọn ngày giờ](restaurant-ordering-website/assets/images/Demo/booking1.png) ![Trang Đặt Bàn - Chọn bàn](restaurant-ordering-website/assets/images/Demo/booking2.png)
+### 🏠 Trang Chủ
+<p>
+  <img src="restaurant-ordering-website/assets/images/Demo/home1.png" alt="Trang Chủ - Giao diện chính" width="45%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/home2.png" alt="Trang Chủ - Phần giới thiệu" width="45%" />
+</p>
 
-### Trang Giỏ Hàng
-![Trang Giỏ Hàng - Danh sách món](restaurant-ordering-website/assets/images/Demo/cart1.png) ![Trang Giỏ Hàng - Thông tin giao hàng](restaurant-ordering-website/assets/images/Demo/cart2.png)
+### 🍔 Trang Thực Đơn
+<p>
+  <img src="restaurant-ordering-website/assets/images/Demo/menu1.png" alt="Trang Thực Đơn - Danh sách món" width="45%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/menu2.png" alt="Trang Thực Đơn - Chi tiết món" width="45%" />
+</p>
 
-### Trang Thanh Toán
-![Trang Thanh Toán - Tổng hợp đơn hàng](restaurant-ordering-website/assets/images/Demo/checkout1.png) ![Trang Thanh Toán - Phương thức thanh toán](restaurant-ordering-website/assets/images/Demo/checkout2.png)
+### 🪑 Trang Đặt Bàn
+<p>
+  <img src="restaurant-ordering-website/assets/images/Demo/booking1.png" alt="Trang Đặt Bàn - Chọn ngày giờ" width="45%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/booking2.png" alt="Trang Đặt Bàn - Chọn bàn" width="45%" />
+</p>
+
+### 🛒 Trang Giỏ Hàng
+<p>
+  <img src="restaurant-ordering-website/assets/images/Demo/cart1.png" alt="Trang Giỏ Hàng - Danh sách món" width="45%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/cart2.png" alt="Trang Giỏ Hàng - Thông tin giao hàng" width="45%" />
+</p>
+
+</div>
 
 ## Cấu Trúc Dự Án
 
