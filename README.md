@@ -15,19 +15,19 @@ Dự án này là một ứng dụng web cho nhà hàng cho phép người dùng
 Dưới đây là một số hình ảnh demo của website:
 
 ### Trang Chủ
-![Trang Chủ](restaurant-ordering-website/assets/images/Demo/Home.png)
-(restaurant-ordering-website/assets/images/Demo/Home.png)
+![Trang Chủ - Giao diện chính](restaurant-ordering-website/assets/images/Demo/Home.png) ![Trang Chủ - Phần giới thiệu](restaurant-ordering-website/assets/images/Demo/Home-2.png)
+
 ### Trang Thực Đơn
-![Trang Thực Đơn](./assets/images/demo/menu.png)
+![Trang Thực Đơn - Danh sách món](./assets/images/demo/menu.png) ![Trang Thực Đơn - Chi tiết món](./assets/images/demo/menu-2.png)
 
 ### Trang Đặt Bàn
-![Trang Đặt Bàn](./assets/images/demo/booking.png)
+![Trang Đặt Bàn - Chọn ngày giờ](./assets/images/demo/booking.png) ![Trang Đặt Bàn - Chọn bàn](./assets/images/demo/booking-2.png)
 
 ### Trang Giỏ Hàng
-![Trang Giỏ Hàng](./assets/images/demo/cart.png)
+![Trang Giỏ Hàng - Danh sách món](./assets/images/demo/cart.png) ![Trang Giỏ Hàng - Thông tin giao hàng](./assets/images/demo/cart-2.png)
 
 ### Trang Thanh Toán
-![Trang Thanh Toán](./assets/images/demo/checkout.png)
+![Trang Thanh Toán - Tổng hợp đơn hàng](./assets/images/demo/checkout.png) ![Trang Thanh Toán - Phương thức thanh toán](./assets/images/demo/checkout-2.png)
 
 ## Cấu Trúc Dự Án
 
