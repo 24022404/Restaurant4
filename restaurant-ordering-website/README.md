@@ -1,16 +1,35 @@
-# Restaurant Ordering Website
+# Website Đặt Món & Đặt Bàn Nhà Hàng
 
-This project is a web application for a restaurant that allows users to order food online and make table reservations. Users can browse the menu, add items to their cart, and choose to either have their food delivered or reserve a table for dining in.
+Dự án này là một ứng dụng web cho nhà hàng cho phép người dùng đặt món ăn trực tuyến và đặt bàn. Người dùng có thể duyệt thực đơn, thêm món ăn vào giỏ hàng và lựa chọn giao hàng hoặc đặt bàn để dùng bữa tại nhà hàng.
 
-## Features
+## Tính Năng
 
-- **Online Ordering**: Users can view the menu and order food for delivery.
-- **Table Booking**: Users can reserve a table in advance, selecting the date, time, and number of guests.
-- **Shopping Cart**: Users can add items to their cart, view their selections, and proceed to checkout.
-- **Responsive Design**: The website is designed to be mobile-friendly, ensuring a good user experience on all devices.
-- **Animations**: Smooth transitions and animations enhance the user experience throughout the website.
+- **Đặt Món Trực Tuyến**: Người dùng có thể xem thực đơn và đặt món để giao hàng.
+- **Đặt Bàn**: Người dùng có thể đặt bàn trước, chọn ngày, giờ và số lượng khách.
+- **Giỏ Hàng**: Người dùng có thể thêm món vào giỏ hàng, xem lựa chọn của họ và tiến hành thanh toán.
+- **Thiết Kế Responsive**: Website được thiết kế thân thiện với thiết bị di động, đảm bảo trải nghiệm người dùng tốt trên mọi thiết bị.
+- **Hiệu Ứng**: Các hiệu ứng chuyển đổi và animation mượt mà nâng cao trải nghiệm người dùng xuyên suốt website.
 
-## Project Structure
+## Demo
+
+Dưới đây là một số hình ảnh demo của website:
+
+### Trang Chủ
+![Trang Chủ](./assets/images/demo/home.png)
+
+### Trang Thực Đơn
+![Trang Thực Đơn](./assets/images/demo/menu.png)
+
+### Trang Đặt Bàn
+![Trang Đặt Bàn](./assets/images/demo/booking.png)
+
+### Trang Giỏ Hàng
+![Trang Giỏ Hàng](./assets/images/demo/cart.png)
+
+### Trang Thanh Toán
+![Trang Thanh Toán](./assets/images/demo/checkout.png)
+
+## Cấu Trúc Dự Án
 
 ```
 restaurant-ordering-website
@@ -40,18 +59,18 @@ restaurant-ordering-website
 └── README.md               # Project documentation
 ```
 
-## Setup Instructions
+## Hướng Dẫn Cài Đặt
 
-1. Clone the repository to your local machine.
-2. Open the `index.html` file in your web browser to view the website.
-3. Ensure you have a local server running if you want to test the JavaScript functionalities.
+1. Clone repository về máy của bạn.
+2. Mở file `index.html` trong trình duyệt web để xem website.
+3. Đảm bảo bạn có một server local đang chạy nếu bạn muốn kiểm tra các chức năng JavaScript.
 
-## Technologies Used
+## Công Nghệ Sử Dụng
 
 - HTML
 - CSS
 - JavaScript
 
-## Contributing
+## Đóng Góp
 
-Feel free to fork the repository and submit pull requests for any improvements or features you would like to add.
+Hãy thoải mái fork repository và gửi pull request cho bất kỳ cải tiến hoặc tính năng nào bạn muốn thêm vào.

@@ -267,7 +267,6 @@
         .quantity-btn {
             width: 30px;
             height: 30px;
-            background-color: #f5f5f5;
             border: none;
             font-size: 1rem;
             cursor: pointer;
@@ -275,10 +274,21 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .quantity-btn.minus {
+            background-color: #e74c3c; /* Màu nâu gỗ */
+        }
+        
+        .quantity-btn.plus {
+            background-color: #2ecc71; /* Màu đỏ chủ đạo của nhà hàng */
         }
 
         .quantity-btn:hover {
-            background-color: #e0e0e0;
+            opacity: 0.85;
+            transform: scale(1.05);
         }
 
         .quantity-input {
@@ -455,12 +465,27 @@
         .cart-quantity-btn {
             width: 25px;
             height: 25px;
-            background-color: #f5f5f5;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-quantity-btn.minus-cart {
+            background-color: #8d6e63; /* Màu nâu gỗ */
+        }
+        
+        .cart-quantity-btn.plus-cart {
+            background-color: #c0392b; /* Màu đỏ chủ đạo của nhà hàng */
+        }
+        
+        .cart-quantity-btn:hover {
+            opacity: 0.85;
+            transform: scale(1.05);
         }
 
         .cart-quantity-input {
@@ -1155,6 +1180,34 @@
                 <div>Tổng cộng:</div>
                 <div class="cart-total-price" id="cartTotal">0₫</div>
             </div>
+            <button class="checkout-btn" id="checkoutBtn">Thanh toán</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeLogin">&times;</span>
+            <h2 class="modal-title">Đăng nhập</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email hoặc số điện thoại</label>
+                    <input type="text" class="form-control" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Mật khẩu</label>
+                    <input type="password" class="form-control" id="loginPassword" required>
+                </div>
+                <button type="submit" class="submit-btn">Đăng nhập</button>
+            </form>
+            <p class="switch-form">Chưa có tài khoản? <a href="#" id="switchToRegister">Đăng ký ngay</a></p>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
         <div class="modal-content">
             <span class="modal-close" id="closeRegister">&times;</span>
             <h2 class="modal-title">Đăng ký tài khoản</h2>
@@ -1211,7 +1264,7 @@
                 name: "Gỏi cuốn tôm thịt",
                 description: "Bánh tráng cuốn với tôm, thịt heo, rau sống và bún, kèm nước chấm đậu phộng.",
                 price: 65000,
-                image: "assets/images/goi-cuon.jpg",
+                image: "assets/images/goi-cuon.png",
                 category: "appetizer",
                 tags: ["popular"],
                 availability: true
@@ -1221,7 +1274,7 @@
                 name: "Chả giò hải sản",
                 description: "Chả giò giòn rụm nhân hải sản, thịt và nấm, ăn kèm nước mắm pha.",
                 price: 75000,
-                image: "assets/images/cha-gio.jpg",
+                image: "assets/images/cha-gio.png",
                 category: "appetizer",
                 tags: ["popular"],
                 availability: true
@@ -1231,7 +1284,7 @@
                 name: "Phở bò tái chín",
                 description: "Phở bò nước dùng đậm đà với thịt bò tái và chín, ăn kèm rau thơm và giá.",
                 price: 89000,
-                image: "assets/images/pho-bo.jpg",
+                image: "assets/images/pho-bo.png",
                 category: "noodles",
                 tags: ["popular"],
                 availability: true
@@ -1241,7 +1294,7 @@
                 name: "Bún chả Hà Nội",
                 description: "Bún ăn kèm thịt lợn nướng, chả viên và nước mắm chua ngọt đặc trưng Hà Nội.",
                 price: 85000,
-                image: "assets/images/bun-cha.jpg",
+                image: "assets/images/bun-cha.png",
                 category: "noodles",
                 tags: [],
                 availability: true
@@ -1251,7 +1304,7 @@
                 name: "Bún bò Huế",
                 description: "Bún bò nấu theo kiểu Huế, cay nồng với sả và màu đỏ đặc trưng của ớt.",
                 price: 95000,
-                image: "assets/images/bun-bo-hue.jpg",
+                image: "assets/images/bun-bo-hue.png",
                 category: "noodles",
                 tags: ["spicy"],
                 availability: true
@@ -1261,7 +1314,7 @@
                 name: "Cơm tấm sườn nướng",
                 description: "Cơm tấm với sườn heo nướng, bì, chả, trứng ốp la và nước mắm pha.",
                 price: 88000,
-                image: "assets/images/com-tam.jpg",
+                image: "assets/images/com-tam.png",
                 category: "rice",
                 tags: ["popular"],
                 availability: true
@@ -1271,7 +1324,7 @@
                 name: "Cá kho tộ",
                 description: "Cá ngừ kho kỹ với nước mắm, đường và tiêu đen, ăn kèm cơm trắng.",
                 price: 110000,
-                image: "assets/images/ca-kho-to.jpg",
+                image: "assets/images/ca-kho-to.png",
                 category: "main",
                 tags: [],
                 availability: true
@@ -1291,7 +1344,7 @@
                 name: "Canh chua cá lóc",
                 description: "Canh chua ngọt thanh với cá lóc tươi và các loại rau củ.",
                 price: 95000,
-                image: "assets/images/canh-chua.jpg",
+                image: "assets/images/canh-chua.png",
                 category: "main",
                 tags: [],
                 availability: true
@@ -1301,7 +1354,7 @@
                 name: "Rau muống xào tỏi",
                 description: "Rau muống xào với tỏi giòn thơm phức.",
                 price: 65000,
-                image: "assets/images/rau-muong.jpg",
+                image: "assets/images/rau-muong.png",
                 category: "vegetarian",
                 tags: ["vegetarian"],
                 availability: true
@@ -1311,7 +1364,7 @@
                 name: "Chè ba màu",
                 description: "Chè với ba lớp màu, đậu xanh, đậu đỏ và lá dứa, ăn với nước cốt dừa.",
                 price: 35000,
-                image: "assets/images/che-ba-mau.jpg",
+                image: "assets/images/che-ba-mau.png",
                 category: "dessert",
                 tags: [],
                 availability: true
@@ -1321,11 +1374,381 @@
                 name: "Bánh xèo",
                 description: "Bánh xèo giòn vàng với nhân tôm, thịt, giá đỗ và rau sống.",
                 price: 85000,
-                image: "assets/images/banh-xeo.jpg",
+                image: "assets/images/banh-xeo.png",
                 category: "appetizer",
                 tags: ["popular"],
                 availability: true
-            }
+            },
+            {
+                id: 13,
+                name: "Gỏi ngó sen tôm thịt",
+                description: "Gỏi ngó sen giòn ngọt với tôm tươi, thịt lợn, đu đủ và rau răm, trộn nước mắm chua ngọt.",
+                price: 95000,
+                image: "assets/images/goi-ngo-sen.png",
+                category: "appetizer",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 14,
+                name: "Nem nướng Nha Trang",
+                description: "Nem nướng thơm lừng từ thịt lợn băm kèm nước chấm đặc biệt và bánh tráng cuốn.",
+                price: 85000,
+                image: "assets/images/nem-nuong.png",
+                category: "appetizer",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 15,
+                name: "Gỏi xoài bò khô",
+                description: "Xoài xanh giòn ngon bào sợi kết hợp với thịt bò khô và rau răm thơm lừng.",
+                price: 78000,
+                image: "assets/images/goi-xoai.png",
+                category: "appetizer",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 16,
+                name: "Bò lá lốt",
+                description: "Thịt bò xay cuộn trong lá lốt thơm nồng, nướng than hoa, kèm bánh tráng và rau sống.",
+                price: 110000,
+                image: "assets/images/bo-la-lot.png",
+                category: "appetizer",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 17,
+                name: "Phở gà",
+                description: "Phở với nước dùng ngọt thanh từ thịt gà, ăn kèm thịt gà xé và rau thơm.",
+                price: 85000,
+                image: "assets/images/pho-ga.png",
+                category: "noodles",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 18,
+                name: "Bún riêu cua",
+                description: "Bún với nước dùng chua thanh từ cua đồng, chả cua, đậu phụ và huyết.",
+                price: 89000,
+                image: "assets/images/bun-rieu.png",
+                category: "noodles",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 19,
+                name: "Hủ tiếu Nam Vang",
+                description: "Hủ tiếu với nước dùng ngọt từ xương heo, tôm, thịt heo, gan và giá đỗ.",
+                price: 92000,
+                image: "assets/images/hu-tieu.png",
+                category: "noodles",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 20,
+                name: "Mì Quảng",
+                description: "Mì Quảng đặc trưng miền Trung với tôm, thịt, trứng và nước dùng sánh đặc.",
+                price: 88000,
+                image: "assets/images/mi-quang.png",
+                category: "noodles",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 21,
+                name: "Bún mắm",
+                description: "Bún với nước dùng đặc trưng từ mắm cá linh, thịt heo, hải sản và rau xanh.",
+                price: 95000,
+                image: "assets/images/bun-mam.png",
+                category: "noodles",
+                tags: ["spicy"],
+                availability: true
+            },
+            {
+                id: 22,
+                name: "Cơm gà Hội An",
+                description: "Cơm nấu với nước luộc gà, màu vàng đẹp mắt ăn kèm gà xé phay, đồ chua và nước mắm.",
+                price: 92000,
+                image: "assets/images/com-ga.png",
+                category: "rice",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 23,
+                name: "Cơm niêu thịt kho",
+                description: "Cơm niêu nóng hổi với thịt kho tàu, trứng và đồ chua.",
+                price: 95000,
+                image: "assets/images/com-nieu.png",
+                category: "rice",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 24,
+                name: "Cơm chiên hải sản",
+                description: "Cơm chiên với tôm, mực, trứng và rau củ, hương vị đậm đà thơm ngon.",
+                price: 98000,
+                image: "assets/images/com-chien.png",
+                category: "rice",
+                tags: ["popular"],
+                availability: true
+            },
+            {
+                id: 25,
+                name: "Cơm lam",
+                description: "Cơm nếp đặc sản Tây Bắc nấu trong ống tre, thơm mùi tre non, ăn kèm gà nướng.",
+                price: 110000,
+                image: "assets/images/com-lam.png",
+                category: "rice",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 26,
+                name: "Cơm cháy Ninh Bình",
+                description: "Cơm cháy giòn rụm ăn kèm thịt dê xào lăn đậm đà.",
+                price: 115000,
+                image: "assets/images/com-chay.png",
+                category: "rice",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 27,
+                name: "Lẩu cá lăng",
+                description: "Lẩu cá lăng với nước dùng chua cay, kèm rau sống và bún tươi.",
+                price: 350000,
+                image: "assets/images/lau-ca-lang.png",
+                category: "main",
+                tags: ["spicy"],
+                availability: true
+            },
+            {
+                id: 28,
+                name: "Bò nhúng dấm",
+                description: "Thịt bò thái mỏng nhúng vào nước dấm nóng, ăn kèm rau sống và bánh tráng.",
+                price: 280000,
+                image: "assets/images/bo-nhung-dam.png",
+                category: "main",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 29,
+                name: "Vịt quay Bắc Kinh",
+                description: "Vịt quay giòn da phục vụ với bánh bao, hành tây và sốt đặc biệt.",
+                price: 320000,
+                image: "assets/images/vit-quay.png",
+                category: "main",
+                tags: ["popular"],
+                availability: true
+            },
+            {
+                id: 30,
+                name: "Sườn nướng BBQ",
+                description: "Sườn heo nướng BBQ với sốt chua ngọt đậm đà, ăn kèm khoai tây chiên.",
+                price: 180000,
+                image: "assets/images/suon-nuong.png",
+                category: "main",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 31,
+                name: "Tôm hùm nướng phô mai",
+                description: "Tôm hùm nướng phủ lớp phô mai béo ngậy, thơm nồng.",
+                price: 850000,
+                image: "assets/images/tom-hum.png",
+                category: "main",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 42,
+                name: "Bò lúc lắc",
+                description: "Thịt bò xắt hạt lựu xào với ớt chuông, hành tây, được phục vụ kèm khoai tây chiên.",
+                price: 180000,
+                image: "assets/images/bo-luc-lac.png",
+                category: "main",
+                tags: ["popular"],
+                availability: true
+            },
+            {
+                id: 43,
+                name: "Gà nướng sả",
+                description: "Gà ướp sả, nghệ và nước mắm nướng than hoa thơm phức, phục vụ kèm rau sống và bánh tráng.",
+                price: 165000,
+                image: "assets/images/ga-nuong-sa.png",
+                category: "main",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 44,
+                name: "Chả cá Lã Vọng",
+                description: "Cá lóc chiên vàng xào cùng hành và thì là, phục vụ kèm bún và mắm tôm.",
+                price: 195000,
+                image: "assets/images/cha-ca-la-vong.png",
+                category: "main",
+                tags: ["popular"],
+                availability: true
+            },
+            {
+                id: 45,
+                name: "Bò kho",
+                description: "Bò hầm với cà rốt, sả và các loại gia vị đặc trưng, ăn kèm bánh mì hoặc bún.",
+                price: 135000,
+                image: "assets/images/bo-kho.png",
+                category: "main",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 46,
+                name: "Thịt kho tàu",
+                description: "Thịt heo kho với trứng và nước dừa, ăn kèm cơm trắng nóng hổi.",
+                price: 120000,
+                image: "assets/images/thit-kho-tau.png",
+                category: "main",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 47,
+                name: "Cá nướng mọi",
+                description: "Cá lóc nướng trui nguyên con, ăn kèm với rau sống và bánh tráng cuốn.",
+                price: 280000,
+                image: "assets/images/ca-nuong-moi.png",
+                category: "main",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 48,
+                name: "Lẩu thái hải sản",
+                description: "Lẩu chua cay kiểu Thái với tôm, mực, cá và rau sống, phục vụ kèm bún tươi.",
+                price: 320000,
+                image: "assets/images/lau-thai.png",
+                category: "main",
+                tags: ["spicy"],
+                availability: true
+            },
+            {
+                id: 49,
+                name: "Lẩu mắm",
+                description: "Lẩu đặc sản miền Tây với nước dùng từ mắm, nấu cùng hải sản và rau muống.",
+                price: 300000,
+                image: "assets/images/lau-mam.png",
+                category: "main",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 50,
+                name: "Cá bống kho tiêu",
+                description: "Cá bống kho kỹ với tiêu đen và hành, ăn kèm cơm trắng.",
+                price: 125000,
+                image: "assets/images/ca-kho-tieu.png",
+                category: "main",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 32,
+                name: "Đậu phụ Lagu",
+                description: "Đậu phụ chiên vàng kết hợp với nấm và rau củ trong nước sốt đặc biệt.",
+                price: 85000,
+                image: "assets/images/dau-phu-lagu.png",
+                category: "vegetarian",
+                tags: ["vegetarian"],
+                availability: true
+            },
+            {
+                id: 33,
+                name: "Chả giò chay",
+                description: "Chả giò nhân nấm, khoai môn và rau củ, chiên giòn.",
+                price: 65000,
+                image: "assets/images/cha-gio-chay.png",
+                category: "vegetarian",
+                tags: ["vegetarian"],
+                availability: true
+            },
+            {
+                id: 34,
+                name: "Canh chua chay",
+                description: "Canh chua nấu với đậu hũ, giá đỗ và rau củ, vị chua thanh mát.",
+                price: 70000,
+                image: "assets/images/canh-chua-chay.png",
+                category: "vegetarian",
+                tags: ["vegetarian"],
+                availability: true
+            },
+            {
+                id: 35,
+                name: "Cơm chiên chay",
+                description: "Cơm chiên với nấm, đậu phụ và rau củ, thơm ngon bổ dưỡng.",
+                price: 80000,
+                image: "assets/images/com-chien-chay.png",
+                category: "vegetarian",
+                tags: ["vegetarian"],
+                availability: true
+            },
+            {
+                id: 36,
+                name: "Phở chay",
+                description: "Phở với nước dùng từ rau củ thơm ngon, topping đậu phụ và nấm.",
+                price: 75000,
+                image: "assets/images/pho-chay.png",
+                category: "vegetarian",
+                tags: ["vegetarian"],
+                availability: true
+            },
+            {
+                id: 37,
+                name: "Chè đậu đỏ bánh lọt",
+                description: "Chè đậu đỏ thơm bùi kết hợp với bánh lọt dẻo mềm và nước cốt dừa.",
+                price: 38000,
+                image: "assets/images/che-dau-do.png",
+                category: "dessert",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 38,
+                name: "Bánh flan",
+                description: "Bánh flan mềm mịn, béo ngậy với lớp caramen thơm lừng.",
+                price: 32000,
+                image: "assets/images/banh-flan.png",
+                category: "dessert",
+                tags: ["popular"],
+                availability: true
+            },
+            {
+                id: 39,
+                name: "Xôi xoài",
+                description: "Xôi nếp dẻo thơm ăn kèm xoài chín ngọt và nước cốt dừa.",
+                price: 45000,
+                image: "assets/images/xoi-xoai.png",
+                category: "dessert",
+                tags: [],
+                availability: true
+            },
+            {
+                id: 40,
+                name: "Chè sâm bổ lượng",
+                description: "Chè thập cẩm với nhãn, hạt sen, táo đỏ và sâm, ngọt thanh bổ dưỡng.",
+                price: 42000,
+                image: "assets/images/che-sam-bo-luong.png",
+                category: "dessert",
+                tags: [],
+                availability: true
+            },
         ];
 
         // Initialize cart
@@ -1672,10 +2095,13 @@
         
         // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            displayMenuItems();
+            displayMenuItems('all'); // Explicitly call with 'all' parameter
             renderCartItems();
             checkLoginStatus();
         });
+        
+        // Call displayMenuItems directly to ensure it runs even if DOMContentLoaded has issues
+        displayMenuItems('all');
     </script>
     <script>
     // Authentication system
