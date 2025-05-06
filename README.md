@@ -24,26 +24,26 @@ Dưới đây là hình ảnh minh họa các tính năng chính của ứng d�
 
 ### 🏠 Trang Chủ
 <p>
-  <img src="restaurant-ordering-website/assets/images/Demo/home1.png" alt="Trang Chủ - Giao diện chính" width="45%" />
-  <img src="restaurant-ordering-website/assets/images/Demo/home2.png" alt="Trang Chủ - Phần giới thiệu" width="45%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/home1.png" alt="Trang Chủ - Giao diện chính" width="48%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/home2.png" alt="Trang Chủ - Phần giới thiệu" width="48%" />
 </p>
 
 ### 🍔 Trang Thực Đơn
 <p>
-  <img src="restaurant-ordering-website/assets/images/Demo/menu1.png" alt="Trang Thực Đơn - Danh sách món" width="45%" />
-  <img src="restaurant-ordering-website/assets/images/Demo/menu2.png" alt="Trang Thực Đơn - Chi tiết món" width="45%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/menu1.png" alt="Trang Thực Đơn - Danh sách món" width="48%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/menu2.png" alt="Trang Thực Đơn - Chi tiết món" width="48%" />
 </p>
 
 ### 🪑 Trang Đặt Bàn
 <p>
-  <img src="restaurant-ordering-website/assets/images/Demo/booking1.png" alt="Trang Đặt Bàn - Chọn ngày giờ" width="45%" />
-  <img src="restaurant-ordering-website/assets/images/Demo/booking2.png" alt="Trang Đặt Bàn - Chọn bàn" width="45%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/booking1.png" alt="Trang Đặt Bàn - Chọn ngày giờ" width="48%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/booking2.png" alt="Trang Đặt Bàn - Chọn bàn" width="48%" />
 </p>
 
 ### 🛒 Trang Giỏ Hàng
 <p>
-  <img src="restaurant-ordering-website/assets/images/Demo/cart1.png" alt="Trang Giỏ Hàng - Danh sách món" width="45%" />
-  <img src="restaurant-ordering-website/assets/images/Demo/cart2.png" alt="Trang Giỏ Hàng - Thông tin giao hàng" width="45%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/cart1.png" alt="Trang Giỏ Hàng - Danh sách món" width="48%" />
+  <img src="restaurant-ordering-website/assets/images/Demo/cart2.png" alt="Trang Giỏ Hàng - Thông tin giao hàng" width="48%" />
 </p>
 
 </div>
@@ -54,28 +54,28 @@ Dưới đây là hình ảnh minh họa các tính năng chính của ứng d�
 restaurant-ordering-website
 ├── assets
 │   ├── css
-│   │   ├── main.css        # Main styles for layout and typography
-│   │   ├── menu.css        # Styles specific to the menu page
-│   │   ├── booking.css      # Styles for the booking page
-│   │   └── animations.css   # CSS transitions and animations
+│   │   ├── main.css        # Các style chính cho bố cục và kiểu chữ
+│   │   ├── menu.css        # Style riêng cho trang thực đơn
+│   │   ├── booking.css     # Style cho trang đặt bàn
+│   │   └── animations.css  # Hiệu ứng và chuyển động CSS
 │   ├── js
-│   │   ├── main.js         # Main JavaScript file for global events
-│   │   ├── menu.js         # JavaScript functions for the menu page
-│   │   ├── cart.js         # Shopping cart functionality
-│   │   ├── booking.js      # Booking functionality
-│   │   └── animations.js    # JavaScript for triggering animations
+│   │   ├── main.js         # File JavaScript chính cho sự kiện toàn cục
+│   │   ├── menu.js         # Các hàm JavaScript cho trang thực đơn
+│   │   ├── cart.js         # Chức năng giỏ hàng
+│   │   ├── booking.js      # Chức năng đặt bàn
+│   │   └── animations.js   # JavaScript cho kích hoạt hiệu ứng
 │   └── images
-│       └── logo.svg        # Logo image for the restaurant
+│       └── logo.svg        # Hình ảnh logo của nhà hàng
 ├── pages
-│   ├── menu.html           # HTML structure for the menu page
-│   ├── booking.html        # HTML structure for the booking page
-│   ├── cart.html           # HTML structure for the shopping cart page
-│   ├── checkout.html       # HTML structure for the checkout page
-│   └── confirmation.html    # HTML structure for the confirmation page
-├── index.html              # Main entry point of the website
-├── about.html              # Information about the restaurant
-├── contact.html            # Contact information and form
-└── README.md               # Project documentation
+│   ├── menu.html           # Cấu trúc HTML cho trang thực đơn
+│   ├── booking.html        # Cấu trúc HTML cho trang đặt bàn
+│   ├── cart.html           # Cấu trúc HTML cho trang giỏ hàng
+│   ├── checkout.html       # Cấu trúc HTML cho trang thanh toán
+│   └── confirmation.html   # Cấu trúc HTML cho trang xác nhận
+├── index.html              # Trang chính của website
+├── about.html              # Thông tin về nhà hàng
+├── contact.html            # Thông tin liên hệ và form
+└── README.md               # Tài liệu dự án
 ```
 
 ## Hướng Dẫn Cài Đặt
