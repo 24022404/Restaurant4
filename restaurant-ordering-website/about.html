@@ -199,6 +199,8 @@
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
         
         .team-member:hover {
@@ -208,6 +210,7 @@
         .member-image {
             height: 280px;
             overflow: hidden;
+            position: relative;
         }
         
         .member-image img {
@@ -215,6 +218,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
+            object-position: center top; /* Hiển thị phần trên của ảnh */
         }
         
         .team-member:hover .member-image img {
@@ -779,7 +783,7 @@
                     <p>Tại Việt Delights, chúng tôi tin rằng ẩm thực không chỉ là hương vị mà còn là một trải nghiệm toàn diện - từ không gian, cách phục vụ đến từng chi tiết nhỏ trong mỗi món ăn. Chúng tôi nỗ lực mỗi ngày để mang đến cho khách hàng những trải nghiệm ẩm thực tốt nhất.</p>
                 </div>
                 <div class="about-image">
-                    <img src="assets/images/about-restaurant.jpg" alt="Nhà hàng Việt Delights">
+                    <img src="assets/images/about-restaurant.png" alt="Nhà hàng Việt Delights">
                 </div>
             </div>
             
@@ -791,7 +795,7 @@
                 <div class="team-members">
                     <div class="team-member">
                         <div class="member-image">
-                            <img src="assets/images/chef-1.jpg" alt="Đầu bếp trưởng">
+                            <img src="assets/images/nguyen-van-an.png" alt="Đầu bếp trưởng">
                         </div>
                         <div class="member-info">
                             <h3>Nguyễn Văn An</h3>
@@ -802,7 +806,7 @@
                     
                     <div class="team-member">
                         <div class="member-image">
-                            <img src="assets/images/chef-2.jpg" alt="Bếp trưởng món tráng miệng">
+                            <img src="assets/images/tran-thi-huong.png" alt="Bếp trưởng món tráng miệng">
                         </div>
                         <div class="member-info">
                             <h3>Trần Thị Hương</h3>
@@ -813,7 +817,7 @@
                     
                     <div class="team-member">
                         <div class="member-image">
-                            <img src="assets/images/manager.jpg" alt="Quản lý nhà hàng">
+                            <img src="assets/images/quan-ly.png" alt="Quản lý nhà hàng">
                         </div>
                         <div class="member-info">
                             <h3>Lê Minh Tuấn</h3>
