@@ -1,0 +1,561 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    background-color: #c0392b;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo img {
+    height: 60px;
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    margin: 0 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+nav a.active {
+    background-color: white;
+    color: #c0392b;
+}
+/* Sign in and sign up buttons */
+
+
+
+/* User account button*/
+.user-account {
+    display: none; /* Hidden by default, shown after login */
+    position: relative;
+}
+
+.user-account-btn {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.user-account-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #c0392b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.user-name {
+    margin-right: 5px;
+    font-weight: 500;
+}
+
+.dropdown-icon {
+    transition: transform 0.3s ease;
+}
+
+.user-account-btn:hover .dropdown-icon {
+    transform: rotate(180deg);
+}
+/* User account dropdown styles */
+.user-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.user-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.user-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: 20px;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    transform: rotate(45deg);
+}
+
+.user-dropdown-item {
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.user-dropdown-item:first-child {
+    border-radius: 8px 8px 0 0;
+}
+
+.user-dropdown-item:last-child {
+    border-radius: 0 0 8px 8px;
+}
+
+.user-dropdown-item:hover {
+    background-color: #f9f9f9;
+}
+
+.user-dropdown-item i {
+    margin-right: 10px;
+    color: #c0392b;
+}
+
+.user-dropdown-divider {
+    height: 1px;
+    background-color: #eee;
+    margin: 0;
+}
+main {
+    margin-top: 90px;
+    min-height: calc(100vh - 90px - 60px);
+}
+
+.hero {
+    height: 80vh;
+    background-image: url('assets/images/restaurant-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    animation: slideIn 1s ease-out;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    animation: fadeIn 1.5s ease-out;
+}
+
+.btn-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    animation: fadeIn 2s ease-out;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #c0392b;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid #c0392b;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(192, 57, 43, 0.4);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid white;
+}
+
+.btn-outline:hover {
+    background-color: white;
+    color: #c0392b;
+}
+
+.features {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    font-size: 2.5rem;
+    color: #c0392b;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 3px;
+    background-color: #c0392b;
+    bottom: -10px;
+    left: 25%;
+}
+
+.feature-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.feature-card {
+    flex: 1;
+    min-width: 300px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: #c0392b;
+    margin-bottom: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+    }
+    
+    nav ul {
+        margin-top: 15px;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .feature-card {
+        min-width: 100%;
+    }
+}
+
+/* Styles for login/register system */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.auth-btn {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.auth-btn:hover {
+    background-color: white;
+    color: #c0392b;
+    transform: translateY(-2px);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    padding: 30px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transform: translateY(-50px);
+    opacity: 0;
+    transition: all 0.4s ease;
+    max-height: 90vh; /* Giới hạn chiều cao tối đa */
+    overflow-y: auto; /* Cho phép cuộn nếu nội dung quá dài */
+}
+
+.modal.active .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+    color: #c0392b;
+}
+
+.modal-title {
+    font-size: 1.8rem;
+    color: #c0392b;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 600;
+    text-shadow: none;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333; /* Đảm bảo màu nhãn rõ ràng */
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+    color: #333; /* Đảm bảo màu chữ rõ ràng */
+    background-color: #fff; /* Đảm bảo nền trắng */
+}
+
+.form-control::placeholder {
+    color: #aaa; /* Màu placeholder nhạt hơn */
+    opacity: 1; /* Đảm bảo hiển thị trên tất cả trình duyệt */
+}
+
+.form-control:focus {
+    border-color: #c0392b;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.2); /* Hiệu ứng khi focus */
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    text-shadow: none;
+}
+
+.submit-btn:hover {
+    background-color: #a5281e;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(192, 57, 43, 0.3);
+}
+
+.switch-form {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+}
+
+.switch-form a {
+    color: #c0392b;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.switch-form a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .auth-buttons {
+        margin-top: 15px;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Login message notification */
+.login-message {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #2ecc71;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 2000;
+}
+
+.login-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Thêm CSS sau vào phần style trong head */
+* {
+    box-sizing: border-box;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+}
+
+@media (max-width: 576px) {
+    .modal-content {
+        padding: 20px;
+        width: 95%;
+        margin: 10px;
+    }
+    
+    .form-control {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+}

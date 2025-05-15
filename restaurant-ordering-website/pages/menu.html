@@ -1,60 +1,464 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu - Restaurant Ordering</title>
+    <title>Thực Đơn - Việt Delights</title>
     <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/menu.css">
     <link rel="stylesheet" href="../assets/css/animations.css">
+    <link rel="stylesheet" href="../assets/css/header.css">
+    <link rel="stylesheet" href="../assets/css/menu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <header>
-        <div class="logo">
-            <img src="../assets/images/logo.svg" alt="Restaurant Logo">
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="../assets/images/logo.svg" alt="Việt Delights Logo">
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Trang Chủ</a></li>
+                    <li><a href="menu.html" class="active">Thực Đơn</a></li>
+                    <li><a href="booking.html">Đặt Bàn</a></li>
+                    <li><a href="cart.html">Giỏ Hàng</a></li>
+                    <li><a href="about.html">Giới Thiệu</a></li>
+                    <li><a href="contact.html">Liên Hệ</a></li>
+                </ul>
+            </nav>
+
+            <!-- User account dropdown (Shown when logged in) -->
+            <div class="user-account" id="userAccount" style="display: none;">
+                <button class="user-account-btn" id="userAccountBtn">
+                    <div class="user-avatar" id="userAvatar">D</div>
+                    <span class="user-name" id="userName">Người dùng</span>
+                    <i class="fas fa-angle-down dropdown-icon"></i>
+                </button>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="pages/profile.html" class="user-dropdown-item">
+                        <i class="fas fa-user"></i>
+                        Hồ sơ của tôi
+                    </a>
+                    <a href="pages/orders.html" class="user-dropdown-item">
+                        <i class="fas fa-shopping-bag"></i>
+                        Đơn hàng
+                    </a>
+                    <a href="pages/reservations.html" class="user-dropdown-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        Lịch đặt bàn
+                    </a>
+                    <div class="user-dropdown-divider"></div>
+                    <a href="#" class="user-dropdown-item" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Đăng xuất
+                    </a>
+                </div>
+            </div>
         </div>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="booking.html">Book a Table</a></li>
-                <li><a href="cart.html">Cart</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
     </header>
 
     <main>
-        <h1>Menu</h1>
-        <section class="menu-items">
-            <article class="menu-item">
-                <h2>Spaghetti Carbonara</h2>
-                <p>A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.</p>
-                <span class="price">$12.99</span>
-                <button class="add-to-cart">Add to Cart</button>
-            </article>
-            <article class="menu-item">
-                <h2>Margherita Pizza</h2>
-                <p>Fresh mozzarella, tomatoes, and basil on a classic pizza crust.</p>
-                <span class="price">$10.99</span>
-                <button class="add-to-cart">Add to Cart</button>
-            </article>
-            <article class="menu-item">
-                <h2>Caesar Salad</h2>
-                <p>Crisp romaine lettuce, croutons, and parmesan cheese with Caesar dressing.</p>
-                <span class="price">$8.99</span>
-                <button class="add-to-cart">Add to Cart</button>
-            </article>
-            <!-- Add more menu items as needed -->
+        <section class="menu-section">
+            <div class="section-title">
+                <h1>Thực Đơn Của Chúng Tôi</h1>
+                <p>Khám phá các món ăn Việt Nam đặc sắc, được chế biến từ những nguyên liệu tươi ngon nhất</p>
+            </div>
+
+            <div class="category-tabs">
+                <div class="category-tab active" data-category="all">Tất cả</div>
+                <div class="category-tab" data-category="Seafood">Hải sản</div>
+                <div class="category-tab" data-category="Chicken">Món gà</div>
+                <div class="category-tab" data-category="Beef">Món bò</div>
+                <div class="category-tab" data-category="Pork">Món heo</div>
+                <div class="category-tab" data-category="Side">Món ăn kèm</div>
+                <div class="category-tab" data-category="Starter">Món khai vị</div>
+                <div class="category-tab" data-category="Vegetarian">Chay</div>
+                <div class="category-tab" data-category="Dessert">Tráng miệng</div>
+            </div>
+
+            <div class="menu-grid" id="menuGrid">
+                <!-- Menu items will be added here dynamically -->
+            </div>
         </section>
     </main>
 
+    <div class="cart-container">
+        <div class="cart-button" id="cartButton">
+            <i class="fas fa-shopping-cart"></i>
+            <div class="cart-count" id="cartCount">0</div>
+        </div>
+    </div>
+
+    <div class="cart-panel" id="cartPanel">
+        <div class="cart-header">
+            <div class="cart-title">Giỏ hàng của bạn</div>
+            <div class="close-cart" id="closeCart"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be added here dynamically -->
+            <div class="empty-cart" id="emptyCart">
+                <i class="fas fa-shopping-basket"></i>
+                <p>Giỏ hàng của bạn đang trống</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <div>Tổng cộng:</div>
+                <div class="cart-total-price" id="cartTotal">0₫</div>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">Thanh toán</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+
     <footer>
-        <p>&copy; 2023 Restaurant Name. All rights reserved.</p>
+        <p>&copy; 2023 Việt Delights. Đã đăng ký bản quyền.</p>
     </footer>
 
-    <script src="../assets/js/main.js"></script>
-    <script src="../assets/js/menu.js"></script>
-    <script src="../assets/js/animations.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script>
+    // 1. Biến toàn cục
+    let menuItems = [];
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // 2. Hàm tiện ích
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })
+            .format(amount)
+            .replace('₫', '') + '₫';
+    }
+
+    // 3. Hàm xử lý menu
+    function displayMenuItems(category = 'all') {
+        const menuGrid = document.getElementById('menuGrid');
+        menuGrid.innerHTML = '';
+
+        const filteredItems = category === 'all'
+            ? menuItems
+            : menuItems.filter(item => item.category === category);
+
+        filteredItems.forEach((item, index) => {
+            if (!item.availability) return;
+
+            const itemElement = document.createElement('div');
+            itemElement.className = 'menu-item';
+
+            let badgeHtml = '';
+            if (item.tags && item.tags.includes('popular')) {
+                badgeHtml = '<div class="menu-item-badge">Phổ biến</div>';
+            } else if (item.tags && item.tags.includes('spicy')) {
+                badgeHtml = '<div class="menu-item-badge">Cay</div>';
+            } else if (item.tags && item.tags.includes('vegetarian')) {
+                badgeHtml = '<div class="menu-item-badge">Chay</div>';
+            }
+
+            itemElement.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" class="menu-item-image">
+                ${badgeHtml}
+                <div class="menu-item-content">
+                    <h3 class="menu-item-title">${item.name}</h3>
+                    <p class="menu-item-nat">${item.nation}</p>
+                    <div class="menu-item-price">${formatCurrency(item.price)}</div>
+                    <div class="menu-item-actions">
+                        <div class="quantity-control">
+                            <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                            <input type="number" class="quantity-input" value="1" min="1" max="10" data-id="${item.id}">
+                            <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                        </div>
+                        <button class="add-to-cart-btn" data-id="${item.id}">
+                            <i class="fas fa-cart-plus"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            `;
+            menuGrid.appendChild(itemElement);
+
+            setTimeout(() => {
+                itemElement.classList.add('fade-in');
+            }, index * 100);
+        });
+
+        attachEventListeners();
+    }
+
+    // 4. Hàm xử lý giỏ hàng
+    function addToCart(id, quantity) {
+        const item = menuItems.find(item => item.id === id);
+        if (!item) return;
+
+        const existingItem = cart.find(cartItem => cartItem.id === id);
+
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            cart.push({
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                image: item.image,
+                quantity: quantity
+            });
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        renderCartItems();
+
+        document.getElementById('cartPanel').classList.add('open');
+        document.getElementById('overlay').classList.add('active');
+    }
+
+    function updateCartCount() {
+        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+        document.getElementById('cartCount').textContent = totalItems;
+
+        const emptyCart = document.getElementById('emptyCart');
+        if (totalItems === 0) {
+            emptyCart.style.display = 'block';
+        } else {
+            emptyCart.style.display = 'none';
+        }
+    }
+
+    function renderCartItems() {
+        const cartItemsContainer = document.getElementById('cartItems');
+        const emptyCartMessage = document.getElementById('emptyCart');
+
+        cartItemsContainer.innerHTML = '';
+        cartItemsContainer.appendChild(emptyCartMessage);
+
+        let total = 0;
+
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+
+            const cartItemElement = document.createElement('div');
+            cartItemElement.className = 'cart-item';
+            cartItemElement.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                <div class="cart-item-details">
+                    <div class="cart-item-title">${item.name}</div>
+                    <div class="cart-item-price">${formatCurrency(item.price)}</div>
+                    <div class="cart-item-controls">
+                        <div class="cart-quantity">
+                            <button class="cart-quantity-btn minus-cart" data-id="${item.id}">-</button>
+                            <input type="text" class="cart-quantity-input" value="${item.quantity}" readonly>
+                            <button class="cart-quantity-btn plus-cart" data-id="${item.id}">+</button>
+                        </div>
+                        <div class="remove-from-cart" data-id="${item.id}">
+                            <i class="fas fa-trash"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            cartItemsContainer.appendChild(cartItemElement);
+        });
+
+        document.getElementById('cartTotal').textContent = formatCurrency(total);
+
+        document.querySelectorAll('.minus-cart').forEach(btn => {
+            btn.addEventListener('click', function () {
+                updateCartItemQuantity(parseInt(this.dataset.id), -1);
+            });
+        });
+
+        document.querySelectorAll('.plus-cart').forEach(btn => {
+            btn.addEventListener('click', function () {
+                updateCartItemQuantity(parseInt(this.dataset.id), 1);
+            });
+        });
+
+        document.querySelectorAll('.remove-from-cart').forEach(btn => {
+            btn.addEventListener('click', function () {
+                removeFromCart(parseInt(this.dataset.id));
+            });
+        });
+    }
+
+    function updateCartItemQuantity(id, change) {
+        const cartItem = cart.find(item => item.id === id);
+        if (!cartItem) return;
+
+        cartItem.quantity += change;
+
+        if (cartItem.quantity <= 0) {
+            removeFromCart(id);
+        } else {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            renderCartItems();
+        }
+    }
+
+    function removeFromCart(id) {
+        cart = cart.filter(item => item.id !== id);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        renderCartItems();
+    }
+
+    // 5. Hàm gắn sự kiện động cho menu
+    function attachEventListeners() {
+        // Quantity controls
+        document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const id = this.dataset.id;
+                const input = document.querySelector(`.quantity-input[data-id="${id}"]`);
+                if (input.value > 1) {
+                    input.value = parseInt(input.value) - 1;
+                }
+            });
+        });
+
+        document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const id = this.dataset.id;
+                const input = document.querySelector(`.quantity-input[data-id="${id}"]`);
+                if (input.value < 10) {
+                    input.value = parseInt(input.value) + 1;
+                }
+            });
+        });
+
+        // Add to cart buttons
+        document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const id = parseInt(this.dataset.id);
+                const quantity = parseInt(document.querySelector(`.quantity-input[data-id="${id}"]`).value);
+                addToCart(id, quantity);
+
+                this.innerHTML = '<i class="fas fa-check"></i> Đã thêm';
+                this.style.backgroundColor = '#27ae60';
+
+                const cartButton = document.getElementById('cartButton');
+                cartButton.classList.add('cart-shake');
+
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-cart-plus"></i> Thêm';
+                    this.style.backgroundColor = '#c0392b';
+                    cartButton.classList.remove('cart-shake');
+                }, 1000);
+            });
+        });
+    }
+
+    // 6. Hàm fetch dữ liệu menu từ API
+    async function fetchMenuData() {
+        try {
+            const response = await fetch('http://localhost:4000/api/menu-items');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            menuItems = await response.json();
+            displayMenuItems('all');
+            renderCartItems();
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu menu:', error);
+            alert('Có lỗi xảy ra khi tải thực đơn. Vui lòng thử lại sau.');
+        }
+    }
+
+    // 7. Hàm xử lý đăng nhập/đăng xuất và UI tài khoản
+    function displayLoggedInUI(userData) {
+        document.getElementById('userAccount').style.display = 'block';
+        const userName = document.getElementById('userName');
+        const userAvatar = document.getElementById('userAvatar');
+        userName.textContent = userData.fullName || userData.email;
+        if (userData.fullName) {
+            userAvatar.textContent = userData.fullName.charAt(0).toUpperCase();
+        } else if (userData.email) {
+            userAvatar.textContent = userData.email.charAt(0).toUpperCase();
+        }
+    }
+
+    function checkLoginStatus() {
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        if (loggedInUser) {
+            const userData = JSON.parse(loggedInUser);
+            displayLoggedInUI(userData);
+        }
+    }
+
+    // 8. Sự kiện DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', () => {
+       
+        fetchMenuData();
+        updateCartCount();
+        checkLoginStatus();
+
+        // Sự kiện cho các tab danh mục
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', function () {
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                displayMenuItems(this.dataset.category);
+            });
+        });
+
+        // Sự kiện cho cart panel
+        document.getElementById('cartButton').addEventListener('click', function () {
+            document.getElementById('cartPanel').classList.add('open');
+            document.getElementById('overlay').classList.add('active');
+        });
+        document.getElementById('closeCart').addEventListener('click', function () {
+            document.getElementById('cartPanel').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        });
+        document.getElementById('overlay').addEventListener('click', function () {
+            document.getElementById('cartPanel').classList.remove('open');
+            this.classList.remove('active');
+        });
+        document.getElementById('checkoutBtn').addEventListener('click', function () {
+            if (cart.length === 0) {
+                alert('Vui lòng thêm món ăn vào giỏ hàng trước khi thanh toán');
+                return;
+            }
+            window.location.href = 'checkout.html';
+        });
+
+        // Sự kiện dropdown tài khoản
+        const userAccountBtn = document.getElementById('userAccountBtn');
+        const userDropdown = document.getElementById('userDropdown');
+        if (userAccountBtn) {
+            userAccountBtn.addEventListener('click', function () {
+                userDropdown.classList.toggle('active');
+            });
+        }
+        document.addEventListener('click', function (e) {
+            if (userAccountBtn && userDropdown && !userAccountBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+                userDropdown.classList.remove('active');
+            }
+        });
+
+        // Sự kiện logout
+        const logoutBtn = document.getElementById('logoutBtn');
+        const loginMessage = document.getElementById('loginMessage');
+        const authMessageText = document.getElementById('authMessageText');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                localStorage.removeItem('loggedInUser');
+                document.getElementById('userAccount').style.display = 'none';
+                userDropdown.classList.remove('active');
+                authMessageText.textContent = "Đăng xuất thành công!";
+                loginMessage.classList.add('show');
+                setTimeout(function () {
+                    loginMessage.classList.remove('show');
+                }, 3000);
+                window.location.href = 'index.html';
+            });
+        }
+    });
+</script>
 </body>
+
 </html>

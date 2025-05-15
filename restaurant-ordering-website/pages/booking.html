@@ -6,76 +6,11 @@
     <title>Đặt Bàn - Việt Delights</title>
     <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/animations.css">
+    <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Thêm quy tắc font-family toàn cục */
-        * {
-            font-family: 'Roboto', sans-serif;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-        
-        header {
-            background-color: #c0392b;
-            padding: 15px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .logo img {
-            height: 60px;
-            transition: transform 0.3s ease;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        
-        nav li {
-            margin: 0 10px;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 15px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-        
-        nav a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        nav a.active {
-            background-color: white;
-            color: #c0392b;
-        }
 
         .booking-container {
             max-width: 1200px;
@@ -768,116 +703,6 @@
             color: #c0392b;
         }
 
-        .user-account {
-            position: relative;
-            margin-left: 20px;
-        }
-
-        .user-account-btn {
-            display: flex;
-            align-items: center;
-            background-color: transparent;
-            color: white;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
-
-        .user-account-btn:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: #fff;
-            color: #c0392b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-
-        .user-name {
-            margin-right: 5px;
-            font-weight: 500;
-        }
-
-        .dropdown-icon {
-            transition: transform 0.3s ease;
-        }
-
-        .user-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            width: 200px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-top: 10px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .user-dropdown.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .user-dropdown-item {
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            color: #333;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        .user-dropdown-item:hover {
-            background-color: #f9f9f9;
-        }
-
-        .user-dropdown-item i {
-            margin-right: 10px;
-            color: #c0392b;
-        }
-
-        .user-dropdown-divider {
-            height: 1px;
-            background-color: #eee;
-            margin: 0;
-        }
-
-        /* Điều chỉnh khi responsive */
-        @media (max-width: 992px) {
-            .header-container {
-                flex-wrap: wrap;
-            }
-            
-            .main-nav {
-                order: 3;
-                width: 100%;
-                margin-top: 15px;
-            }
-            
-            .nav-list {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            
-            .nav-item {
-                margin: 5px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -891,11 +716,11 @@
     <nav class="main-nav">
         <ul class="nav-list">
             <li class="nav-item"><a href="../index.html" class="nav-link">Trang Chủ</a></li>
-            <li class="nav-item"><a href="../menu.html" class="nav-link">Thực Đơn</a></li>
+            <li class="nav-item"><a href="menu.html" class="nav-link">Thực Đơn</a></li>
             <li class="nav-item"><a href="booking.html" class="nav-link active">Đặt Bàn</a></li>
-            <li class="nav-item"><a href="../cart.html" class="nav-link">Giỏ Hàng</a></li>
-            <li class="nav-item"><a href="../about.html" class="nav-link">Giới Thiệu</a></li>
-            <li class="nav-item"><a href="../contact.html" class="nav-link">Liên Hệ</a></li>
+            <li class="nav-item"><a href="cart.html" class="nav-link">Giỏ Hàng</a></li>
+            <li class="nav-item"><a href="about.html" class="nav-link">Giới Thiệu</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-link">Liên Hệ</a></li>
         </ul>
     </nav>
     <div class="auth-buttons" id="authButtons">
