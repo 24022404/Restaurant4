@@ -1,95 +1,16 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liên Hệ - Việt Delights</title>
-   <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/animations.css">
     <link rel="stylesheet" href="../assets/css/header.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
-        
-        header {
-            background-color: #c0392b;
-            padding: 15px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .logo img {
-            height: 60px;
-            transition: transform 0.3s ease;
-        }
-        
-        .logo img:hover {
-            transform: scale(1.05);
-        }
-        
-        .main-nav {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-        
-        .nav-list {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .nav-item {
-            margin: 0 10px;
-        }
-        
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            padding: 8px 15px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        .nav-link.active {
-            background-color: white;
-            color: #c0392b;
-        }
-        
-        main {
-            margin-top: 100px;
-            min-height: calc(100vh - 90px - 60px);
-            padding: 40px 0;
-        }
-        
         .contact-section {
             max-width: 1200px;
             margin: 0 auto;
@@ -98,27 +19,27 @@
             flex-wrap: wrap;
             gap: 30px;
         }
-        
+
         .section-title {
             text-align: center;
             margin-bottom: 40px;
             width: 100%;
         }
-        
+
         .section-title h1 {
             font-size: 2.5rem;
             color: #c0392b;
             margin-bottom: 15px;
             animation: fadeIn 1s ease;
         }
-        
+
         .section-title p {
             color: #666;
             max-width: 600px;
             margin: 0 auto;
             animation: fadeIn 1.3s ease;
         }
-        
+
         .contact-form-container {
             flex: 1;
             min-width: 300px;
@@ -128,13 +49,13 @@
             padding: 30px;
             animation: fadeIn 0.8s ease;
         }
-        
+
         .contact-info {
             flex: 1;
             min-width: 300px;
             animation: fadeIn 1s ease;
         }
-        
+
         .info-card {
             background-color: white;
             border-radius: 10px;
@@ -142,7 +63,7 @@
             padding: 30px;
             margin-bottom: 20px;
         }
-        
+
         .info-title {
             font-size: 1.5rem;
             color: #c0392b;
@@ -150,62 +71,62 @@
             display: flex;
             align-items: center;
         }
-        
+
         .info-title i {
             margin-right: 10px;
         }
-        
+
         .info-list {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-        
+
         .info-item {
             display: flex;
             align-items: flex-start;
             margin-bottom: 20px;
         }
-        
+
         .info-item i {
             color: #c0392b;
             margin-right: 15px;
             font-size: 1.2rem;
             margin-top: 3px;
         }
-        
+
         .info-item-content {
             flex: 1;
         }
-        
+
         .info-item-title {
             font-weight: 600;
             margin-bottom: 5px;
         }
-        
+
         .map-container {
             height: 300px;
             border-radius: 10px;
             overflow: hidden;
         }
-        
+
         .map-container iframe {
             width: 100%;
             height: 100%;
             border: none;
         }
-        
+
         .form-group {
             margin-bottom: 20px;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
             color: #555;
         }
-        
+
         .form-control {
             width: 100%;
             padding: 12px 15px;
@@ -215,17 +136,17 @@
             transition: border-color 0.3s;
             font-family: 'Roboto', sans-serif;
         }
-        
+
         .form-control:focus {
             border-color: #c0392b;
             outline: none;
         }
-        
+
         textarea.form-control {
             min-height: 120px;
             resize: vertical;
         }
-        
+
         .submit-btn {
             background-color: #c0392b;
             color: white;
@@ -238,13 +159,13 @@
             transition: all 0.3s ease;
             display: inline-block;
         }
-        
+
         .submit-btn:hover {
             background-color: #a5281e;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(192, 57, 43, 0.3);
         }
-        
+
         .success-message {
             display: none;
             padding: 15px;
@@ -254,7 +175,7 @@
             margin-bottom: 20px;
             animation: fadeIn 0.5s ease;
         }
-        
+
         footer {
             background-color: #333;
             color: white;
@@ -262,153 +183,19 @@
             padding: 20px;
             font-family: 'Roboto', sans-serif;
         }
-        
-        /* Auth buttons styles */
-        .auth-buttons {
-            display: flex;
-            align-items: center;
-        }
-        
-        .auth-btn {
-            background-color: transparent;
-            color: white;
-            border: 1px solid white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            margin-left: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Roboto', sans-serif;
-            font-size: 0.9rem;
-        }
-        
-        .auth-btn:hover {
-            background-color: white;
-            color: #c0392b;
-            transform: translateY(-2px);
-        }
-        
-        /* User account styles */
-        .user-account {
-            position: relative;
-            margin-left: 20px;
-        }
-        
-        .user-account-btn {
-            display: flex;
-            align-items: center;
-            background-color: transparent;
-            color: white;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
-        
-        .user-account-btn:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: #fff;
-            color: #c0392b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-        
-        .user-name {
-            margin-right: 5px;
-            font-weight: 500;
-        }
-        
-        .dropdown-icon {
-            transition: transform 0.3s ease;
-        }
-        
-        .user-account-btn:hover .dropdown-icon {
-            transform: rotate(180deg);
-        }
-        
-        .user-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            width: 200px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-top: 10px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-        
-        .user-dropdown.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        
-        .user-dropdown::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            right: 20px;
-            width: 16px;
-            height: 16px;
-            background-color: white;
-            transform: rotate(45deg);
-        }
-        
-        .user-dropdown-item {
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            color: #333;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            font-family: 'Roboto', sans-serif;
-        }
-        
-        .user-dropdown-item:hover {
-            background-color: #f9f9f9;
-        }
-        
-        .user-dropdown-item i {
-            margin-right: 10px;
-            color: #c0392b;
-        }
-        
-        .user-dropdown-divider {
-            height: 1px;
-            background-color: #eee;
-            margin: 0;
-        }
 
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: column;
             }
-            
+
             .nav-list {
                 margin-top: 15px;
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            
-            .auth-buttons, .user-account {
-                margin-top: 15px;
-            }
-            
+
+
             .contact-section {
                 flex-direction: column;
             }
@@ -427,171 +214,22 @@
             filter: brightness(1.2);
         }
 
-        .social-facebook { color: #3b5998; }
-        .social-instagram { color: #E1306C; }
-        .social-twitter { color: #1DA1F2; }
-        .social-youtube { color: #FF0000; }
-
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
+        .social-facebook {
+            color: #3b5998;
         }
 
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            width: 90%;
-            max-width: 500px;
-            animation: fadeIn 0.3s ease;
+        .social-instagram {
+            color: #E1306C;
         }
 
-        .modal-close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
+        .social-twitter {
+            color: #1DA1F2;
         }
 
-        .modal-close:hover,
-        .modal-close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
+        .social-youtube {
+            color: #FF0000;
         }
 
-        .modal-title {
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            color: #c0392b;
-        }
-
-        .switch-form {
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        .switch-form a {
-            color: #c0392b;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .switch-form a:hover {
-            text-decoration: underline;
-        }
-
-        .login-message {
-            display: none;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #d4edda;
-            color: #155724;
-            padding: 10px 20px;
-            border-radius: 5px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            animation: fadeIn 0.5s ease;
-        }
-
-        /* Styles for login/register system */
-        .auth-buttons {
-            display: flex;
-            align-items: center;
-        }
-
-        .auth-btn {
-            background-color: transparent;
-            color: white;
-            border: 1px solid white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            margin-left: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .auth-btn:hover {
-            background-color: white;
-            color: #c0392b;
-            transform: translateY(-2px);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background-color: white;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
-            padding: 30px;
-            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
-            position: relative;
-            transform: translateY(-50px);
-            opacity: 0;
-            transition: all 0.4s ease;
-            max-height: 90vh; /* Giới hạn chiều cao tối đa */
-            overflow-y: auto; /* Cho phép cuộn nếu nội dung quá dài */
-        }
-
-        .modal.active .modal-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 24px;
-            color: #999;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .modal-close:hover {
-            color: #c0392b;
-        }
-
-        .modal-title {
-            font-size: 1.8rem;
-            color: #c0392b;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: 600;
-            text-shadow: none;
-        }
 
         .form-group {
             margin-bottom: 20px;
@@ -601,7 +239,8 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: #333; /* Đảm bảo màu nhãn rõ ràng */
+            color: #333;
+            /* Đảm bảo màu nhãn rõ ràng */
         }
 
         .form-control {
@@ -612,19 +251,24 @@
             font-size: 16px;
             transition: border-color 0.3s;
             box-sizing: border-box;
-            color: #333; /* Đảm bảo màu chữ rõ ràng */
-            background-color: #fff; /* Đảm bảo nền trắng */
+            color: #333;
+            /* Đảm bảo màu chữ rõ ràng */
+            background-color: #fff;
+            /* Đảm bảo nền trắng */
         }
 
         .form-control::placeholder {
-            color: #aaa; /* Màu placeholder nhạt hơn */
-            opacity: 1; /* Đảm bảo hiển thị trên tất cả trình duyệt */
+            color: #aaa;
+            /* Màu placeholder nhạt hơn */
+            opacity: 1;
+            /* Đảm bảo hiển thị trên tất cả trình duyệt */
         }
 
         .form-control:focus {
             border-color: #c0392b;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.2); /* Hiệu ứng khi focus */
+            box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.2);
+            /* Hiệu ứng khi focus */
         }
 
         .submit-btn {
@@ -648,141 +292,12 @@
             box-shadow: 0 4px 10px rgba(192, 57, 43, 0.3);
         }
 
-        .switch-form {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-        }
-
-        .switch-form a {
-            color: #c0392b;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .switch-form a:hover {
-            text-decoration: underline;
-        }
-
         @media (max-width: 768px) {
             .auth-buttons {
                 margin-top: 15px;
                 width: 100%;
                 justify-content: center;
             }
-        }
-
-        /* User account dropdown styles */
-        .user-account {
-            display: none; /* Hidden by default, shown after login */
-            position: relative;
-        }
-
-        .user-account-btn {
-            display: flex;
-            align-items: center;
-            background-color: transparent;
-            color: white;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
-
-        .user-account-btn:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: #fff;
-            color: #c0392b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-
-        .user-name {
-            margin-right: 5px;
-            font-weight: 500;
-        }
-
-        .dropdown-icon {
-            transition: transform 0.3s ease;
-        }
-
-        .user-account-btn:hover .dropdown-icon {
-            transform: rotate(180deg);
-        }
-
-        .user-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            width: 200px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-top: 10px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .user-dropdown.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .user-dropdown::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            right: 20px;
-            width: 16px;
-            height: 16px;
-            background-color: white;
-            transform: rotate(45deg);
-        }
-
-        .user-dropdown-item {
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            color: #333;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        .user-dropdown-item:first-child {
-            border-radius: 8px 8px 0 0;
-        }
-
-        .user-dropdown-item:last-child {
-            border-radius: 0 0 8px 8px;
-        }
-
-        .user-dropdown-item:hover {
-            background-color: #f9f9f9;
-        }
-
-        .user-dropdown-item i {
-            margin-right: 10px;
-            color: #c0392b;
-        }
-
-        .user-dropdown-divider {
-            height: 1px;
-            background-color: #eee;
-            margin: 0;
         }
 
         /* Login message notification */
@@ -799,7 +314,8 @@
             transform: translateY(20px);
             transition: all 0.3s ease;
             z-index: 2000;
-            display: block; /* Đảm bảo hiển thị khi cần */
+            display: block;
+            /* Đảm bảo hiển thị khi cần */
         }
 
         .login-message.show {
@@ -818,49 +334,30 @@
                 width: 95%;
                 margin: 10px;
             }
-            
+
             .form-control {
                 padding: 8px 10px;
                 font-size: 14px;
             }
-            
+
             .form-group {
                 margin-bottom: 15px;
             }
         }
-        
-        /* Navigation width fix - consistent across site */
-        nav {
-            width: auto; /* Ensure nav takes its natural width, not expanding */
-        }
-
-        .nav-list {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            width: auto; /* Match with other pages */
-            flex-wrap: nowrap; /* Prevent wrapping of items */
-        }
-        
-        /* Explicitly set consistent padding/margins for navigation items */
-        .nav-item {
-            margin: 0 10px;
-            white-space: nowrap; /* Prevent text wrapping in nav items */
-        }
     </style>
 </head>
+
 <body>
     <header>
         <div class="header-container">
             <div class="logo">
-                <a href="index.html">
-                    <img src=".../assets/images/logo.svg" alt="Việt Delights Logo">
+                <a href="../index.html">
+                    <img src="../assets/images/logo.svg" alt="Việt Delights Logo">
                 </a>
             </div>
             <nav class="main-nav">
                 <ul class="nav-list">
-                    <li class="nav-item"><a href=".../index.html" class="nav-link">Trang Chủ</a></li>
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Trang Chủ</a></li>
                     <li class="nav-item"><a href="menu.html" class="nav-link">Thực Đơn</a></li>
                     <li class="nav-item"><a href="booking.html" class="nav-link">Đặt Bàn</a></li>
                     <li class="nav-item"><a href="cart.html" class="nav-link">Giỏ Hàng</a></li>
@@ -868,11 +365,7 @@
                     <li class="nav-item"><a href="contact.html" class="nav-link active">Liên Hệ</a></li>
                 </ul>
             </nav>
-            <div class="auth-buttons" id="authButtons">
-                <button class="auth-btn" id="loginBtn">Đăng nhập</button>
-                <button class="auth-btn" id="registerBtn">Đăng ký</button>
-            </div>
-            
+
             <div class="user-account" id="userAccount" style="display: none;">
                 <button class="user-account-btn" id="userAccountBtn">
                     <div class="user-avatar" id="userAvatar">D</div>
@@ -906,30 +399,32 @@
         <section class="contact-section">
             <div class="section-title">
                 <h1>Liên Hệ Với Chúng Tôi</h1>
-                <p>Chúng tôi luôn sẵn sàng lắng nghe ý kiến của quý khách. Hãy liên hệ với chúng tôi nếu bạn có bất kỳ câu hỏi nào.</p>
+                <p>Chúng tôi luôn sẵn sàng lắng nghe ý kiến của quý khách. Hãy liên hệ với chúng tôi nếu bạn có bất kỳ
+                    câu hỏi nào.</p>
             </div>
-            
+
             <div class="contact-form-container">
                 <div class="success-message" id="successMessage">
-                    <i class="fas fa-check-circle"></i> Cảm ơn bạn đã liên hệ với chúng tôi! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.
+                    <i class="fas fa-check-circle"></i> Cảm ơn bạn đã liên hệ với chúng tôi! Chúng tôi sẽ phản hồi trong
+                    thời gian sớm nhất.
                 </div>
-                
+
                 <form id="contactForm">
                     <div class="form-group">
                         <label for="name">Họ và tên</label>
                         <input type="text" id="name" class="form-control" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" class="form-control" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="phone">Số điện thoại</label>
                         <input type="tel" id="phone" class="form-control">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="subject">Chủ đề</label>
                         <select id="subject" class="form-control" required>
@@ -941,26 +436,26 @@
                             <option value="other">Vấn đề khác</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="message">Nội dung tin nhắn</label>
                         <textarea id="message" class="form-control" rows="5" required></textarea>
                     </div>
-                    
+
                     <button type="submit" class="submit-btn">
                         <i class="fas fa-paper-plane"></i>
                         Gửi tin nhắn
                     </button>
                 </form>
             </div>
-            
+
             <div class="contact-info">
                 <div class="info-card">
                     <div class="info-title">
                         <i class="fas fa-info-circle"></i>
                         Thông tin liên hệ
                     </div>
-                    
+
                     <ul class="info-list">
                         <li class="info-item">
                             <i class="fas fa-map-marker-alt"></i>
@@ -969,7 +464,7 @@
                                 <div>123 Đường Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh</div>
                             </div>
                         </li>
-                        
+
                         <li class="info-item">
                             <i class="fas fa-phone-alt"></i>
                             <div class="info-item-content">
@@ -977,7 +472,7 @@
                                 <div>028 1234 5678</div>
                             </div>
                         </li>
-                        
+
                         <li class="info-item">
                             <i class="fas fa-envelope"></i>
                             <div class="info-item-content">
@@ -985,7 +480,7 @@
                                 <div>info@vietdelights.vn</div>
                             </div>
                         </li>
-                        
+
                         <li class="info-item">
                             <i class="fas fa-clock"></i>
                             <div class="info-item-content">
@@ -995,28 +490,34 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.394873374441!2d106.70255601531151!3d10.777038062106195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4670702e31%3A0xe4039383f22d22e4!2zMTIzIE5ndXnhu4VuIEh14buHLCBC4bq_biBOZ2jDqSwgUXXhuq1uIDEsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1650338644921!5m2!1svi!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.394873374441!2d106.70255601531151!3d10.777038062106195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4670702e31%3A0xe4039383f22d22e4!2zMTIzIE5ndXnhu4VuIEh14buHLCBC4bq_biBOZ2jDqSwgUXXhuq1uIDEsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1650338644921!5m2!1svi!2s"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
-                
+
                 <div class="info-card">
                     <div class="info-title">
                         <i class="fas fa-share-alt"></i>
                         Kết nối với chúng tôi
                     </div>
-                    
+
                     <div style="display: flex; gap: 15px; margin-top: 15px;">
-                        <a href="https://www.facebook.com/vietdelights" target="_blank" rel="noopener noreferrer" class="social-link social-facebook">
+                        <a href="https://www.facebook.com/vietdelights" target="_blank" rel="noopener noreferrer"
+                            class="social-link social-facebook">
                             <i class="fab fa-facebook"></i>
                         </a>
-                        <a href="https://www.instagram.com/vietdelights" target="_blank" rel="noopener noreferrer" class="social-link social-instagram">
+                        <a href="https://www.instagram.com/vietdelights" target="_blank" rel="noopener noreferrer"
+                            class="social-link social-instagram">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://twitter.com/vietdelights" target="_blank" rel="noopener noreferrer" class="social-link social-twitter">
+                        <a href="https://twitter.com/vietdelights" target="_blank" rel="noopener noreferrer"
+                            class="social-link social-twitter">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="https://www.youtube.com/channel/vietdelights" target="_blank" rel="noopener noreferrer" class="social-link social-youtube">
+                        <a href="https://www.youtube.com/channel/vietdelights" target="_blank" rel="noopener noreferrer"
+                            class="social-link social-youtube">
                             <i class="fab fa-youtube"></i>
                         </a>
                     </div>
@@ -1029,295 +530,109 @@
         <p>&copy; 2023 Việt Delights. Đã đăng ký bản quyền.</p>
     </footer>
 
-    <!-- Login Modal -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <span class="modal-close" id="closeLogin">&times;</span>
-            <h2 class="modal-title">Đăng nhập</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail">Email hoặc số điện thoại</label>
-                    <input type="text" class="form-control" id="loginEmail" required>
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword">Mật khẩu</label>
-                    <input type="password" class="form-control" id="loginPassword" required>
-                </div>
-                <button type="submit" class="submit-btn">Đăng nhập</button>
-            </form>
-            <p class="switch-form">Chưa có tài khoản? <a href="#" id="switchToRegister">Đăng ký ngay</a></p>
-        </div>
-    </div>
-
-    <!-- Register Modal -->
-    <div class="modal" id="registerModal">
-        <div class="modal-content">
-            <span class="modal-close" id="closeRegister">&times;</span>
-            <h2 class="modal-title">Đăng ký tài khoản</h2>
-            <form id="registerForm">
-                <div class="form-group">
-                    <label for="fullName">Họ và tên</label>
-                    <input type="text" class="form-control" id="fullName" required>
-                </div>
-                <div class="form-group">
-                    <label for="birthDate">Ngày tháng năm sinh</label>
-                    <input type="date" class="form-control" id="birthDate" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Số điện thoại liên hệ</label>
-                    <input type="tel" class="form-control" id="phone" pattern="[0-9]{10}" title="Vui lòng nhập số điện thoại 10 số" required>
-                </div>
-                <div class="form-group">
-                    <label for="address">Địa chỉ nhà</label>
-                    <textarea class="form-control" id="address" rows="2" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Mật khẩu</label>
-                    <input type="password" class="form-control" id="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword">Xác nhận mật khẩu</label>
-                    <input type="password" class="form-control" id="confirmPassword" required>
-                </div>
-                <button type="submit" class="submit-btn">Đăng ký</button>
-            </form>
-            <p class="switch-form">Đã có tài khoản? <a href="#" id="switchToLogin">Đăng nhập ngay</a></p>
-        </div>
-    </div>
 
     <div class="login-message" id="loginMessage">
         <span id="authMessageText"></span>
     </div>
 
     <script>
-    // Authentication system
-    document.addEventListener('DOMContentLoaded', function() {
-        // Modal elements
-        const loginModal = document.getElementById('loginModal');
-        const registerModal = document.getElementById('registerModal');
-        const loginBtn = document.getElementById('loginBtn');
-        const registerBtn = document.getElementById('registerBtn');
-        const closeLogin = document.getElementById('closeLogin');
-        const closeRegister = document.getElementById('closeRegister');
-        const switchToRegister = document.getElementById('switchToRegister');
-        const switchToLogin = document.getElementById('switchToLogin');
-        
-        // Account elements
-        const authButtons = document.getElementById('authButtons');
-        const userAccount = document.getElementById('userAccount');
-        const userName = document.getElementById('userName');
-        const userAvatar = document.getElementById('userAvatar');
-        const userAccountBtn = document.getElementById('userAccountBtn');
-        const userDropdown = document.getElementById('userDropdown');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const loginMessage = document.getElementById('loginMessage');
-        const authMessageText = document.getElementById('authMessageText');
-        
-        // Check if user is logged in (from localStorage)
-        function checkLoginStatus() {
-            const loggedInUser = localStorage.getItem('loggedInUser');
-            if (loggedInUser) {
-                // User is logged in, show account info
-                const userData = JSON.parse(loggedInUser);
-                displayLoggedInUI(userData);
-            }
-        }
-        
-        // Run on page load
-        checkLoginStatus();
-        
-        // Display logged-in UI
-        function displayLoggedInUI(userData) {
-            // Hide auth buttons and show user account
-            authButtons.style.display = 'none';
-            userAccount.style.display = 'block';
-            
-            // Set user name and avatar initial
-            userName.textContent = userData.fullName || userData.email;
-            if (userData.fullName) {
-                userAvatar.textContent = userData.fullName.charAt(0).toUpperCase();
-            } else if (userData.email) {
-                userAvatar.textContent = userData.email.charAt(0).toUpperCase();
-            }
-        }
-        
-        // Open login modal
-        loginBtn.addEventListener('click', function() {
-            loginModal.classList.add('active');
-        });
-        
-        // Open register modal
-        registerBtn.addEventListener('click', function() {
-            registerModal.classList.add('active');
-        });
-        
-        // Close login modal
-        closeLogin.addEventListener('click', function() {
-            loginModal.classList.remove('active');
-        });
-        
-        // Close register modal
-        closeRegister.addEventListener('click', function() {
-            registerModal.classList.remove('active');
-        });
-        
-        // Switch from login to register
-        switchToRegister.addEventListener('click', function(e) {
-            e.preventDefault();
-            loginModal.classList.remove('active');
-            setTimeout(function() {
-                registerModal.classList.add('active');
-            }, 300);
-        });
-        
-        // Switch from register to login
-        switchToLogin.addEventListener('click', function(e) {
-            e.preventDefault();
-            registerModal.classList.remove('active');
-            setTimeout(function() {
-                loginModal.classList.add('active');
-            }, 300);
-        });
-        
-        // Toggle user dropdown
-        userAccountBtn.addEventListener('click', function() {
-            userDropdown.classList.toggle('active');
-        });
-        
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            if (userAccountBtn && !userAccountBtn.contains(e.target) && !userDropdown.contains(e.target)) {
-                userDropdown.classList.remove('active');
-            }
-        });
-        
-        // Logout functionality
-        logoutBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            // Remove user data from localStorage
-            localStorage.removeItem('loggedInUser');
-            
-            // Show auth buttons, hide user account
-            authButtons.style.display = 'flex';
-            userAccount.style.display = 'none';
-            userDropdown.classList.remove('active');
-            
-            // Show logout message
-            authMessageText.textContent = "Đăng xuất thành công!";
-            loginMessage.classList.add('show');
-            setTimeout(function() {
-                loginMessage.classList.remove('show');
-            }, 3000);
-        });
-        
-        // Close modals when clicking outside
-        window.addEventListener('click', function(e) {
-            if (e.target === loginModal) {
-                loginModal.classList.remove('active');
-            }
-            if (e.target === registerModal) {
-                registerModal.classList.remove('active');
-            }
-        });
-        
-        // Form submission - Login
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form values (in a real app, you would validate with server)
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            // Simulate successful login (in real app would be API call)
-            const userData = {
-                email: email,
-                fullName: email.split('@')[0], // Just a placeholder
-                loggedInAt: new Date()
-            };
-            
-            // Store user data in localStorage
-            localStorage.setItem('loggedInUser', JSON.stringify(userData));
-            
-            // Update UI to show logged in state
-            displayLoggedInUI(userData);
-            
-            // Close modal
-            loginModal.classList.remove('active');
-            
-            // Show success message
-            authMessageText.textContent = "Đăng nhập thành công!";
-            loginMessage.classList.add('show');
-            setTimeout(function() {
-                loginMessage.classList.remove('show');
-            }, 3000);
-        });
-        
-        // Form submission - Register
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Password confirmation validation
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                alert('Mật khẩu xác nhận không khớp!');
-                return;
-            }
-            
-            // Get user information
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const birthDate = document.getElementById('birthDate').value;
-            const phone = document.getElementById('phone').value;
-            
-            // Create user object (in real app would be sent to server)
-            const userData = {
-                fullName: fullName,
-                email: email,
-                birthDate: birthDate,
-                phone: phone,
-                registeredAt: new Date()
-            };
-            
-            // Store user data in localStorage
-            localStorage.setItem('loggedInUser', JSON.stringify(userData));
-            
-            // Update UI to show logged in state
-            displayLoggedInUI(userData);
-            
-            // Close modal
-            registerModal.classList.remove('active');
-            
-            // Show success message
-            authMessageText.textContent = "Đăng ký thành công!";
-            loginMessage.classList.add('show');
-            setTimeout(function() {
-                loginMessage.classList.remove('show');
-            }, 3000);
-        });
+        // Authentication system
+        document.addEventListener('DOMContentLoaded', function () {
 
-        // Form submission - Contact Form
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // In a real app, you would send this data to a server
-            // For now, we'll just show the success message
-            document.getElementById('successMessage').style.display = 'block';
-            
-            // Reset the form
-            this.reset();
-            
-            // Hide success message after 5 seconds
-            setTimeout(function() {
-                document.getElementById('successMessage').style.display = 'none';
-            }, 5000);
+            // Account elements
+            const userAccount = document.getElementById('userAccount');
+            const userName = document.getElementById('userName');
+            const userAvatar = document.getElementById('userAvatar');
+            const userAccountBtn = document.getElementById('userAccountBtn');
+            const userDropdown = document.getElementById('userDropdown');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const loginMessage = document.getElementById('loginMessage');
+            const authMessageText = document.getElementById('authMessageText');
+
+            // Check if user is logged in (from localStorage)
+            function checkLoginStatus() {
+                const loggedInUser = localStorage.getItem('loggedInUser');
+                if (loggedInUser) {
+                    // User is logged in, show account info
+                    const userData = JSON.parse(loggedInUser);
+                    displayLoggedInUI(userData);
+                }
+            }
+
+            // Run on page load
+            checkLoginStatus();
+
+            // Display logged-in UI
+            function displayLoggedInUI(userData) {
+                // Hide auth buttons and show user account
+                userAccount.style.display = 'block';
+
+                // Set user name and avatar initial
+                userName.textContent = userData.fullName || userData.email;
+                if (userData.fullName) {
+                    userAvatar.textContent = userData.fullName.charAt(0).toUpperCase();
+                } else if (userData.email) {
+                    userAvatar.textContent = userData.email.charAt(0).toUpperCase();
+                }
+            }
+            userAccountBtn.addEventListener('click', function () {
+                userDropdown.classList.toggle('active');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function (e) {
+                if (userAccountBtn && !userAccountBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+                    userDropdown.classList.remove('active');
+                }
+            });
+
+            // Logout functionality
+            logoutBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                // Remove user data from localStorage
+                localStorage.removeItem('loggedInUser');
+
+                // Show auth buttons, hide user account
+                userAccount.style.display = 'none';
+                userDropdown.classList.remove('active');
+
+                // Show logout message
+                authMessageText.textContent = "Đăng xuất thành công!";
+                loginMessage.classList.add('show');
+                setTimeout(function () {
+                    loginMessage.classList.remove('show');
+                }, 3000);
+            });
+
+            // Close modals when clicking outside
+            window.addEventListener('click', function (e) {
+                if (e.target === loginModal) {
+                    loginModal.classList.remove('active');
+                }
+                if (e.target === registerModal) {
+                    registerModal.classList.remove('active');
+                }
+            });
+
+
+            // Form submission - Contact Form
+            document.getElementById('contactForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // In a real app, you would send this data to a server
+                // For now, we'll just show the success message
+                document.getElementById('successMessage').style.display = 'block';
+
+                // Reset the form
+                this.reset();
+
+                // Hide success message after 5 seconds
+                setTimeout(function () {
+                    document.getElementById('successMessage').style.display = 'none';
+                }, 5000);
+            });
         });
-    });
-</script>
+    </script>
 </body>
+
 </html>

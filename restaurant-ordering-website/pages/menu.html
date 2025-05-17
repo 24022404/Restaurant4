@@ -17,8 +17,8 @@
     <header>
         <div class="header-container">
             <div class="logo">
-                <a href="index.html">
-                    <img src="../assets/images/logo.svg" alt="Việt Delights Logo">
+                <a href="../index.html">
+                    <img src="../assets/images/logo.png" alt="Việt Delights Logo">
                 </a>
             </div>
             <nav>
@@ -75,7 +75,6 @@
                 <div class="category-tab" data-category="Chicken">Món gà</div>
                 <div class="category-tab" data-category="Beef">Món bò</div>
                 <div class="category-tab" data-category="Pork">Món heo</div>
-                <div class="category-tab" data-category="Side">Món ăn kèm</div>
                 <div class="category-tab" data-category="Starter">Món khai vị</div>
                 <div class="category-tab" data-category="Vegetarian">Chay</div>
                 <div class="category-tab" data-category="Dessert">Tráng miệng</div>
@@ -368,23 +367,22 @@
     }
 
     // 7. Hàm xử lý đăng nhập/đăng xuất và UI tài khoản
-    function displayLoggedInUI(userData) {
-        document.getElementById('userAccount').style.display = 'block';
-        const userName = document.getElementById('userName');
-        const userAvatar = document.getElementById('userAvatar');
-        userName.textContent = userData.fullName || userData.email;
-        if (userData.fullName) {
-            userAvatar.textContent = userData.fullName.charAt(0).toUpperCase();
-        } else if (userData.email) {
-            userAvatar.textContent = userData.email.charAt(0).toUpperCase();
-        }
-    }
+      function updateAuthUI(user) {
+                if (user) {
+                    userAccount.style.display = 'block';
+                    userName.textContent = user.username;
+                    userAvatar.textContent = (user.username|| '').charAt(0).toUpperCase();
+                } else {
+                    alert('Vui lòng đăng nhập để tiếp tục.');
+                    userAccount.style.display = 'none';
+                    window.location.href = '../index.html';
+                }
+            }
 
     function checkLoginStatus() {
-        const loggedInUser = localStorage.getItem('loggedInUser');
-        if (loggedInUser) {
-            const userData = JSON.parse(loggedInUser);
-            displayLoggedInUI(userData);
+        const user = localStorage.getItem('user');
+        if (user) {
+            updateAuthUI(user);
         }
     }
 
