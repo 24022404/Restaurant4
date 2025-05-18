@@ -133,7 +133,6 @@
             <p class="switch-form">Chưa có tài khoản? <a href="#" id="switchToRegister">Đăng ký ngay</a></p>
         </div>
     </div>
-
     <!-- Register Modal -->
     <div class="modal" id="registerModal">
         <div class="modal-content">
@@ -150,10 +149,6 @@
                         title="Vui lòng nhập số điện thoại 10 số" required>
                 </div>
                 <div class="form-group">
-                    <label for="address">Địa chỉ nhà</label>
-                    <textarea class="form-control" id="address" rows="2"></textarea>
-                </div>
-                <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" id="email" required>
                 </div>
@@ -167,6 +162,12 @@
                 </div>
                 <button type="submit" class="submit-btn">Đăng ký</button>
             </form>
+            <div id="verify-form" style="display: none;">
+            <h3>Xác nhận email</h3>
+            <p>Mã xác nhận đã được gửi tới email của bạn</p>
+            <input type="text" id="verification-code" placeholder="Nhập mã xác nhận" class="form-control">
+            <button id = "verifyBtn" class="submit-btn">Xác nhận</button>
+        </div>
             <p class="switch-form">Đã có tài khoản? <a href="#" id="switchToLogin">Đăng nhập</a></p>
         </div>
     </div>
@@ -179,9 +180,8 @@
     <script src="assets/js/main.js"></script>
     <script src="assets/js/animations.js"></script>
     <script>
-        // Authentication system
         document.addEventListener('DOMContentLoaded', function () {
-            // Modal elements
+            // Elements
             const loginModal = document.getElementById('loginModal');
             const registerModal = document.getElementById('registerModal');
             const loginBtn = document.getElementById('loginBtn');
@@ -190,8 +190,6 @@
             const closeRegister = document.getElementById('closeRegister');
             const switchToRegister = document.getElementById('switchToRegister');
             const switchToLogin = document.getElementById('switchToLogin');
-
-            // Account elements
             const authButtons = document.getElementById('authButtons');
             const userAccount = document.getElementById('userAccount');
             const userName = document.getElementById('userName');
@@ -200,222 +198,135 @@
             const userDropdown = document.getElementById('userDropdown');
             const logoutBtn = document.getElementById('logoutBtn');
             const loginMessage = document.getElementById('loginMessage');
-
-            // Open login modal
-            loginBtn.addEventListener('click', function () {
-                loginModal.classList.add('active');
-            });
-
-            // Open register modal
-            registerBtn.addEventListener('click', function () {
-                registerModal.classList.add('active');
-            });
-
-            // Close login modal
-            closeLogin.addEventListener('click', function () {
-                loginModal.classList.remove('active');
-            });
-
-            // Close register modal
-            closeRegister.addEventListener('click', function () {
-                registerModal.classList.remove('active');
-            });
-
-            // Switch from login to register
-            switchToRegister.addEventListener('click', function (e) {
-                e.preventDefault();
-                loginModal.classList.remove('active');
-                setTimeout(function () {
-                    registerModal.classList.add('active');
-                }, 300);
-            });
-
-            // Switch from register to login
-            switchToLogin.addEventListener('click', function (e) {
-                e.preventDefault();
-                registerModal.classList.remove('active');
-                setTimeout(function () {
-                    loginModal.classList.add('active');
-                }, 300);
-            });
-
-            // Toggle user dropdown
-            userAccountBtn.addEventListener('click', function () {
-                userDropdown.classList.toggle('active');
-            });
-
             const API_URL = 'http://localhost:4000/api';
 
-            // Đăng ký tài khoản
-            async function register(userData) {
-                try {
-                    const response = await fetch(`${API_URL}/register`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(userData)
-                    });
+            // Modal events
+            loginBtn.onclick = () => loginModal.classList.add('active');
+            registerBtn.onclick = () => registerModal.classList.add('active');
+            closeLogin.onclick = () => loginModal.classList.remove('active');
+            closeRegister.onclick = () => registerModal.classList.remove('active');
+            switchToRegister.onclick = e => { e.preventDefault(); loginModal.classList.remove('active'); setTimeout(() => registerModal.classList.add('active'), 300); };
+            switchToLogin.onclick = e => { e.preventDefault(); registerModal.classList.remove('active'); setTimeout(() => loginModal.classList.add('active'), 300); };
+            
+                
+            // Dropdown
+            userAccountBtn.onclick = () => userDropdown.classList.toggle('active');
+            document.addEventListener('click', e => {
+                if (!userAccountBtn.contains(e.target) && !userDropdown.contains(e.target)) userDropdown.classList.remove('active');
+            });
 
-                    const data = await response.json();
-
-                    if (!response.ok) throw new Error(data.error || 'Đăng ký thất bại');
-
-                    alert('Đăng ký thành công! Vui lòng đăng nhập.');
-                    return true;
-                } catch (error) {
-                    alert(error.message);
-                    return false;
-                }
-            }
-
-            // Đăng nhập
-            async function login(email, password) {
-                try {
-                    const response = await fetch(`${API_URL}/login`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email, password })
-                    });
-
-                    const data = await response.json();
-
-                    if (!response.ok) throw new Error(data.error || 'Đăng nhập thất bại');
-
-                    // Lưu token và user info
-                    localStorage.setItem('authToken', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-
-                    updateAuthUI();
-                    return true;
-                } catch (error) {
-                    alert(error.message);
-                    return false;
-                }
-            }
-
-            // Lấy thông tin người dùng hiện tại từ token
-            async function getCurrentUser() {
-                const token = localStorage.getItem('authToken');
-                if (!token) return null;
-
-                try {
-                    const response = await fetch(`${API_URL}/me`, {
-                        headers: { Authorization: `Bearer ${token}` }
-                    });
-
-                    if (!response.ok) return null;
-
-                    return await response.json();
-                } catch {
-                    return null;
-                }
-            }
-
-            // Cập nhật UI
-            function updateAuthUI() {
-                const user = JSON.parse(localStorage.getItem('user'));
-                if (user) {
-                    authButtons.style.display = 'none';
-                    userAccount.style.display = 'block';
-                    userName.textContent = user.username;
-                    userAvatar.textContent = (user.username|| '').charAt(0).toUpperCase();
-                } else {
-                    authButtons.style.display = 'flex';
-                    userAccount.style.display = 'none';
-                }
-            }
-
-            // Đăng xuất
-            function logout() {
-                localStorage.removeItem('authToken');
-                localStorage.removeItem('user');
-                updateAuthUI();
-                showMessage("Đăng xuất thành công!");
-            }
-
-            // Hiển thị thông báo
+            // Show message
             function showMessage(msg) {
-                const loginMessage = document.getElementById('loginMessage');
                 loginMessage.textContent = msg;
                 loginMessage.classList.add('show');
                 setTimeout(() => loginMessage.classList.remove('show'), 3000);
             }
 
-            // Sự kiện submit - đăng ký
-            document.getElementById('registerForm').addEventListener('submit', async function (e) {
+            // Update UI
+            function updateAuthUI() {
+                const user = JSON.parse(localStorage.getItem('user'));
+                if (user) {
+                    authButtons.style.display = 'none';
+                    userAccount.style.display = 'block';
+                    userName.textContent = user.username || user.fullName || user.email;
+                    userAvatar.textContent = (user.username || user.fullName || user.email || 'U')[0].toUpperCase();
+                } else {
+                    authButtons.style.display = 'flex';
+                    userAccount.style.display = 'none';
+                }
+            }
+            let registerEmail = '';
+            // Register
+            document.getElementById('registerForm').onsubmit = async function (e) {
                 e.preventDefault();
-                const userName = document.getElementById('fullName').value;
+                const username = document.getElementById('fullName').value;
                 const email = document.getElementById('email').value;
                 const password = document.getElementById('password').value;
                 const confirmPassword = document.getElementById('confirmPassword').value;
                 const phone = document.getElementById('phone').value;
                 if (password !== confirmPassword) return alert('Mật khẩu xác nhận không khớp');
-
-                const success = await register({
-                    userName,
-                    email,
-                    password,
-                    phone
+                try {
+                    const res = await fetch(`${API_URL}/register`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, email, password, phone })
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.error || 'Đăng ký thất bại');
+                    registerEmail = email;
+                    
+                    document.getElementById('registerForm').style.display = 'none';
+                    document.getElementById('verify-form').style.display = 'block';
+                } catch (err) { alert(err.message); }
+            };
+            document.getElementById('verifyBtn').addEventListener('click', verify);
+            async function verify() {
+                const code = document.getElementById('verification-code').value;
+                if (!registerEmail) return alert('Không tìm thấy email để xác thực!');
+                const response = await fetch(`${API_URL}/verify`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: registerEmail, code })
                 });
+                const result = await response.json();
+                alert(result.message);
+                registerModal.classList.remove('active');
+                 document.getElementById('registerForm').style.display = 'block';
+        document.getElementById('verify-form').style.display = 'none';
+            }
 
-                if (success) {
-                    document.getElementById('registerModal').classList.remove('active');
-                }
-            });
-
-            // Sự kiện submit - đăng nhập
-            document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            // Login
+            document.getElementById('loginForm').onsubmit = async function (e) {
                 e.preventDefault();
-                const userEmail = document.getElementById('loginEmail').value;
+                const email = document.getElementById('loginEmail').value;
                 const password = document.getElementById('loginPassword').value;
-
-                const success = await login(userEmail, password);
-                if (success) {
-                    document.getElementById('loginModal').classList.remove('active');
+                try {
+                    const res = await fetch(`${API_URL}/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.error || 'Đăng nhập thất bại');
+                    localStorage.setItem('authToken', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    loginModal.classList.remove('active');
                     showMessage('Đăng nhập thành công!');
-                }
-            });
+                    updateAuthUI();
+                } catch (err) { alert(err.message); }
+            };
 
-            // Đăng xuất
-            document.getElementById('logoutBtn').addEventListener('click', logout);
+            // Logout
+            logoutBtn.onclick = function () {
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('user');
+                updateAuthUI();
+                showMessage('Đăng xuất thành công!');
+            };
 
-            // Click ngoài dropdown
-            document.addEventListener('click', (e) => {
-                if (!userAccountBtn.contains(e.target) && !userDropdown.contains(e.target)) {
-                    userDropdown.classList.remove('active');
-                }
-            });
-
-            // Đóng modal khi click ngoài
-            window.addEventListener('click', (e) => {
+            // Close modal when click outside
+            window.onclick = e => {
                 if (e.target === loginModal) loginModal.classList.remove('active');
                 if (e.target === registerModal) registerModal.classList.remove('active');
-            });
+            };
 
-            // Khi tải trang: kiểm tra token
-            document.addEventListener('DOMContentLoaded', async () => {
-                const token = localStorage.getItem('authToken');
-                if (token) {
-                    const user = await getCurrentUser();
-                    if (user) {
-                        localStorage.setItem('user', JSON.stringify(user));
-                    } else {
-                        localStorage.removeItem('authToken');
-                    }
-                }
-                updateAuthUI();
-            });
+            // On load, update UI
+            updateAuthUI();
         });
-    // Animation for elements when scrolling
-    document.addEventListener('DOMContentLoaded', function () {
-    const animateElements = document.querySelectorAll('.animate-on-scroll');
+        // Animation for elements when scrolling
+        document.addEventListener('DOMContentLoaded', function () {
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
 
-    function checkIfInView() {
-    animateElements.forEach(element => {
-    const elementTop = element.getBoundingClientRect().top;
-    const windowHeight = window.innerHeight;
+            function checkIfInView() {
+                animateElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
 
-    if (elementTop < windowHeight - 100) { element.classList.add('fade-in'); } }); } window.addEventListener('scroll',
-        checkIfInView); window.addEventListener('load', checkIfInView); }); 
+                    if (elementTop < windowHeight - 100) { element.classList.add('fade-in'); }
+                });
+            } window.addEventListener('scroll',
+                checkIfInView); window.addEventListener('load', checkIfInView);
+        }); 
     </script>
 </body>
 

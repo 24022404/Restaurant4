@@ -123,340 +123,141 @@
 
     <script src="assets/js/animations.js"></script>
     <script>
-    // 1. Biến toàn cục
-    let menuItems = [];
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let menuItems = [];
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    // 2. Hàm tiện ích
-    function formatCurrency(amount) {
-        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })
-            .format(amount)
-            .replace('₫', '') + '₫';
-    }
+        // Định dạng tiền tệ
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+        }
 
-    // 3. Hàm xử lý menu
-    function displayMenuItems(category = 'all') {
-        const menuGrid = document.getElementById('menuGrid');
-        menuGrid.innerHTML = '';
-
-        const filteredItems = category === 'all'
-            ? menuItems
-            : menuItems.filter(item => item.category === category);
-
-        filteredItems.forEach((item, index) => {
-            if (!item.availability) return;
-
-            const itemElement = document.createElement('div');
-            itemElement.className = 'menu-item';
-
-            let badgeHtml = '';
-            if (item.tags && item.tags.includes('popular')) {
-                badgeHtml = '<div class="menu-item-badge">Phổ biến</div>';
-            } else if (item.tags && item.tags.includes('spicy')) {
-                badgeHtml = '<div class="menu-item-badge">Cay</div>';
-            } else if (item.tags && item.tags.includes('vegetarian')) {
-                badgeHtml = '<div class="menu-item-badge">Chay</div>';
-            }
-
-            itemElement.innerHTML = `
-                <img src="${item.image}" alt="${item.name}" class="menu-item-image">
-                ${badgeHtml}
-                <div class="menu-item-content">
-                    <h3 class="menu-item-title">${item.name}</h3>
-                    <p class="menu-item-nat">${item.nation}</p>
-                    <div class="menu-item-price">${formatCurrency(item.price)}</div>
-                    <div class="menu-item-actions">
-                        <div class="quantity-control">
-                            <button class="quantity-btn minus" data-id="${item.id}">-</button>
-                            <input type="number" class="quantity-input" value="1" min="1" max="10" data-id="${item.id}">
-                            <button class="quantity-btn plus" data-id="${item.id}">+</button>
-                        </div>
-                        <button class="add-to-cart-btn" data-id="${item.id}">
-                            <i class="fas fa-cart-plus"></i> Thêm
-                        </button>
-                    </div>
-                </div>
-            `;
-            menuGrid.appendChild(itemElement);
-
-            setTimeout(() => {
-                itemElement.classList.add('fade-in');
-            }, index * 100);
-        });
-
-        attachEventListeners();
-    }
-
-    // 4. Hàm xử lý giỏ hàng
-    function addToCart(id, quantity) {
-        const item = menuItems.find(item => item.id === id);
-        if (!item) return;
-
-        const existingItem = cart.find(cartItem => cartItem.id === id);
-
-        if (existingItem) {
-            existingItem.quantity += quantity;
-        } else {
-            cart.push({
-                id: item.id,
-                name: item.name,
-                price: item.price,
-                image: item.image,
-                quantity: quantity
+        // Hiển thị menu
+        function displayMenuItems(category = 'all') {
+            const menuGrid = document.getElementById('menuGrid');
+            menuGrid.innerHTML = '';
+            const filtered = category === 'all' ? menuItems : menuItems.filter(i => i.category === category);
+            filtered.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'menu-item';
+                el.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="menu-item-image">
+            <div class="menu-item-content">
+                <h3 class="menu-item-title">${item.name}</h3>
+                <p class="menu-item-nat">${item.nation}</p>
+                <div class="menu-item-price">${formatCurrency(item.price)}</div>
+                <button class="add-to-cart-btn" data-id="${item.id}">Thêm</button>
+            </div>
+        `;
+                menuGrid.appendChild(el);
+            });
+            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.onclick = () => addToCart(parseInt(btn.dataset.id));
             });
         }
 
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartCount();
-        renderCartItems();
-
-        document.getElementById('cartPanel').classList.add('open');
-        document.getElementById('overlay').classList.add('active');
-    }
-
-    function updateCartCount() {
-        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-        document.getElementById('cartCount').textContent = totalItems;
-
-        const emptyCart = document.getElementById('emptyCart');
-        if (totalItems === 0) {
-            emptyCart.style.display = 'block';
-        } else {
-            emptyCart.style.display = 'none';
-        }
-    }
-
-    function renderCartItems() {
-        const cartItemsContainer = document.getElementById('cartItems');
-        const emptyCartMessage = document.getElementById('emptyCart');
-
-        cartItemsContainer.innerHTML = '';
-        cartItemsContainer.appendChild(emptyCartMessage);
-
-        let total = 0;
-
-        cart.forEach(item => {
-            const itemTotal = item.price * item.quantity;
-            total += itemTotal;
-
-            const cartItemElement = document.createElement('div');
-            cartItemElement.className = 'cart-item';
-            cartItemElement.innerHTML = `
-                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-                <div class="cart-item-details">
-                    <div class="cart-item-title">${item.name}</div>
-                    <div class="cart-item-price">${formatCurrency(item.price)}</div>
-                    <div class="cart-item-controls">
-                        <div class="cart-quantity">
-                            <button class="cart-quantity-btn minus-cart" data-id="${item.id}">-</button>
-                            <input type="text" class="cart-quantity-input" value="${item.quantity}" readonly>
-                            <button class="cart-quantity-btn plus-cart" data-id="${item.id}">+</button>
-                        </div>
-                        <div class="remove-from-cart" data-id="${item.id}">
-                            <i class="fas fa-trash"></i>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            cartItemsContainer.appendChild(cartItemElement);
-        });
-
-        document.getElementById('cartTotal').textContent = formatCurrency(total);
-
-        document.querySelectorAll('.minus-cart').forEach(btn => {
-            btn.addEventListener('click', function () {
-                updateCartItemQuantity(parseInt(this.dataset.id), -1);
-            });
-        });
-
-        document.querySelectorAll('.plus-cart').forEach(btn => {
-            btn.addEventListener('click', function () {
-                updateCartItemQuantity(parseInt(this.dataset.id), 1);
-            });
-        });
-
-        document.querySelectorAll('.remove-from-cart').forEach(btn => {
-            btn.addEventListener('click', function () {
-                removeFromCart(parseInt(this.dataset.id));
-            });
-        });
-    }
-
-    function updateCartItemQuantity(id, change) {
-        const cartItem = cart.find(item => item.id === id);
-        if (!cartItem) return;
-
-        cartItem.quantity += change;
-
-        if (cartItem.quantity <= 0) {
-            removeFromCart(id);
-        } else {
+        // Thêm vào giỏ hàng
+        function addToCart(id) {
+            const item = menuItems.find(i => i.id === id);
+            if (!item) return;
+            const exist = cart.find(i => i.id === id);
+            if (exist) exist.quantity += 1;
+            else cart.push({ id: item.id, name: item.name, price: item.price, image: item.image, quantity: 1 });
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartCount();
-            renderCartItems();
         }
-    }
 
-    function removeFromCart(id) {
-        cart = cart.filter(item => item.id !== id);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartCount();
-        renderCartItems();
-    }
+        // Cập nhật số lượng giỏ hàng
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.reduce((t, i) => t + i.quantity, 0);
+        }
 
-    // 5. Hàm gắn sự kiện động cho menu
-    function attachEventListeners() {
-        // Quantity controls
-        document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const id = this.dataset.id;
-                const input = document.querySelector(`.quantity-input[data-id="${id}"]`);
-                if (input.value > 1) {
-                    input.value = parseInt(input.value) - 1;
-                }
-            });
-        });
-
-        document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const id = this.dataset.id;
-                const input = document.querySelector(`.quantity-input[data-id="${id}"]`);
-                if (input.value < 10) {
-                    input.value = parseInt(input.value) + 1;
-                }
-            });
-        });
-
-        // Add to cart buttons
-        document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const id = parseInt(this.dataset.id);
-                const quantity = parseInt(document.querySelector(`.quantity-input[data-id="${id}"]`).value);
-                addToCart(id, quantity);
-
-                this.innerHTML = '<i class="fas fa-check"></i> Đã thêm';
-                this.style.backgroundColor = '#27ae60';
-
-                const cartButton = document.getElementById('cartButton');
-                cartButton.classList.add('cart-shake');
-
-                setTimeout(() => {
-                    this.innerHTML = '<i class="fas fa-cart-plus"></i> Thêm';
-                    this.style.backgroundColor = '#c0392b';
-                    cartButton.classList.remove('cart-shake');
-                }, 1000);
-            });
-        });
-    }
-
-    // 6. Hàm fetch dữ liệu menu từ API
-    async function fetchMenuData() {
-        try {
-            const response = await fetch('http://localhost:4000/api/menu-items');
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+        // Fetch menu từ API
+        async function fetchMenuData() {
+            try {
+                const res = await fetch('http://localhost:4000/api/menu-items');
+                menuItems = await res.json();
+                displayMenuItems('all');
+                updateCartCount();
+            } catch {
+                alert('Không thể tải thực đơn!');
             }
-            menuItems = await response.json();
-            displayMenuItems('all');
-            renderCartItems();
-        } catch (error) {
-            console.error('Lỗi khi lấy dữ liệu menu:', error);
-            alert('Có lỗi xảy ra khi tải thực đơn. Vui lòng thử lại sau.');
         }
-    }
 
-    // 7. Hàm xử lý đăng nhập/đăng xuất và UI tài khoản
-      function updateAuthUI(user) {
-                if (user) {
-                    userAccount.style.display = 'block';
-                    userName.textContent = user.username;
-                    userAvatar.textContent = (user.username|| '').charAt(0).toUpperCase();
-                } else {
-                    alert('Vui lòng đăng nhập để tiếp tục.');
-                    userAccount.style.display = 'none';
+        // Kiểm tra đăng nhập và cập nhật UI
+        function updateAuthUI() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const userAccount = document.getElementById('userAccount');
+            const userName = document.getElementById('userName');
+            const userAvatar = document.getElementById('userAvatar');
+            if (user) {
+                userAccount.style.display = 'block';
+                userName.textContent = user.username || user.fullName || user.email;
+                userAvatar.textContent = (user.username || user.fullName || user.email || 'U')[0].toUpperCase();
+            } else {
+                userAccount.style.display = 'none';
+                alert('Bạn chưa đăng nhập. Vui lòng đăng nhập để tiếp tục.');
+                window.location.href = '../index.html';
+            }
+        }
+
+        // Đăng xuất
+        function setupLogout() {
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.onclick = function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem('user');
                     window.location.href = '../index.html';
+                };
+            }
+        }
+
+        // Sự kiện DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAuthUI();
+            fetchMenuData();
+            // Tab danh mục
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.onclick = function () {
+                    document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    displayMenuItems(this.dataset.category);
+                };
+            });
+            // Cart panel
+            document.getElementById('cartButton').onclick = () => {
+                document.getElementById('cartPanel').classList.add('open');
+                document.getElementById('overlay').classList.add('active');
+            };
+            document.getElementById('closeCart').onclick = () => {
+                document.getElementById('cartPanel').classList.remove('open');
+                document.getElementById('overlay').classList.remove('active');
+            };
+            document.getElementById('overlay').onclick = function () {
+                document.getElementById('cartPanel').classList.remove('open');
+                this.classList.remove('active');
+            };
+            document.getElementById('checkoutBtn').onclick = function () {
+                if (cart.length === 0) {
+                    alert('Vui lòng thêm món ăn vào giỏ hàng trước khi thanh toán');
+                    return;
                 }
+                window.location.href = 'checkout.html';
+            };
+            // Dropdown tài khoản
+            const userAccountBtn = document.getElementById('userAccountBtn');
+            const userDropdown = document.getElementById('userDropdown');
+            if (userAccountBtn) {
+                userAccountBtn.onclick = () => userDropdown.classList.toggle('active');
+                document.addEventListener('click', function (e) {
+                    if (!userAccountBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+                        userDropdown.classList.remove('active');
+                    }
+                });
             }
-
-    function checkLoginStatus() {
-        const user = localStorage.getItem('user');
-        if (user) {
-            updateAuthUI(user);
-        }
-    }
-
-    // 8. Sự kiện DOMContentLoaded
-    document.addEventListener('DOMContentLoaded', () => {
-       
-        fetchMenuData();
-        updateCartCount();
-        checkLoginStatus();
-
-        // Sự kiện cho các tab danh mục
-        document.querySelectorAll('.category-tab').forEach(tab => {
-            tab.addEventListener('click', function () {
-                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                displayMenuItems(this.dataset.category);
-            });
+            setupLogout();
         });
-
-        // Sự kiện cho cart panel
-        document.getElementById('cartButton').addEventListener('click', function () {
-            document.getElementById('cartPanel').classList.add('open');
-            document.getElementById('overlay').classList.add('active');
-        });
-        document.getElementById('closeCart').addEventListener('click', function () {
-            document.getElementById('cartPanel').classList.remove('open');
-            document.getElementById('overlay').classList.remove('active');
-        });
-        document.getElementById('overlay').addEventListener('click', function () {
-            document.getElementById('cartPanel').classList.remove('open');
-            this.classList.remove('active');
-        });
-        document.getElementById('checkoutBtn').addEventListener('click', function () {
-            if (cart.length === 0) {
-                alert('Vui lòng thêm món ăn vào giỏ hàng trước khi thanh toán');
-                return;
-            }
-            window.location.href = 'checkout.html';
-        });
-
-        // Sự kiện dropdown tài khoản
-        const userAccountBtn = document.getElementById('userAccountBtn');
-        const userDropdown = document.getElementById('userDropdown');
-        if (userAccountBtn) {
-            userAccountBtn.addEventListener('click', function () {
-                userDropdown.classList.toggle('active');
-            });
-        }
-        document.addEventListener('click', function (e) {
-            if (userAccountBtn && userDropdown && !userAccountBtn.contains(e.target) && !userDropdown.contains(e.target)) {
-                userDropdown.classList.remove('active');
-            }
-        });
-
-        // Sự kiện logout
-        const logoutBtn = document.getElementById('logoutBtn');
-        const loginMessage = document.getElementById('loginMessage');
-        const authMessageText = document.getElementById('authMessageText');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                localStorage.removeItem('loggedInUser');
-                document.getElementById('userAccount').style.display = 'none';
-                userDropdown.classList.remove('active');
-                authMessageText.textContent = "Đăng xuất thành công!";
-                loginMessage.classList.add('show');
-                setTimeout(function () {
-                    loginMessage.classList.remove('show');
-                }, 3000);
-                window.location.href = 'index.html';
-            });
-        }
-    });
-</script>
+    </script>
 </body>
 
 </html>

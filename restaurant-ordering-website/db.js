@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
 
 
 const app = express();
@@ -41,12 +42,23 @@ function authenticateToken(req, res, next) {
     next();
   });
 }
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'daomanhphu123@gmail.com',
+    pass: 'nndy pxky qfbq hqrd' // Dùng "App Password" nếu bật 2FA
+  }
+});
 
+// Tạo mã xác nhận ngẫu nhiên 6 số
+function generateVerificationCode() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
 // API Đăng ký
 app.post('/api/register', async (req, res) => {
   try {
     const { username, email, password, phone } = req.body;
-    
+    const verificationCode = generateVerificationCode();
     // Kiểm tra user tồn tại
     const [existing] = await pool.query(
       'SELECT * FROM users WHERE email = ?', 
@@ -63,16 +75,43 @@ app.post('/api/register', async (req, res) => {
 
     // Lưu vào database
     await pool.query(
-      'INSERT INTO users (username, email, password, phone) VALUES (?, ?, ?, ?)',
-      [username, email, passwordHash, phone]
+      'INSERT INTO users (username, email, password, phone, verification_code, is_verified) VALUES (?, ?, ?, ?,?,?)',
+      [username, email, passwordHash, phone, verificationCode, false]
     );
-
+     const mailOptions = {
+      from: 'daomanhphu123@gmail.com',
+      to: email,
+      subject: 'Mã xác nhận đăng ký',
+      html: `<p>Mã xác nhận của bạn là: <strong>${verificationCode}</strong></p>`
+    };
+    await transporter.sendMail(mailOptions);
     res.status(201).json({ success: true });
   } catch (error) {
     console.error('Registration error:', error);
     res.status(500).json({ error: 'Lỗi server' });
   }
 });
+app.post('/api/verify', async (req, res) => {
+  const { email, code } = req.body;
+
+  const [rows] = await pool.query(
+    'SELECT verification_code FROM users WHERE email = ?',
+    [email]
+  );
+
+  if (rows.length === 0 || rows[0].verification_code !== code) {
+    return res.status(400).json({ error: 'Mã không hợp lệ' });
+  }
+
+  // Cập nhật trạng thái xác thực
+  await pool.query(
+    'UPDATE users SET is_verified = true WHERE email = ?',
+    [email]
+  );
+
+  res.json({ message: 'Xác thực thành công!' });
+});
+
 
 // API Đăng nhập
 app.post('/api/login', async (req, res) => {
