@@ -23,7 +23,6 @@
                     <li><a href="index.html" class="active">Trang Chủ</a></li>
                     <li><a href="pages/menu.html">Thực Đơn</a></li>
                     <li><a href="pages/booking.html">Đặt Bàn</a></li>
-                    <li><a href="pages/cart.html">Giỏ Hàng</a></li>
                     <li><a href="pages/about.html">Giới Thiệu</a></li>
                     <li><a href="pages/contact.html">Liên Hệ</a></li>
                 </ul>
@@ -46,9 +45,9 @@
                         <i class="fas fa-user"></i>
                         Hồ sơ của tôi
                     </a>
-                    <a href="pages/orders.html" class="user-dropdown-item">
+                    <a href="pages/cart.html" class="user-dropdown-item">
                         <i class="fas fa-shopping-bag"></i>
-                        Đơn hàng
+                        Giỏ hàng
                     </a>
                     <a href="pages/reservations.html" class="user-dropdown-item">
                         <i class="fas fa-calendar-alt"></i>
@@ -163,11 +162,11 @@
                 <button type="submit" class="submit-btn">Đăng ký</button>
             </form>
             <div id="verify-form" style="display: none;">
-            <h3>Xác nhận email</h3>
-            <p>Mã xác nhận đã được gửi tới email của bạn</p>
-            <input type="text" id="verification-code" placeholder="Nhập mã xác nhận" class="form-control">
-            <button id = "verifyBtn" class="submit-btn">Xác nhận</button>
-        </div>
+                <h3>Xác nhận email</h3>
+                <p>Mã xác nhận đã được gửi tới email của bạn</p>
+                <input type="text" id="verification-code" placeholder="Nhập mã xác nhận" class="form-control">
+                <button id="verifyBtn" class="submit-btn">Xác nhận</button>
+            </div>
             <p class="switch-form">Đã có tài khoản? <a href="#" id="switchToLogin">Đăng nhập</a></p>
         </div>
     </div>
@@ -177,7 +176,6 @@
         <i class="fas fa-check-circle"></i> <span id="authMessageText">Đăng nhập thành công!</span>
     </div>
 
-    <script src="assets/js/main.js"></script>
     <script src="assets/js/animations.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -207,8 +205,8 @@
             closeRegister.onclick = () => registerModal.classList.remove('active');
             switchToRegister.onclick = e => { e.preventDefault(); loginModal.classList.remove('active'); setTimeout(() => registerModal.classList.add('active'), 300); };
             switchToLogin.onclick = e => { e.preventDefault(); registerModal.classList.remove('active'); setTimeout(() => loginModal.classList.add('active'), 300); };
-            
-                
+
+
             // Dropdown
             userAccountBtn.onclick = () => userDropdown.classList.toggle('active');
             document.addEventListener('click', e => {
@@ -218,9 +216,17 @@
             // Show message
             function showMessage(msg) {
                 loginMessage.textContent = msg;
+                loginMessage.style.backgroundColor = '#2ecc71';
                 loginMessage.classList.add('show');
                 setTimeout(() => loginMessage.classList.remove('show'), 3000);
             }
+            function showAlert(msg) {
+                loginMessage.textContent = msg;
+                loginMessage.style.backgroundColor = '#c0392b';
+                loginMessage.classList.add('show');
+                setTimeout(() => loginMessage.classList.remove('show'), 3000);
+            }
+            
 
             // Update UI
             function updateAuthUI() {
@@ -244,7 +250,7 @@
                 const password = document.getElementById('password').value;
                 const confirmPassword = document.getElementById('confirmPassword').value;
                 const phone = document.getElementById('phone').value;
-                if (password !== confirmPassword) return alert('Mật khẩu xác nhận không khớp');
+                if (password !== confirmPassword) return showAlert('Mật khẩu xác nhận không khớp');
                 try {
                     const res = await fetch(`${API_URL}/register`, {
                         method: 'POST',
@@ -254,25 +260,29 @@
                     const data = await res.json();
                     if (!res.ok) throw new Error(data.error || 'Đăng ký thất bại');
                     registerEmail = email;
-                    
+
                     document.getElementById('registerForm').style.display = 'none';
                     document.getElementById('verify-form').style.display = 'block';
-                } catch (err) { alert(err.message); }
+                } catch (err) { showAlert(err.message); }
             };
             document.getElementById('verifyBtn').addEventListener('click', verify);
             async function verify() {
                 const code = document.getElementById('verification-code').value;
-                if (!registerEmail) return alert('Không tìm thấy email để xác thực!');
+                if (!registerEmail) return showAlert('Không tìm thấy email để xác thực!');
                 const response = await fetch(`${API_URL}/verify`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: registerEmail, code })
                 });
                 const result = await response.json();
-                alert(result.message);
-                registerModal.classList.remove('active');
-                 document.getElementById('registerForm').style.display = 'block';
-        document.getElementById('verify-form').style.display = 'none';
+                
+                if (result.message == 'Xác thực thành công!') {
+                    showMessage(result.message);
+                    registerModal.classList.remove('active');
+                    document.getElementById('registerForm').style.display = 'block';
+                    document.getElementById('verify-form').style.display = 'none';
+                }
+                else showAlert(result.message);
             }
 
             // Login
@@ -293,7 +303,7 @@
                     loginModal.classList.remove('active');
                     showMessage('Đăng nhập thành công!');
                     updateAuthUI();
-                } catch (err) { alert(err.message); }
+                } catch (err) { showAlert(err.message); }
             };
 
             // Logout

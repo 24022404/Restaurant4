@@ -360,7 +360,6 @@
                     <li class="nav-item"><a href="../index.html" class="nav-link">Trang Chủ</a></li>
                     <li class="nav-item"><a href="menu.html" class="nav-link">Thực Đơn</a></li>
                     <li class="nav-item"><a href="booking.html" class="nav-link">Đặt Bàn</a></li>
-                    <li class="nav-item"><a href="cart.html" class="nav-link">Giỏ Hàng</a></li>
                     <li class="nav-item"><a href="about.html" class="nav-link">Giới Thiệu</a></li>
                     <li class="nav-item"><a href="contact.html" class="nav-link active">Liên Hệ</a></li>
                 </ul>
@@ -377,9 +376,9 @@
                         <i class="fas fa-user"></i>
                         Hồ sơ của tôi
                     </a>
-                    <a href="pages/orders.html" class="user-dropdown-item">
+                    <a href="cart.html" class="user-dropdown-item">
                         <i class="fas fa-shopping-bag"></i>
-                        Đơn hàng
+                        Giỏ hàng
                     </a>
                     <a href="pages/reservations.html" class="user-dropdown-item">
                         <i class="fas fa-calendar-alt"></i>
@@ -461,7 +460,7 @@
                             <i class="fas fa-map-marker-alt"></i>
                             <div class="info-item-content">
                                 <div class="info-item-title">Địa chỉ</div>
-                                <div>123 Đường Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh</div>
+                                <div>144 Xuân Thủy, Cầu Giấy, Hà Nội</div>
                             </div>
                         </li>
 
@@ -469,7 +468,7 @@
                             <i class="fas fa-phone-alt"></i>
                             <div class="info-item-content">
                                 <div class="info-item-title">Điện thoại</div>
-                                <div>028 1234 5678</div>
+                                <div>123456789</div>
                             </div>
                         </li>
 
@@ -493,8 +492,10 @@
 
                 <div class="map-container">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.394873374441!2d106.70255601531151!3d10.777038062106195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f4670702e31%3A0xe4039383f22d22e4!2zMTIzIE5ndXnhu4VuIEh14buHLCBC4bq_biBOZ2jDqSwgUXXhuq1uIDEsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1650338644921!5m2!1svi!2s"
-                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=105.7806%2C21.0375%2C105.7826%2C21.0395&amp;layer=mapnik&amp;marker=21.0385,105.7816"
+                        style="border: none; width: 100%; height: 100%;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                 </div>
 
                 <div class="info-card">
@@ -536,97 +537,54 @@
     </div>
 
     <script>
-        // Authentication system
         document.addEventListener('DOMContentLoaded', function () {
-
-            // Account elements
+            // Account UI
+            const user = JSON.parse(localStorage.getItem('user'));
             const userAccount = document.getElementById('userAccount');
             const userName = document.getElementById('userName');
             const userAvatar = document.getElementById('userAvatar');
             const userAccountBtn = document.getElementById('userAccountBtn');
             const userDropdown = document.getElementById('userDropdown');
             const logoutBtn = document.getElementById('logoutBtn');
-            const loginMessage = document.getElementById('loginMessage');
-            const authMessageText = document.getElementById('authMessageText');
 
-            // Check if user is logged in (from localStorage)
-            function checkLoginStatus() {
-                const loggedInUser = localStorage.getItem('loggedInUser');
-                if (loggedInUser) {
-                    // User is logged in, show account info
-                    const userData = JSON.parse(loggedInUser);
-                    displayLoggedInUI(userData);
+            function updateAuthUI() {
+                if (user) {
+                    userAccount.style.display = 'block';
+                    userName.textContent = user.username || user.fullName || user.email;
+                    userAvatar.textContent = (user.username || user.fullName || user.email || 'U')[0].toUpperCase();
+                } else {
+                    alert('Vui lòng đăng nhập!');
+                    window.location.href = '../index.html';
+                    userAccount.style.display = 'none';
                 }
             }
 
-            // Run on page load
-            checkLoginStatus();
+            updateAuthUI();
 
-            // Display logged-in UI
-            function displayLoggedInUI(userData) {
-                // Hide auth buttons and show user account
-                userAccount.style.display = 'block';
-
-                // Set user name and avatar initial
-                userName.textContent = userData.fullName || userData.email;
-                if (userData.fullName) {
-                    userAvatar.textContent = userData.fullName.charAt(0).toUpperCase();
-                } else if (userData.email) {
-                    userAvatar.textContent = userData.email.charAt(0).toUpperCase();
-                }
+            // Dropdown tài khoản
+            if (userAccountBtn) {
+                userAccountBtn.onclick = () => userDropdown.classList.toggle('active');
+                document.addEventListener('click', function (e) {
+                    if (!userAccountBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+                        userDropdown.classList.remove('active');
+                    }
+                });
             }
-            userAccountBtn.addEventListener('click', function () {
-                userDropdown.classList.toggle('active');
-            });
 
-            // Close dropdown when clicking outside
-            document.addEventListener('click', function (e) {
-                if (userAccountBtn && !userAccountBtn.contains(e.target) && !userDropdown.contains(e.target)) {
-                    userDropdown.classList.remove('active');
-                }
-            });
+            // Đăng xuất
+            if (logoutBtn) {
+                logoutBtn.onclick = function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem('user');
+                    window.location.href = '../index.html';
+                };
+            }
 
-            // Logout functionality
-            logoutBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                // Remove user data from localStorage
-                localStorage.removeItem('loggedInUser');
-
-                // Show auth buttons, hide user account
-                userAccount.style.display = 'none';
-                userDropdown.classList.remove('active');
-
-                // Show logout message
-                authMessageText.textContent = "Đăng xuất thành công!";
-                loginMessage.classList.add('show');
-                setTimeout(function () {
-                    loginMessage.classList.remove('show');
-                }, 3000);
-            });
-
-            // Close modals when clicking outside
-            window.addEventListener('click', function (e) {
-                if (e.target === loginModal) {
-                    loginModal.classList.remove('active');
-                }
-                if (e.target === registerModal) {
-                    registerModal.classList.remove('active');
-                }
-            });
-
-
-            // Form submission - Contact Form
+            // Gửi form liên hệ
             document.getElementById('contactForm').addEventListener('submit', function (e) {
                 e.preventDefault();
-
-                // In a real app, you would send this data to a server
-                // For now, we'll just show the success message
                 document.getElementById('successMessage').style.display = 'block';
-
-                // Reset the form
                 this.reset();
-
-                // Hide success message after 5 seconds
                 setTimeout(function () {
                     document.getElementById('successMessage').style.display = 'none';
                 }, 5000);

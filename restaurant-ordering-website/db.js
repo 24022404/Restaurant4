@@ -47,7 +47,7 @@ const transporter = nodemailer.createTransport({
   auth: {
     user: 'daomanhphu123@gmail.com',
     pass: 'nndy pxky qfbq hqrd' // Dùng "App Password" nếu bật 2FA
-  }
+  },
 });
 
 // Tạo mã xác nhận ngẫu nhiên 6 số
@@ -100,8 +100,9 @@ app.post('/api/verify', async (req, res) => {
   );
 
   if (rows.length === 0 || rows[0].verification_code !== code) {
-    return res.status(400).json({ error: 'Mã không hợp lệ' });
-  }
+  return res.status(400).json({ message: 'Mã không hợp lệ!' });
+}
+
 
   // Cập nhật trạng thái xác thực
   await pool.query(

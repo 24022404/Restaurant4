@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Lịch sử đặt bàn</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 950px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 14px;
+            padding: 32px 28px 24px 28px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 28px;
+            color: #c0392b;
+            font-size: 2rem;
+            letter-spacing: 1px;
+        }
+        .booking-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+        }
+        .booking-item {
+            flex: 1 1 350px;
+            min-width: 320px;
+            max-width: 420px;
+            background: #fafafa;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(192,57,43,0.07);
+            padding: 22px 20px 16px 20px;
+            margin-bottom: 0;
+            border-left: 5px solid #c0392b;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: box-shadow 0.2s;
+        }
+        .booking-item:hover {
+            box-shadow: 0 6px 24px rgba(192,57,43,0.13);
+        }
+        .booking-id {
+            color: #c0392b;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .booking-status {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .back-btn {
+            display: inline-block;
+            margin: 0 auto 18px auto;
+            background: #c0392b;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 32px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(192,57,43,0.08);
+        }
+        .back-btn:hover {
+            background: #a5281e;
+        }
+        @media (max-width: 900px) {
+            .container { max-width: 99vw; padding: 18px 4vw; }
+            .booking-item { min-width: 90vw; max-width: 99vw; }
+            .booking-list { gap: 16px; }
+        }
+        @media (max-width: 600px) {
+            .booking-item { min-width: 98vw; padding: 14px 6vw; }
+            .container { padding: 8px 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-btn" onclick="window.location.href='../index.html'">Quay lại trang chính</button>
+        <h2>Lịch sử đặt bàn của bạn</h2>
+        <div class="booking-list" id="bookingList"></div>
+    </div>
+    <script>
+        // Lấy user hiện tại
+        const user = JSON.parse(localStorage.getItem('user'));
+        // Lấy tất cả bookings
+        const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+        // Lọc bookings của user hiện tại
+        const userBookings = bookings.filter(b => b.customer && b.customer.email === user.email);
+
+        const bookingList = document.getElementById('bookingList');
+        if (userBookings.length === 0) {
+            bookingList.innerHTML = '<p>Bạn chưa có lịch sử đặt bàn nào.</p>';
+        } else {
+            userBookings.reverse().forEach(b => {
+                bookingList.innerHTML += `
+                    <div class="booking-item">
+                        <div><span class="booking-id">Mã đặt bàn:</span> ${b.id}</div>
+                        <div><b>Ngày:</b> ${b.date} <b>Giờ:</b> ${b.time}</div>
+                        <div><b>Số người:</b> ${b.guests}</div>
+                        <div><b>Bàn/Phòng:</b> ${b.tables.map(t => t.name || t.number).join(', ')}</div>
+                        <div><b>Yêu cầu:</b> ${b.customer.requests || 'Không có'}</div>
+                        <div><b>Trạng thái:</b> <span class="booking-status">${b.status}</span></div>
+                    </div>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>

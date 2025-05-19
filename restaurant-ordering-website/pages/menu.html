@@ -26,13 +26,10 @@
                     <li><a href="../index.html">Trang Chủ</a></li>
                     <li><a href="menu.html" class="active">Thực Đơn</a></li>
                     <li><a href="booking.html">Đặt Bàn</a></li>
-                    <li><a href="cart.html">Giỏ Hàng</a></li>
                     <li><a href="about.html">Giới Thiệu</a></li>
                     <li><a href="contact.html">Liên Hệ</a></li>
                 </ul>
             </nav>
-
-            <!-- User account dropdown (Shown when logged in) -->
             <div class="user-account" id="userAccount" style="display: none;">
                 <button class="user-account-btn" id="userAccountBtn">
                     <div class="user-avatar" id="userAvatar">D</div>
@@ -44,9 +41,9 @@
                         <i class="fas fa-user"></i>
                         Hồ sơ của tôi
                     </a>
-                    <a href="pages/orders.html" class="user-dropdown-item">
+                    <a href="cart.html" class="user-dropdown-item">
                         <i class="fas fa-shopping-bag"></i>
-                        Đơn hàng
+                        Giỏ hàng
                     </a>
                     <a href="pages/reservations.html" class="user-dropdown-item">
                         <i class="fas fa-calendar-alt"></i>
@@ -99,7 +96,6 @@
             <div class="close-cart" id="closeCart"><i class="fas fa-times"></i></div>
         </div>
         <div class="cart-items" id="cartItems">
-            <!-- Cart items will be added here dynamically -->
             <div class="empty-cart" id="emptyCart">
                 <i class="fas fa-shopping-basket"></i>
                 <p>Giỏ hàng của bạn đang trống</p>
@@ -116,7 +112,6 @@
 
     <div class="overlay" id="overlay"></div>
 
-
     <footer>
         <p>&copy; 2023 Việt Delights. Đã đăng ký bản quyền.</p>
     </footer>
@@ -126,12 +121,10 @@
         let menuItems = [];
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-        // Định dạng tiền tệ
         function formatCurrency(amount) {
             return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
         }
 
-        // Hiển thị menu
         function displayMenuItems(category = 'all') {
             const menuGrid = document.getElementById('menuGrid');
             menuGrid.innerHTML = '';
@@ -140,50 +133,167 @@
                 const el = document.createElement('div');
                 el.className = 'menu-item';
                 el.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" class="menu-item-image">
-            <div class="menu-item-content">
-                <h3 class="menu-item-title">${item.name}</h3>
-                <p class="menu-item-nat">${item.nation}</p>
-                <div class="menu-item-price">${formatCurrency(item.price)}</div>
-                <button class="add-to-cart-btn" data-id="${item.id}">Thêm</button>
+    <img src="${item.image}" alt="${item.name}" class="menu-item-image">
+    <div class="menu-item-content">
+        <h3 class="menu-item-title">${item.name}</h3>
+        <p class="menu-item-nat">${item.nation}</p>
+        <div class="menu-item-price">${formatCurrency(item.price)}</div>
+        <div class="menu-item-actions">
+            <div class="quantity-control">
+                <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                <input type="number" class="quantity-input" value="1" min="1" max="10" data-id="${item.id}">
+                <button class="quantity-btn plus" data-id="${item.id}">+</button>
             </div>
-        `;
+            <button class="add-to-cart-btn" data-id="${item.id}">
+                <i class="fas fa-cart-plus"></i> Thêm
+            </button>
+        </div>
+    </div>
+                `;
                 menuGrid.appendChild(el);
             });
+
+            // Sự kiện tăng/giảm số lượng
+            document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+                btn.onclick = function () {
+                    const id = this.dataset.id;
+                    const input = document.querySelector(`.quantity-input[data-id="${id}"]`);
+                    if (input.value > 1) input.value = parseInt(input.value) - 1;
+                };
+            });
+            document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+                btn.onclick = function () {
+                    const id = this.dataset.id;
+                    const input = document.querySelector(`.quantity-input[data-id="${id}"]`);
+                    if (input.value < 10) input.value = parseInt(input.value) + 1;
+                };
+            });
             document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-                btn.onclick = () => addToCart(parseInt(btn.dataset.id));
+                btn.onclick = function () {
+                    const id = parseInt(this.dataset.id);
+                    const quantity = parseInt(document.querySelector(`.quantity-input[data-id="${id}"]`).value);
+                    addToCart(id, quantity);
+                };
             });
         }
 
-        // Thêm vào giỏ hàng
-        function addToCart(id) {
+        function addToCart(id, quantity = 1) {
             const item = menuItems.find(i => i.id === id);
             if (!item) return;
             const exist = cart.find(i => i.id === id);
-            if (exist) exist.quantity += 1;
-            else cart.push({ id: item.id, name: item.name, price: item.price, image: item.image, quantity: 1 });
+            if (exist) exist.quantity += quantity;
+            else cart.push({ id: item.id, name: item.name, price: item.price, image: item.image, quantity });
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartCount();
+            renderCartItems();
+            // Hiện panel giỏ hàng khi thêm
+            document.getElementById('cartPanel').classList.add('open');
+            document.getElementById('overlay').classList.add('active');
         }
 
-        // Cập nhật số lượng giỏ hàng
         function updateCartCount() {
             document.getElementById('cartCount').textContent = cart.reduce((t, i) => t + i.quantity, 0);
         }
 
-        // Fetch menu từ API
+        function renderCartItems() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const emptyCart = document.getElementById('emptyCart');
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            if (cart.length === 0) {
+                cartItemsContainer.appendChild(emptyCart);
+            } else {
+                cart.forEach(item => {
+                    total += item.price * item.quantity;
+                    const div = document.createElement('div');
+                    div.className = 'cart-item';
+                    div.innerHTML = `
+               <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                <div class="cart-item-details">
+                    <div class="cart-item-title">${item.name}</div>
+                    <div class="cart-item-price">${formatCurrency(item.price)}</div>
+                    <div class="cart-item-controls">
+                        <div class="cart-quantity">
+                            <button class="cart-quantity-btn minus-cart" data-id="${item.id}">-</button>
+                            <input type="text" class="cart-quantity-input" value="${item.quantity}" readonly>
+                            <button class="cart-quantity-btn plus-cart" data-id="${item.id}">+</button>
+                        </div>
+                        <div class="remove-from-cart" data-id="${item.id}">
+                            <i class="fas fa-trash"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+                    cartItemsContainer.appendChild(div);
+                });
+
+                // Sự kiện xóa khỏi giỏ hàng
+                document.querySelectorAll('.remove-from-cart').forEach(btn => {
+                    btn.onclick = function () {
+                        const id = parseInt(this.dataset.id);
+                        cart = cart.filter(i => i.id !== id);
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCartCount();
+                        renderCartItems();
+                    };
+                });
+
+                // Sự kiện giảm số lượng
+                document.querySelectorAll('.minus-cart').forEach(btn => {
+                    btn.onclick = function () {
+                        const id = parseInt(this.dataset.id);
+                        const item = cart.find(i => i.id === id);
+                        if (item && item.quantity > 1) {
+                            item.quantity -= 1;
+                            localStorage.setItem('cart', JSON.stringify(cart));
+                            updateCartCount();
+                            renderCartItems();
+                        }
+                    };
+                });
+
+                // Sự kiện tăng số lượng
+                document.querySelectorAll('.plus-cart').forEach(btn => {
+                    btn.onclick = function () {
+                        const id = parseInt(this.dataset.id);
+                        const item = cart.find(i => i.id === id);
+                        if (item) {
+                            item.quantity += 1;
+                            localStorage.setItem('cart', JSON.stringify(cart));
+                            updateCartCount();
+                            renderCartItems();
+                        }
+                    };
+                });
+            }
+            document.getElementById('cartTotal').textContent = formatCurrency(total);
+        }
+
         async function fetchMenuData() {
             try {
                 const res = await fetch('http://localhost:4000/api/menu-items');
                 menuItems = await res.json();
                 displayMenuItems('all');
                 updateCartCount();
+                renderCartItems();
             } catch {
-                alert('Không thể tải thực đơn!');
+                showAlert('Không thể tải thực đơn!');
             }
         }
 
-        // Kiểm tra đăng nhập và cập nhật UI
+        function showMessage(msg) {
+                loginMessage.textContent = msg;
+                loginMessage.style.backgroundColor = '#2ecc71';
+                loginMessage.classList.add('show');
+                setTimeout(() => loginMessage.classList.remove('show'), 3000);
+            }
+            function showAlert(msg) {
+                loginMessage.textContent = msg;
+                loginMessage.style.backgroundColor = '#c0392b';
+                loginMessage.classList.add('show');
+                setTimeout(() => loginMessage.classList.remove('show'), 3000);
+            }
+
         function updateAuthUI() {
             const user = JSON.parse(localStorage.getItem('user'));
             const userAccount = document.getElementById('userAccount');
@@ -195,12 +305,11 @@
                 userAvatar.textContent = (user.username || user.fullName || user.email || 'U')[0].toUpperCase();
             } else {
                 userAccount.style.display = 'none';
-                alert('Bạn chưa đăng nhập. Vui lòng đăng nhập để tiếp tục.');
+                showAlert('Bạn chưa đăng nhập. Vui lòng đăng nhập để tiếp tục.');
                 window.location.href = '../index.html';
             }
         }
 
-        // Đăng xuất
         function setupLogout() {
             const logoutBtn = document.getElementById('logoutBtn');
             if (logoutBtn) {
@@ -212,7 +321,6 @@
             }
         }
 
-        // Sự kiện DOMContentLoaded
         document.addEventListener('DOMContentLoaded', () => {
             updateAuthUI();
             fetchMenuData();
@@ -239,7 +347,7 @@
             };
             document.getElementById('checkoutBtn').onclick = function () {
                 if (cart.length === 0) {
-                    alert('Vui lòng thêm món ăn vào giỏ hàng trước khi thanh toán');
+                    showAlert('Vui lòng thêm món ăn vào giỏ hàng trước khi thanh toán');
                     return;
                 }
                 window.location.href = 'checkout.html';

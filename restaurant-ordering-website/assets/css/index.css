@@ -185,7 +185,7 @@ main {
 
 .hero {
     height: 80vh;
-    background-image: url('assets/images/restaurant-bg.jpg');
+    background-image: url('../images/restaurant.avif');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -508,24 +508,26 @@ footer {
 }
 
 /* Login message notification */
+/* Sửa lại login-message để căn giữa phía trên màn hình */
 .login-message {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    top: 100px;  
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
     background-color: #2ecc71;
     color: white;
-    padding: 15px 20px;
-    border-radius: 5px;
+    padding: 15px 30px;
+    border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     opacity: 0;
-    transform: translateY(20px);
     transition: all 0.3s ease;
     z-index: 2000;
+    font-size: 1.1rem;
 }
 
 .login-message.show {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
 }
 
 /* Thêm CSS sau vào phần style trong head */

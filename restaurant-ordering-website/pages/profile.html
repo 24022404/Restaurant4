@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông tin cá nhân</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .profile-container {
+            max-width: 520px;
+            margin: 80px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+            padding: 40px 32px;
+        }
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: #e74c3c;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 22px auto;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .profile-info {
+            text-align: center;
+        }
+        .profile-info label {
+            display: block;
+            margin: 18px 0 6px 0;
+            color: #333;
+            font-weight: 500;
+            text-align: left;
+        }
+        .profile-info input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            box-sizing: border-box;
+        }
+        .profile-actions {
+            margin-top: 32px;
+            text-align: center;
+        }
+        .profile-actions button {
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 12px 36px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin: 0 8px;
+        }
+        .profile-actions button:hover {
+            background: #c0392b;
+        }
+        .success-message {
+            color: #27ae60;
+            text-align: center;
+            margin-top: 16px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-avatar" id="profileAvatar">U</div>
+        <form id="profileForm" class="profile-info" autocomplete="off">
+            <label for="profileUsername">Tên người dùng</label>
+            <input type="text" id="profileUsername" name="username" required>
+
+            <label for="profileEmail">Email</label>
+            <input type="email" id="profileEmail" name="email" required disabled>
+
+            <label for="profilePhone">Số điện thoại</label>
+            <input type="text" id="profilePhone" name="phone">
+
+            <div class="profile-actions">
+                <button type="submit" id="saveBtn">Lưu thay đổi</button>
+                 <button type="button" id="backBtn" style="background:#888;">Quay lại trang chính</button>
+            </div>
+            <div class="success-message" id="successMsg" style="display:none;">Cập nhật thành công!</div>
+        </form>
+    </div>
+    <script>
+        // Lấy user từ localStorage
+        let user = JSON.parse(localStorage.getItem('user'));
+        if (!user) {
+            alert('Vui lòng đăng nhập!');
+            window.location.href = '../index.html';
+        }
+
+        // Hiển thị thông tin lên form
+        document.getElementById('profileUsername').value = user.username || user.fullName || '';
+        document.getElementById('profileEmail').value = user.email || '';
+        document.getElementById('profilePhone').value = user.phone || '';
+        document.getElementById('profileAvatar').textContent = (user.username || user.fullName || user.email || 'U')[0].toUpperCase();
+
+        // Lưu thay đổi thông tin (chỉ localStorage, muốn lưu DB cần gọi API)
+        document.getElementById('profileForm').onsubmit = function(e) {
+            e.preventDefault();
+            user.username = document.getElementById('profileUsername').value;
+            user.phone = document.getElementById('profilePhone').value;
+            localStorage.setItem('user', JSON.stringify(user));
+            document.getElementById('profileAvatar').textContent = (user.username || user.fullName || user.email || 'U')[0].toUpperCase();
+            document.getElementById('successMsg').style.display = 'block';
+            setTimeout(() => document.getElementById('successMsg').style.display = 'none', 2000);
+        };
+
+        // Đăng xuất
+        document.getElementById('backBtn').onclick = function() {
+            window.location.href = '../index.html';
+        };
+    </script>
+</body>
+</html>
