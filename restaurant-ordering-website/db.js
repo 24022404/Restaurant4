@@ -309,35 +309,47 @@ app.post('/api/bookings', authenticateToken, async (req, res) => {
   }
 });
 
-// Danh sách booking (chỉ admin)
-app.get('/api/bookings', authenticateToken, async (req, res) => {
-  const { status } = req.query;          // e.g. ?status=pending
-  let sql = `SELECT b.id, b.booking_date, b.booking_time, b.party_size, b.note,
-                    u.username AS customer_name, u.phone,
-                    r.name AS room_name, r.category
-             FROM bookings b
-             JOIN users u ON b.user_id = u.id
-             JOIN rooms r ON b.room_id = r.id`;
-  const params = [];
+app.get('/api/bookings', authenticateToken, isAdmin, async (req, res) => {
+  const sql = `
+    SELECT b.id, b.booking_date, b.booking_time, b.party_size, b.note, b.status,
+           u.username AS customer_name, u.phone,
+           r.name AS room_name, r.category
+    FROM bookings b
+    JOIN users u ON b.user_id = u.id
+    JOIN rooms r ON b.room_id = r.id
+    ORDER BY b.booking_date DESC, b.booking_time DESC
+  `;
+  try {
+    const [results] = await pool.query(sql);
+    res.json(results);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
-  if (status) {
-    sql += ' WHERE b.status = ?';
-    params.push(status);
+
+app.put('/api/bookings/:id/status', authenticateToken, isAdmin, async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  const validStatuses = ['pending', 'confirmed', 'cancelled'];
+
+  if (!validStatuses.includes(status)) {
+    return res.status(400).json({ error: 'Trạng thái không hợp lệ' });
   }
 
-  const [rows] = await pool.query(sql, params);
-  // map lại thành cấu trúc dễ xài phía frontend
-  const bookings = rows.map(r => ({
-    id: r.id,
-    booking_date: r.booking_date,
-    booking_time: r.booking_time,
-    party_size: r.party_size,
-    note: r.note,
-    customer: { name: r.customer_name, phone: r.phone },
-    room: { name: r.room_name, category: r.category }
-  }));
-  res.json(bookings);
+  try {
+    const [result] = await pool.query(
+      'UPDATE bookings SET status = ? WHERE id = ?', [status, id]
+    );
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Không tìm thấy yêu cầu đặt bàn' });
+    }
+    res.json({ message: 'Cập nhật trạng thái thành công' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
+
 
 app.post('/api/bookings/:id/confirm', authenticateToken, async (req, res) => {
   const id = req.params.id;

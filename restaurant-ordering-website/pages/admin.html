@@ -253,14 +253,18 @@
 
         // Fetch table data (giả lập)
         async function fetchTableData() {
-            tableData = [
-                { id: 1, number: 1, status: 'Trống', reservation: 'Không' },
-                { id: 2, number: 2, status: 'Đã đặt', reservation: '10:00 AM - 12:00 PM' },
-                { id: 3, number: 3, status: 'Trống', reservation: 'Không' },
-                { id: 4, number: 4, status: 'Đã đặt', reservation: '01:00 PM - 03:00 PM' }
-            ];
-            displayTableData();
+            const token = localStorage.getItem('authToken');
+            try {
+                const res = await fetch(`${API_URL}/bookings`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const bookings = await res.json();
+                displayTableData(bookings);
+            } catch (err) {
+                alert('Lỗi tải danh sách bàn đặt: ' + err.message);
+            }
         }
+
 
         // Display menu items
         function displayMenuItems() {
@@ -325,29 +329,31 @@
         }
 
         // Display table data
-        function displayTableData() {
+        function displayTableData(bookings) {
             const tableGrid = document.getElementById('tableGrid');
             tableGrid.innerHTML = '';
-            tableData.forEach(table => {
+
+            bookings.forEach(b => {
                 const div = document.createElement('div');
                 div.className = 'table-item';
                 div.innerHTML = `
-                    <h3>Bàn số: ${table.number}</h3>
-                    <p>Trạng thái: <span class="${table.status === 'Đã đặt' ? 'status-booked' : 'status-available'}">${table.status}</span></p>
-                    <p>Đặt chỗ: ${table.reservation}</p>
-                    <button class="edit-btn" data-id="${table.id}">Chi tiết</button>
+                <h3>Phòng: ${b.room_name} (${b.category})</h3>
+                <p><strong>Khách:</strong> ${b.customer_name} (${b.phone})</p>
+                <p><strong>Ngày:</strong> ${b.booking_date} | <strong>Giờ:</strong> ${b.booking_time}</p>
+                <p><strong>Số người:</strong> ${b.party_size}</p>
+                <p><strong>Ghi chú:</strong> ${b.note || 'Không'}</p>
+                <p><strong>Trạng thái:</strong> 
+                    <span class="${b.status === 'pending' ? 'status-pending' : b.status === 'confirmed' ? 'status-confirmed' : 'status-cancelled'}">${b.status}</span>
+                </p>
+                <div class="action-buttons">
+                    <button onclick="updateBookingStatus(${b.id}, 'confirmed')">Duyệt</button>
+                    <button onclick="updateBookingStatus(${b.id}, 'cancelled')">Huỷ</button>
+                </div>
                 `;
                 tableGrid.appendChild(div);
             });
-
-            document.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.onclick = () => {
-                    const id = btn.dataset.id;
-                    const table = tableData.find(t => t.id == id);
-                    alert(`Chi tiết bàn ${table.number}: Trạng thái: ${table.status}, Đặt chỗ: ${table.reservation}`);
-                };
-            });
         }
+
 
         // Filter menu items
         function filterMenuItems() {
@@ -664,6 +670,26 @@
         } catch (err) {
             alert('Lỗi tải đơn hàng: ' + err.message);
         }
+        }
+
+        async function updateBookingStatus(id, status) {
+            const token = localStorage.getItem('authToken');
+            try {
+                const res = await fetch(`${API_URL}/bookings/${id}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status })
+                });
+                const result = await res.json();
+                if (!res.ok) throw new Error(result.error);
+                alert('Cập nhật trạng thái thành công');
+                fetchTableData(); // <- BẮT BUỘC CÓ DÒNG NÀY
+            } catch (err) {
+                alert('Lỗi cập nhật: ' + err.message);
+            }
         }
 
 
