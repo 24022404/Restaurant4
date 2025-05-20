@@ -70,8 +70,9 @@
                 <p>Thưởng thức tinh hoa ẩm thực Việt trong không gian hiện đại. Đặt món trực tuyến hoặc đặt bàn để có
                     trải nghiệm ẩm thực tuyệt vời.</p>
                 <div class="btn-container">
-                    <a href="menu.html" class="btn">Đặt món trực tuyến</a>
+                    <a href="pages/menu.html" class="btn">Đặt món trực tuyến</a>
                     <a href="pages/booking.html" class="btn btn-outline">Đặt Bàn Ngay</a>
+                    <a href="pages/admin.html" class="btn btn-outline" id="manageBtn" style="display: none;">Quản lý</a>
                 </div>
             </div>
         </section>
@@ -110,13 +111,13 @@
     </main>
 
     <footer>
-        <p>&copy; 2023 Việt Delights. Đã đăng ký bản quyền.</p>
+        <p>© 2023 Việt Delights. Đã đăng ký bản quyền.</p>
     </footer>
 
     <!-- Login Modal -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
-            <span class="modal-close" id="closeLogin">&times;</span>
+            <span class="modal-close" id="closeLogin">×</span>
             <h2 class="modal-title">Đăng nhập</h2>
             <form id="loginForm">
                 <div class="form-group">
@@ -132,10 +133,11 @@
             <p class="switch-form">Chưa có tài khoản? <a href="#" id="switchToRegister">Đăng ký ngay</a></p>
         </div>
     </div>
+
     <!-- Register Modal -->
     <div class="modal" id="registerModal">
         <div class="modal-content">
-            <span class="modal-close" id="closeRegister">&times;</span>
+            <span class="modal-close" id="closeRegister">×</span>
             <h2 class="modal-title">Đăng ký tài khoản</h2>
             <form id="registerForm">
                 <div class="form-group">
@@ -196,6 +198,7 @@
             const userDropdown = document.getElementById('userDropdown');
             const logoutBtn = document.getElementById('logoutBtn');
             const loginMessage = document.getElementById('loginMessage');
+            const manageBtn = document.getElementById('manageBtn'); // Thêm biến cho nút Quản lý
             const API_URL = 'http://localhost:4000/api';
 
             // Modal events
@@ -205,7 +208,6 @@
             closeRegister.onclick = () => registerModal.classList.remove('active');
             switchToRegister.onclick = e => { e.preventDefault(); loginModal.classList.remove('active'); setTimeout(() => registerModal.classList.add('active'), 300); };
             switchToLogin.onclick = e => { e.preventDefault(); registerModal.classList.remove('active'); setTimeout(() => loginModal.classList.add('active'), 300); };
-
 
             // Dropdown
             userAccountBtn.onclick = () => userDropdown.classList.toggle('active');
@@ -226,7 +228,6 @@
                 loginMessage.classList.add('show');
                 setTimeout(() => loginMessage.classList.remove('show'), 3000);
             }
-            
 
             // Update UI
             function updateAuthUI() {
@@ -236,12 +237,19 @@
                     userAccount.style.display = 'block';
                     userName.textContent = user.username || user.fullName || user.email;
                     userAvatar.textContent = (user.username || user.fullName || user.email || 'U')[0].toUpperCase();
+                    if (user.role === 'admin') {
+                        manageBtn.style.display = 'inline-block'; // Hiển thị nút Quản lý khi là admin
+                    } else {
+                        manageBtn.style.display = 'none';
+                    }
                 } else {
                     authButtons.style.display = 'flex';
                     userAccount.style.display = 'none';
+                    manageBtn.style.display = 'none';
                 }
             }
             let registerEmail = '';
+
             // Register
             document.getElementById('registerForm').onsubmit = async function (e) {
                 e.preventDefault();
@@ -275,17 +283,17 @@
                     body: JSON.stringify({ email: registerEmail, code })
                 });
                 const result = await response.json();
-                
-                if (result.message == 'Xác thực thành công!') {
+                if (result.message === 'Xác thực thành công!') {
                     showMessage(result.message);
                     registerModal.classList.remove('active');
                     document.getElementById('registerForm').style.display = 'block';
                     document.getElementById('verify-form').style.display = 'none';
+                } else {
+                    showAlert(result.message);
                 }
-                else showAlert(result.message);
             }
 
-            // Login
+            // Login with role check
             document.getElementById('loginForm').onsubmit = async function (e) {
                 e.preventDefault();
                 const email = document.getElementById('loginEmail').value;
@@ -302,8 +310,14 @@
                     localStorage.setItem('user', JSON.stringify(data.user));
                     loginModal.classList.remove('active');
                     showMessage('Đăng nhập thành công!');
-                    updateAuthUI();
-                } catch (err) { showAlert(err.message); }
+                    if (data.user.role === 'admin') {
+                        window.location.href = 'pages/admin.html'; // Chuyển hướng nếu là admin
+                    } else {
+                        updateAuthUI();
+                    }
+                } catch (err) {
+                    showAlert(err.message);
+                }
             };
 
             // Logout
@@ -323,6 +337,7 @@
             // On load, update UI
             updateAuthUI();
         });
+
         // Animation for elements when scrolling
         document.addEventListener('DOMContentLoaded', function () {
             const animateElements = document.querySelectorAll('.animate-on-scroll');
@@ -332,11 +347,14 @@
                     const elementTop = element.getBoundingClientRect().top;
                     const windowHeight = window.innerHeight;
 
-                    if (elementTop < windowHeight - 100) { element.classList.add('fade-in'); }
+                    if (elementTop < windowHeight - 100) {
+                        element.classList.add('fade-in');
+                    }
                 });
-            } window.addEventListener('scroll',
-                checkIfInView); window.addEventListener('load', checkIfInView);
-        }); 
+            }
+            window.addEventListener('scroll', checkIfInView);
+            window.addEventListener('load', checkIfInView);
+        });
     </script>
 </body>
 

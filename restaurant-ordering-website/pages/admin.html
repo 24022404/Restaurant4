@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý - Việt Delights</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../assets/images/logo.png" alt="Việt Delights Logo">
+                </a>
+            </div>
+            <h1>Quản lý</h1>
+            <div class="user-account" id="userAccount">
+                <button class="user-account-btn" id="userAccountBtn">
+                    <div class="user-avatar" id="userAvatar">A</div>
+                    <span class="user-name" id="userName">Admin</span>
+                    <i class="fas fa-angle-down dropdown-icon"></i>
+                </button>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="#" class="user-dropdown-item" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Đăng xuất
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="admin-section">
+            <!-- Tabs navigation -->
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="menu">Quản lý Thực Đơn</button>
+                <button class="tab-btn" data-tab="tables">Quản lý Bàn Đặt</button>
+            </div>
+
+            <!-- Menu Tab Content -->
+            <div class="tab-content active" id="menuTab">
+                <div class="admin-controls">
+                    <button class="add-btn" id="addItemBtn">Thêm Món Mới</button>
+                    <div class="search-filter">
+                        <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm món ăn...">
+                        <select id="categoryFilter" class="category-filter">
+                            <option value="">Tất cả danh mục</option>
+                            <option value="Seafood">Hải sản</option>
+                            <option value="Chicken">Món gà</option>
+                            <option value="Beef">Món bò</option>
+                            <option value="Pork">Món heo</option>
+                            <option value="Starter">Món khai vị</option>
+                            <option value="Vegetarian">Chay</option>
+                            <option value="Dessert">Tráng miệng</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="menu-grid" id="menuGrid">
+                    <!-- Menu items will be added here -->
+                </div>
+            </div>
+
+            <!-- Tables Tab Content -->
+            <div class="tab-content" id="tablesTab">
+                <div class="table-controls">
+                    <input type="text" id="tableSearchInput" class="search-input" placeholder="Tìm bàn theo số...">
+                </div>
+                <div class="table-grid" id="tableGrid">
+                    <!-- Table items will be added here -->
+                </div>
+            </div>
+
+            <!-- Add Item Modal -->
+            <div class="modal" id="addModal">
+                <div class="modal-content">
+                    <span class="modal-close" id="closeAdd">×</span>
+                    <h2>Thêm Món Mới</h2>
+                    <form id="addForm">
+                        <div class="form-group">
+                            <label for="name">Tên món</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Danh mục</label>
+                            <select id="category">
+                                <option value="Seafood">Hải sản</option>
+                                <option value="Chicken">Món gà</option>
+                                <option value="Beef">Món bò</option>
+                                <option value="Pork">Món heo</option>
+                                <option value="Starter">Món khai vị</option>
+                                <option value="Vegetarian">Chay</option>
+                                <option value="Dessert">Tráng miệng</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nation">Quốc gia</label>
+                            <input type="text" id="nation" placeholder="Ví dụ: Việt Nam">
+                        </div>
+                        <div class="form-group">
+                            <label for="image">URL hình ảnh</label>
+                            <input type="text" id="image" placeholder="Ví dụ: http://example.com/image.jpg">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Giá (VND)</label>
+                            <input type="number" id="price" step="0.01" min="0.01" max="9999999.99" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="availability">Có sẵn</label>
+                            <select id="availability">
+                                <option value="1">Có</option>
+                                <option value="0">Không</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="submit-btn">Thêm</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Edit Item Modal -->
+            <div class="modal" id="editModal">
+                <div class="modal-content">
+                    <span class="modal-close" id="closeEdit">×</span>
+                    <h2>Sửa Món</h2>
+                    <form id="editForm">
+                        <input type="hidden" id="editId">
+                        <div class="form-group">
+                            <label for="editName">Tên món</label>
+                            <input type="text" id="editName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editCategory">Danh mục</label>
+                            <select id="editCategory">
+                                <option value="Seafood">Hải sản</option>
+                                <option value="Chicken">Món gà</option>
+                                <option value="Beef">Món bò</option>
+                                <option value="Pork">Món heo</option>
+                                <option value="Starter">Món khai vị</option>
+                                <option value="Vegetarian">Chay</option>
+                                <option value="Dessert">Tráng miệng</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editNation">Quốc gia</label>
+                            <input type="text" id="editNation" placeholder="Ví dụ: Việt Nam">
+                        </div>
+                        <div class="form-group">
+                            <label for="editImage">URL hình ảnh</label>
+                            <input type="text" id="editImage" placeholder="Ví dụ: http://example.com/image.jpg">
+                        </div>
+                        <div class="form-group">
+                            <label for="editPrice">Giá (VND)</label>
+                            <input type="number" id="editPrice" step="0.01" min="0.01" max="9999999.99" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editAvailability">Có sẵn</label>
+                            <select id="editAvailability">
+                                <option value="1">Có</option>
+                                <option value="0">Không</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="submit-btn">Lưu</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Việt Delights. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const API_URL = 'http://localhost:4000/api';
+        let menuItems = [];
+        let filteredItems = [];
+        let tableData = [];
+
+        // Check token validity
+        function isTokenExpired(token) {
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                const exp = payload.exp * 1000;
+                return Date.now() > exp;
+            } catch (e) {
+                return true;
+            }
+        }
+
+        // Toggle dropdown
+        document.getElementById('userAccountBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (e) {
+            const dropdown = document.getElementById('userDropdown');
+            const accountBtn = document.getElementById('userAccountBtn');
+            if (!accountBtn.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        // Fetch menu items
+        async function fetchMenuItems() {
+            const token = localStorage.getItem('authToken');
+            if (!token || isTokenExpired(token)) {
+                alert('Token đã hết hạn! Vui lòng đăng nhập lại.');
+                window.location.href = '../index.html';
+                return;
+            }
+            try {
+                console.log('Calling API with token:', token);
+                const res = await fetch(`${API_URL}/menu-items`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                console.log('Response status:', res.status);
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    throw new Error(errorData.error || 'Không thể tải thực đơn!');
+                }
+                menuItems = await res.json();
+                filteredItems = [...menuItems];
+                console.log('Menu items:', menuItems);
+                displayMenuItems();
+            } catch (error) {
+                console.error('Error fetching menu items:', error.message);
+                alert(error.message);
+            }
+        }
+
+        // Fetch table data (giả lập)
+        async function fetchTableData() {
+            tableData = [
+                { id: 1, number: 1, status: 'Trống', reservation: 'Không' },
+                { id: 2, number: 2, status: 'Đã đặt', reservation: '10:00 AM - 12:00 PM' },
+                { id: 3, number: 3, status: 'Trống', reservation: 'Không' },
+                { id: 4, number: 4, status: 'Đã đặt', reservation: '01:00 PM - 03:00 PM' }
+            ];
+            displayTableData();
+        }
+
+        // Display menu items
+        function displayMenuItems() {
+            const menuGrid = document.getElementById('menuGrid');
+            menuGrid.innerHTML = '';
+            filteredItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'menu-item';
+                div.innerHTML = `
+                    ${item.image ? `<img src="${item.image}" alt="${item.name}" class="menu-item-image">` : '<div class="menu-item-image placeholder-image">Không có hình ảnh</div>'}
+                    <h3>${item.name}</h3>
+                    <p>Giá: ${item.price} VND | Danh mục: ${item.category}</p>
+                    <p>Quốc gia: ${item.nation || 'N/A'} | Có sẵn: ${item.availability ? 'Có' : 'Không'}</p>
+                    <button class="edit-btn" data-id="${item.id}">Sửa</button>
+                    <button class="delete-btn" data-id="${item.id}">Xóa</button>
+                `;
+                menuGrid.appendChild(div);
+            });
+
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.onclick = async () => {
+                    const id = btn.dataset.id;
+                    if (confirm('Bạn có chắc muốn xóa món này?')) {
+                        const token = localStorage.getItem('authToken');
+                        if (!token || isTokenExpired(token)) {
+                            alert('Token đã hết hạn! Vui lòng đăng nhập lại.');
+                            window.location.href = '../index.html';
+                            return;
+                        }
+                        try {
+                            const res = await fetch(`${API_URL}/menu-items/${id}`, {
+                                method: 'DELETE',
+                                headers: { 'Authorization': `Bearer ${token}` }
+                            });
+                            if (!res.ok) {
+                                const errorData = await res.json();
+                                throw new Error(errorData.error || 'Xóa món thất bại!');
+                            }
+                            fetchMenuItems();
+                        } catch (error) {
+                            console.error('Delete error:', error);
+                            alert(error.message);
+                        }
+                    }
+                };
+            });
+
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const id = btn.dataset.id;
+                    const item = menuItems.find(item => item.id == id);
+                    document.getElementById('editId').value = item.id;
+                    document.getElementById('editName').value = item.name;
+                    document.getElementById('editCategory').value = item.category;
+                    document.getElementById('editNation').value = item.nation || '';
+                    document.getElementById('editImage').value = item.image || '';
+                    document.getElementById('editPrice').value = item.price;
+                    document.getElementById('editAvailability').value = item.availability ? '1' : '0';
+                    document.getElementById('editModal').classList.add('active');
+                };
+            });
+        }
+
+        // Display table data
+        function displayTableData() {
+            const tableGrid = document.getElementById('tableGrid');
+            tableGrid.innerHTML = '';
+            tableData.forEach(table => {
+                const div = document.createElement('div');
+                div.className = 'table-item';
+                div.innerHTML = `
+                    <h3>Bàn số: ${table.number}</h3>
+                    <p>Trạng thái: <span class="${table.status === 'Đã đặt' ? 'status-booked' : 'status-available'}">${table.status}</span></p>
+                    <p>Đặt chỗ: ${table.reservation}</p>
+                    <button class="edit-btn" data-id="${table.id}">Chi tiết</button>
+                `;
+                tableGrid.appendChild(div);
+            });
+
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.onclick = () => {
+                    const id = btn.dataset.id;
+                    const table = tableData.find(t => t.id == id);
+                    alert(`Chi tiết bàn ${table.number}: Trạng thái: ${table.status}, Đặt chỗ: ${table.reservation}`);
+                };
+            });
+        }
+
+        // Filter menu items
+        function filterMenuItems() {
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            const selectedCategory = document.getElementById('categoryFilter').value;
+
+            filteredItems = menuItems.filter(item => {
+                const matchesSearch = item.name.toLowerCase().includes(searchText);
+                const matchesCategory = selectedCategory ? item.category === selectedCategory : true;
+                return matchesSearch && matchesCategory;
+            });
+
+            displayMenuItems();
+        }
+
+        // Filter table data
+        function filterTableData() {
+            const searchText = document.getElementById('tableSearchInput').value;
+            const filteredTables = tableData.filter(table =>
+                table.number.toString().includes(searchText)
+            );
+            tableData = [...filteredTables];
+            displayTableData();
+        }
+
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(`${tabId}Tab`).classList.add('active');
+                if (tabId === 'menu') {
+                    fetchMenuItems();
+                } else if (tabId === 'tables') {
+                    fetchTableData();
+                }
+            });
+        });
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', filterMenuItems);
+        document.getElementById('categoryFilter').addEventListener('change', filterMenuItems);
+        document.getElementById('tableSearchInput').addEventListener('input', filterTableData);
+
+        // Add item
+        document.getElementById('addForm').onsubmit = async function (e) {
+            e.preventDefault();
+            const token = localStorage.getItem('authToken');
+            if (!token || isTokenExpired(token)) {
+                alert('Token đã hết hạn! Vui lòng đăng nhập lại.');
+                window.location.href = '../index.html';
+                return;
+            }
+            const name = document.getElementById('name').value.trim();
+            const category = document.getElementById('category').value;
+            const nation = document.getElementById('nation').value || null;
+            const image = document.getElementById('image').value || null;
+            const price = parseFloat(document.getElementById('price').value);
+            const availability = document.getElementById('availability').value === '1' ? true : false;
+
+            if (!name || isNaN(price) || price <= 0 || price > 9999999.99) {
+                alert('Vui lòng nhập đầy đủ và đúng định dạng!');
+                return;
+            }
+
+            console.log('Sending data to API:', { name, category, nation, image, price, availability });
+            try {
+                const res = await fetch(`${API_URL}/menu-items`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ name, category, nation, image, price, availability })
+                });
+                const responseData = await res.json();
+                if (!res.ok) throw new Error(responseData.error || 'Thêm món thất bại!');
+                alert('Thêm món thành công!');
+                fetchMenuItems();
+                document.getElementById('addModal').classList.remove('active');
+                document.getElementById('addForm').reset();
+            } catch (error) {
+                console.error('Add error:', error);
+                alert('Lỗi: ' + error.message);
+            }
+        };
+
+        // Edit item
+        document.getElementById('editForm').onsubmit = async function (e) {
+            e.preventDefault();
+            const token = localStorage.getItem('authToken');
+            if (!token || isTokenExpired(token)) {
+                alert('Token đã hết hạn! Vui lòng đăng nhập lại.');
+                window.location.href = '../index.html';
+                return;
+            }
+            const id = document.getElementById('editId').value;
+            const name = document.getElementById('editName').value.trim();
+            const category = document.getElementById('editCategory').value;
+            const nation = document.getElementById('editNation').value || null;
+            const image = document.getElementById('editImage').value || null;
+            const price = parseFloat(document.getElementById('editPrice').value);
+            const availability = document.getElementById('editAvailability').value === '1' ? true : false;
+
+            if (!name || isNaN(price) || price <= 0 || price > 9999999.99) {
+                alert('Vui lòng nhập đầy đủ và đúng định dạng!');
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_URL}/menu-items/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ name, category, nation, image, price, availability })
+                });
+                const responseData = await res.json();
+                if (!res.ok) throw new Error(responseData.error || 'Cập nhật món thất bại!');
+                alert('Cập nhật món thành công!');
+                fetchMenuItems();
+                document.getElementById('editModal').classList.remove('active');
+            } catch (error) {
+                console.error('Edit error:', error);
+                alert('Lỗi: ' + error.message);
+            }
+        };
+
+        // Open add modal
+        document.getElementById('addItemBtn').onclick = () => {
+            document.getElementById('addModal').classList.add('active');
+        };
+        document.getElementById('closeAdd').onclick = () => {
+            document.getElementById('addModal').classList.remove('active');
+        };
+        document.getElementById('closeEdit').onclick = () => {
+            document.getElementById('editModal').classList.remove('active');
+        };
+
+        // Logout
+        document.getElementById('logoutBtn').onclick = function (e) {
+            e.preventDefault();
+            if (confirm('Bạn có chắc muốn đăng xuất?')) {
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('user');
+                alert('Đăng xuất thành công!');
+                window.location.href = '../index.html';
+            }
+        };
+
+        // Update UI and fetch data on load
+        function updateAuthUI() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const userName = document.getElementById('userName');
+            const userAvatar = document.getElementById('userAvatar');
+            if (user && user.role === 'admin') {
+                userName.textContent = user.username || user.email;
+                userAvatar.textContent = (user.username || user.email || 'A')[0].toUpperCase();
+            } else {
+                alert('Bạn không có quyền truy cập!');
+                window.location.href = '../index.html';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAuthUI();
+            fetchMenuItems(); // Load menu tab by default
+        });
+    </script>
+</body>
+
+</html>
