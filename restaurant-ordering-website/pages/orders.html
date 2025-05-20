@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Lịch sử đặt hàng</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; }
+        .container { max-width: 900px; margin: 40px auto; background: #fff; border-radius: 12px; padding: 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);}
+        h2 { text-align: center; color: #c0392b; margin-bottom: 28px; }
+        .order-list { margin-top: 24px; }
+        .order-item { border-bottom: 1px solid #eee; padding: 18px 0; cursor: pointer; transition: background 0.2s; }
+        .order-item:last-child { border-bottom: none; }
+        .order-item:hover { background: #f9ecec; }
+        .order-id { color: #c0392b; font-weight: bold; }
+        .order-status { color: #27ae60; font-weight: bold; }
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 18px;
+            background: #c0392b;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 32px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .back-btn:hover { background: #a5281e; }
+        .order-details-modal {
+            position: fixed; left: 0; top: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;
+        }
+        .order-details-content {
+            background: #fff; border-radius: 10px; max-width: 500px; width: 95vw; padding: 28px 22px 18px 22px; box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+        }
+        .order-details-content h3 { margin-top: 0; color: #c0392b; }
+        .order-items-list { margin: 18px 0 0 0; padding: 0; list-style: none; }
+        .order-items-list li { margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+        .order-items-list li:last-child { border-bottom: none; }
+        .close-modal-btn {
+            float: right; background: none; border: none; font-size: 1.5rem; color: #c0392b; cursor: pointer;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 8px 0; }
+            .order-details-content { padding: 12px 4vw; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-btn" onclick="window.location.href='../index.html'">Quay lại trang chính</button>
+        <h2>Lịch sử đặt hàng của bạn</h2>
+        <div class="order-list" id="orderList"></div>
+    </div>
+    <div id="orderDetailsModal" style="display:none"></div>
+    <script>
+        // Lấy user hiện tại
+        const user = JSON.parse(localStorage.getItem('user'));
+        // Lấy tất cả orders
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        // Lọc orders của user hiện tại
+        const userOrders = orders.filter(o => o.userId === (user && user.id));
+
+        const orderList = document.getElementById('orderList');
+        const orderDetailsModal = document.getElementById('orderDetailsModal');
+
+        if (userOrders.length === 0) {
+            orderList.innerHTML = '<p>Bạn chưa có đơn hàng nào.</p>';
+        } else {
+            userOrders.reverse().forEach(order => {
+                orderList.innerHTML += `
+                    <div class="order-item" data-id="${order.id}">
+                        <div><span class="order-id">Mã đơn hàng:</span> ${order.id}</div>
+                        <div><b>Ngày đặt:</b> ${order.createdAt ? order.createdAt.split('T')[0] : ''}</div>
+                        <div><b>Trạng thái:</b> <span class="order-status">${order.status || 'Đang xử lý'}</span></div>
+                        <div><b>Tổng tiền:</b> ${formatCurrency(order.summary || 0)}</div>
+                    </div>
+                `;
+            });
+        }
+
+        // Hàm định dạng tiền tệ
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        // Xem chi tiết đơn hàng khi click
+        orderList.addEventListener('click', function(e) {
+            const item = e.target.closest('.order-item');
+            if (!item) return;
+            const orderId = item.dataset.id;
+            const order = userOrders.find(o => o.id == orderId);
+            if (!order) return;
+            showOrderDetails(order);
+        });
+
+        function showOrderDetails(order) {
+            let itemsHtml = '';
+            if (order.items && order.items.length > 0) {
+                itemsHtml = order.items.map(item => `
+                    <li>
+                        <b>${item.name}</b> x${item.quantity} - ${formatCurrency(item.price * item.quantity)}
+                    </li>
+                `).join('');
+            } else {
+                itemsHtml = '<li>Không có món nào trong đơn.</li>';
+            }
+            orderDetailsModal.innerHTML = `
+                <div class="order-details-modal">
+                    <div class="order-details-content">
+                        <button class="close-modal-btn" onclick="document.getElementById('orderDetailsModal').style.display='none'">&times;</button>
+                        <h3>Chi tiết đơn hàng: ${order.id}</h3>
+                        <div><b>Ngày đặt:</b> ${order.createdAt ? order.createdAt.replace('T', ' ').substring(0, 19) : ''}</div>
+                        <div><b>Trạng thái:</b> <span class="order-status">${order.status || 'Đang xử lý'}</span></div>
+                        <div><b>Hình thức:</b> ${order.diningOption === 'dineIn' ? 'Ăn tại nhà hàng' : 'Giao hàng tận nơi'}</div>
+                        <div><b>Thanh toán:</b> ${order.paymentMethod === 'bankTransfer' ? 'Chuyển khoản' : 'Tiền mặt'}</div>
+                        <div><b>Tổng tiền:</b> ${formatCurrency(order.summary || 0)}</div>
+                        <div style="margin-top:12px;"><b>Danh sách món:</b>
+                            <ul class="order-items-list">${itemsHtml}</ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+            orderDetailsModal.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

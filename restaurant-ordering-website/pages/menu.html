@@ -37,7 +37,7 @@
                     <i class="fas fa-angle-down dropdown-icon"></i>
                 </button>
                 <div class="user-dropdown" id="userDropdown">
-                    <a href="pages/profile.html" class="user-dropdown-item">
+                    <a href="profile.html" class="user-dropdown-item">
                         <i class="fas fa-user"></i>
                         Hồ sơ của tôi
                     </a>
@@ -45,9 +45,13 @@
                         <i class="fas fa-shopping-bag"></i>
                         Giỏ hàng
                     </a>
-                    <a href="pages/reservations.html" class="user-dropdown-item">
+                    <a href="reservations.html" class="user-dropdown-item">
                         <i class="fas fa-calendar-alt"></i>
                         Lịch đặt bàn
+                    </a>
+                    <a href="orders.html" class="user-dropdown-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        Lịch sử đặt hàng
                     </a>
                     <div class="user-dropdown-divider"></div>
                     <a href="#" class="user-dropdown-item" id="logoutBtn">
@@ -111,6 +115,9 @@
     </div>
 
     <div class="overlay" id="overlay"></div>
+    <div class="login-message" id="loginMessage">
+        <i class="fas fa-check-circle"></i> <span id="authMessageText">Đăng nhập thành công!</span>
+    </div>
 
     <footer>
         <p>&copy; 2023 Việt Delights. Đã đăng ký bản quyền.</p>
@@ -202,6 +209,7 @@
             let total = 0;
             if (cart.length === 0) {
                 cartItemsContainer.appendChild(emptyCart);
+                document.getElementById('cartTotal').textContent = formatCurrency(0);
             } else {
                 cart.forEach(item => {
                     total += item.price * item.quantity;
@@ -282,17 +290,19 @@
         }
 
         function showMessage(msg) {
-                loginMessage.textContent = msg;
-                loginMessage.style.backgroundColor = '#2ecc71';
-                loginMessage.classList.add('show');
-                setTimeout(() => loginMessage.classList.remove('show'), 3000);
-            }
-            function showAlert(msg) {
-                loginMessage.textContent = msg;
-                loginMessage.style.backgroundColor = '#c0392b';
-                loginMessage.classList.add('show');
-                setTimeout(() => loginMessage.classList.remove('show'), 3000);
-            }
+            loginMessage.textContent = msg;
+            loginMessage.style.backgroundColor = '#2ecc71';
+            loginMessage.classList.add('show');
+            setTimeout(() => loginMessage.classList.remove('show'), 3000);
+        }
+        function showAlert(msg) {
+            loginMessage.textContent = msg;
+            loginMessage.style.backgroundColor = '#c0392b';
+            loginMessage.style.top = '200px';
+            loginMessage.style.height = '50px';
+            loginMessage.classList.add('show'); 
+            setTimeout(() => loginMessage.classList.remove('show'), 3000);
+        }
 
         function updateAuthUI() {
             const user = JSON.parse(localStorage.getItem('user'));
@@ -305,7 +315,7 @@
                 userAvatar.textContent = (user.username || user.fullName || user.email || 'U')[0].toUpperCase();
             } else {
                 userAccount.style.display = 'none';
-                showAlert('Bạn chưa đăng nhập. Vui lòng đăng nhập để tiếp tục.');
+                alert('Vui lòng đăng nhập!');
                 window.location.href = '../index.html';
             }
         }
@@ -347,10 +357,10 @@
             };
             document.getElementById('checkoutBtn').onclick = function () {
                 if (cart.length === 0) {
-                    showAlert('Vui lòng thêm món ăn vào giỏ hàng trước khi thanh toán');
+                    showAlert('Bạn chưa có món nào trong giỏ hàng!');
                     return;
                 }
-                window.location.href = 'checkout.html';
+                window.location.href = 'cart.html';
             };
             // Dropdown tài khoản
             const userAccountBtn = document.getElementById('userAccountBtn');

@@ -39,17 +39,21 @@
                     <i class="fas fa-angle-down dropdown-icon"></i>
                 </button>
                 <div class="user-dropdown" id="userDropdown">
-                    <a href="pages/profile.html" class="user-dropdown-item">
+                    <a href="profile.html" class="user-dropdown-item">
                         <i class="fas fa-user"></i>
                         Hồ sơ của tôi
                     </a>
-                    <a href="pages/orders.html" class="user-dropdown-item">
+                    <a href="cart.html" class="user-dropdown-item">
                         <i class="fas fa-shopping-bag"></i>
                         Giỏ hàng
                     </a>
-                    <a href="pages/reservations.html" class="user-dropdown-item">
+                    <a href="reservations.html" class="user-dropdown-item">
                         <i class="fas fa-calendar-alt"></i>
                         Lịch đặt bàn
+                    </a>
+                    <a href="orders.html" class="user-dropdown-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        Lịch sử đặt hàng
                     </a>
                     <div class="user-dropdown-divider"></div>
                     <a href="#" class="user-dropdown-item" id="logoutBtn">
@@ -553,8 +557,12 @@
 
             // Lưu thông tin phương thức đặt món
             localStorage.setItem('diningOption', isDineIn ? 'dineIn' : 'delivery');
-
-            // Chuyển đến trang thanh toán
+            const totalAmount = {
+                subtotal: document.getElementById('subtotal').textContent.replace(/[^0-9]/g, ''),
+                deliveryFee: document.getElementById('deliveryFee').textContent.replace(/[^0-9]/g, ''),
+                total: document.getElementById('total').textContent.replace(/[^0-9]/g, '')
+            }
+            localStorage.setItem('totalAmount', JSON.stringify(totalAmount));
             window.location.href = 'checkout.html';
         }
     </script>

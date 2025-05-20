@@ -53,6 +53,10 @@
                         <i class="fas fa-calendar-alt"></i>
                         Lịch đặt bàn
                     </a>
+                    <a href="pages/orders.html" class="user-dropdown-item">
+                        <i class="fas fa-receipt"></i>
+                        Lịch sử đặt hàng
+                    </a>
                     <div class="user-dropdown-divider"></div>
                     <a href="#" class="user-dropdown-item" id="logoutBtn">
                         <i class="fas fa-sign-out-alt"></i>
@@ -302,7 +306,12 @@
                     localStorage.setItem('user', JSON.stringify(data.user));
                     loginModal.classList.remove('active');
                     showMessage('Đăng nhập thành công!');
-                    updateAuthUI();
+                    if(data.user.role === 'admin') {
+                        window.location.href = 'pages/admin.html';
+                    } else {
+                        updateAuthUI();
+                    }
+                    
                 } catch (err) { showAlert(err.message); }
             };
 
