@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quản Lý Đặt Bàn – Việt Delights</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/booking.css">
+  <link rel="stylesheet" href="../assets/css/header.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <header>
+    <!-- Giữ lại header + menu như trang booking, bỏ phần Auth nếu không cần -->
+    <div class="header-container">
+      <div class="logo"><a href="../index.html"><img src="../assets/images/logo.svg" alt="Logo"></a></div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="../index.html">Trang Chủ</a></li>
+          <li><a href="manageBookings.html" class="active">Quản Lý Đặt Bàn</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="booking-container">
+    <div class="section-title">
+      <h1>Quản Lý Đơn Đặt Bàn</h1>
+      <p>Danh sách các yêu cầu đang chờ duyệt</p>
+    </div>
+
+    <div class="floor-tabs">
+      <button class="floor-tab active" data-floor="Tầng 1">Tầng 1</button>
+      <button class="floor-tab" data-floor="Tầng 2">Tầng 2</button>
+      <button class="floor-tab" data-floor="VIP">Phòng VIP</button>
+    </div>
+
+    <!-- Container cho từng “floor” -->
+    <div class="floor-content active" data-floor="Tầng 1">
+      <ul id="list-floor-1" class="booking-list"></ul>
+    </div>
+    <div class="floor-content" data-floor="Tầng 2">
+      <ul id="list-floor-2" class="booking-list"></ul>
+    </div>
+    <div class="floor-content" data-floor="VIP">
+      <ul id="list-floor-3" class="booking-list"></ul>
+    </div>
+  </main>
+
+  <script>
+  const API_URL = 'http://localhost:4000/api';
+
+  async function loadBookings() {
+    const token = localStorage.getItem('authToken');
+    const res = await fetch(`${API_URL}/bookings?status=pending`, {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    const bookings = await res.json();
+
+    // Clear rồi render lại
+    ['list-floor-1','list-floor-2','list-floor-3'].forEach(id=>{
+      document.getElementById(id).innerHTML = '';
+    });
+
+    bookings.forEach(b => {
+      const floor = b.room.category; // "Tầng 1", "Tầng 2", "VIP"
+      const ulId = floor==='Tầng 1' ? 'list-floor-1'
+                  : floor==='Tầng 2' ? 'list-floor-2'
+                  : 'list-floor-3';
+
+      const li = document.createElement('li');
+      li.className = 'booking-item';
+      li.dataset.id = b.id;
+
+      li.innerHTML = `
+        <div class="info">
+          <strong>${b.room.name}</strong> — ${b.party_size} khách<br>
+          ${b.booking_date} @ ${b.booking_time}<br>
+          Khách: ${b.customer.name} (${b.customer.phone})
+        </div>
+        <div class="actions">
+          <span class="status">Status: <em>Pending</em></span>
+          <button class="btn-confirm">Chấp nhận</button>
+          <button class="btn-cancel">Hủy</button>
+        </div>
+      `;
+
+      document.getElementById(ulId).appendChild(li);
+    });
+
+    // gắn event cho cả hai nút
+    document.querySelectorAll('.booking-item').forEach(li => {
+      const id = li.dataset.id;
+      const statusEl = li.querySelector('.status em');
+
+      li.querySelector('.btn-confirm').onclick = async () => {
+        await actionBooking(id, 'confirm');
+        statusEl.textContent = 'Confirmed';
+        btnConfirm.style.display = 'none';
+        btnCancel.style.display  = 'none';
+      };
+      li.querySelector('.btn-cancel').onclick = async () => {
+        await actionBooking(id, 'cancel');
+        statusEl.textContent = 'Cancelled';
+        btnConfirm.style.display = 'none';
+        btnCancel.style.display  = 'none';
+      };
+    });
+  }
+
+  async function actionBooking(id, mode) {
+    const token = localStorage.getItem('authToken');
+    const url = `${API_URL}/bookings/${id}/${mode}`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      alert(err.error || 'Lỗi khi cập nhật');
+    }
+  }
+
+  // khởi chạy
+  document.addEventListener('DOMContentLoaded', () => {
+    // chuyển tab floor…
+    document.querySelectorAll('.floor-tab').forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll('.floor-tab').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const target = btn.dataset.floor;
+        document.querySelectorAll('.floor-content').forEach(fc => {
+          fc.classList.toggle('active', fc.dataset.floor === target);
+        });
+      };
+    });
+
+    loadBookings();
+  });
+</script>
+</body>
+</html>

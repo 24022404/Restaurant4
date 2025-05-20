@@ -537,59 +537,59 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Account UI
-            const user = JSON.parse(localStorage.getItem('user'));
-            const userAccount = document.getElementById('userAccount');
-            const userName = document.getElementById('userName');
-            const userAvatar = document.getElementById('userAvatar');
-            const userAccountBtn = document.getElementById('userAccountBtn');
-            const userDropdown = document.getElementById('userDropdown');
-            const logoutBtn = document.getElementById('logoutBtn');
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     // Account UI
+        //     const user = JSON.parse(localStorage.getItem('user'));
+        //     const userAccount = document.getElementById('userAccount');
+        //     const userName = document.getElementById('userName');
+        //     const userAvatar = document.getElementById('userAvatar');
+        //     const userAccountBtn = document.getElementById('userAccountBtn');
+        //     const userDropdown = document.getElementById('userDropdown');
+        //     const logoutBtn = document.getElementById('logoutBtn');
 
-            function updateAuthUI() {
-                if (user) {
-                    userAccount.style.display = 'block';
-                    userName.textContent = user.username || user.fullName || user.email;
-                    userAvatar.textContent = (user.username || user.fullName || user.email || 'U')[0].toUpperCase();
-                } else {
-                    alert('Vui lòng đăng nhập!');
-                    window.location.href = '../index.html';
-                    userAccount.style.display = 'none';
-                }
-            }
+        //     function updateAuthUI() {
+        //         if (user) {
+        //             userAccount.style.display = 'block';
+        //             userName.textContent = user.username || user.fullName || user.email;
+        //             userAvatar.textContent = (user.username || user.fullName || user.email || 'U')[0].toUpperCase();
+        //         } else {
+        //             alert('Vui lòng đăng nhập!');
+        //             window.location.href = '../index.html';
+        //             userAccount.style.display = 'none';
+        //         }
+        //     }
 
-            updateAuthUI();
+        //     updateAuthUI();
 
-            // Dropdown tài khoản
-            if (userAccountBtn) {
-                userAccountBtn.onclick = () => userDropdown.classList.toggle('active');
-                document.addEventListener('click', function (e) {
-                    if (!userAccountBtn.contains(e.target) && !userDropdown.contains(e.target)) {
-                        userDropdown.classList.remove('active');
-                    }
-                });
-            }
+        //     // Dropdown tài khoản
+        //     if (userAccountBtn) {
+        //         userAccountBtn.onclick = () => userDropdown.classList.toggle('active');
+        //         document.addEventListener('click', function (e) {
+        //             if (!userAccountBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+        //                 userDropdown.classList.remove('active');
+        //             }
+        //         });
+        //     }
 
-            // Đăng xuất
-            if (logoutBtn) {
-                logoutBtn.onclick = function (e) {
-                    e.preventDefault();
-                    localStorage.removeItem('user');
-                    window.location.href = '../index.html';
-                };
-            }
+        //     // Đăng xuất
+        //     if (logoutBtn) {
+        //         logoutBtn.onclick = function (e) {
+        //             e.preventDefault();
+        //             localStorage.removeItem('user');
+        //             window.location.href = '../index.html';
+        //         };
+        //     }
 
-            // Gửi form liên hệ
-            document.getElementById('contactForm').addEventListener('submit', function (e) {
-                e.preventDefault();
-                document.getElementById('successMessage').style.display = 'block';
-                this.reset();
-                setTimeout(function () {
-                    document.getElementById('successMessage').style.display = 'none';
-                }, 5000);
-            });
-        });
+        //     // Gửi form liên hệ
+        //     document.getElementById('contactForm').addEventListener('submit', function (e) {
+        //         e.preventDefault();
+        //         document.getElementById('successMessage').style.display = 'block';
+        //         this.reset();
+        //         setTimeout(function () {
+        //             document.getElementById('successMessage').style.display = 'none';
+        //         }, 5000);
+        //     });
+        // });
     </script>
 </body>
 
