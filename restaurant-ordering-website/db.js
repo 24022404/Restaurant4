@@ -265,5 +265,26 @@ app.post('/api/bookings', async (req, res) => {
   }
 });
 
+app.post('/api/orders', async (req, res) => {
+  try {
+    const { userId, summary, diningOption, paymentMethod, status, createdAt, items } = req.body;
+    // Tạo đơn hàng mới
+    const [result] = await pool.query(
+      'INSERT INTO orders (user_id, total_price, status, created_at, dining_option, payment_method) VALUES ( ?, ?, ?, ?, ?, ?)',
+      [userId, summary, status, createdAt, diningOption, paymentMethod]
+    );
+    const orderId = result.insertId;
+    // Thêm các món vào order_items
+    for (const item of items) {
+      await pool.query(
+        'INSERT INTO order_items (order_id, meal_id, quantity, price, name) VALUES (?, ?, ?, ?, ?)',
+        [orderId, item.id, item.quantity, item.price, item.name]
+      );
+    }
+    res.json({ success: true, orderId });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 app.listen(4000, () => console.log('Server running'));
