@@ -41,6 +41,8 @@
             <div class="admin-tabs">
                 <button class="tab-btn active" data-tab="menu">Quản lý Thực Đơn</button>
                 <button class="tab-btn" data-tab="tables">Quản lý Bàn Đặt</button>
+                <button class="tab-btn" data-tab="orders">Quản lý Đơn Hàng</button>
+
             </div>
 
             <!-- Menu Tab Content -->
@@ -75,6 +77,19 @@
                     <!-- Table items will be added here -->
                 </div>
             </div>
+
+
+            <!-- Orders Tab Content -->
+            <div class="tab-content" id="ordersTab">
+            <div class="order-controls">
+                <input type="text" id="orderSearchInput" class="search-input" placeholder="Tìm đơn hàng theo ID hoặc khách...">
+            </div>
+            <div class="order-grid" id="orderList">
+                <!-- Danh sách đơn hàng sẽ được render bằng JS -->
+            </div>
+            </div>
+
+
 
             <!-- Add Item Modal -->
             <div class="modal" id="addModal">
@@ -371,6 +386,9 @@
                 } else if (tabId === 'tables') {
                     fetchTableData();
                 }
+                else if (tabId === 'orders') {
+                    fetchOrders();
+                }
             });
         });
 
@@ -498,6 +516,158 @@
             updateAuthUI();
             fetchMenuItems(); // Load menu tab by default
         });
+
+
+
+        // Fetch and display orders
+        async function fetchOrders() {
+        const token = localStorage.getItem('authToken');
+        try {
+            const res = await fetch(`${API_URL}/orders`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (!res.ok) throw new Error((await res.json()).error || 'Không lấy được đơn hàng!');
+            const orders = await res.json();
+            displayOrders(orders);
+        } catch (err) {
+            alert('Lỗi: ' + err.message);
+        }
+        }
+
+        function displayOrders(orders) {
+            const list = document.getElementById('orderList');
+            list.innerHTML = '';
+            orders.forEach(order => {
+                const div = document.createElement('div');
+                div.className = 'order-item';
+                div.innerHTML = `
+                <h3>Đơn #${order.id}</h3>
+                <p>Khách: ${order.customer}</p>
+                <p>Giá: ${order.total_price} VND</p>
+                <p>Trạng thái: 
+                    <select onchange="updateOrderStatus(${order.id}, this.value)">
+                    <option value="processing" ${order.status === 'processing' ? 'selected' : ''}>Đang xử lý</option>
+                    <option value="completed" ${order.status === 'completed' ? 'selected' : ''}>Hoàn tất</option>
+                    <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>Đã hủy</option>
+                    </select>
+                </p>
+                <p>Thời gian: ${new Date(order.created_at).toLocaleString()}</p>
+                <button onclick="viewOrderDetail(${order.id})">Chi tiết</button>
+                <button onclick="deleteOrder(${order.id})">Xóa</button>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+
+        async function viewOrderDetail(id) {
+        const token = localStorage.getItem('authToken');
+        try {
+            const res = await fetch(`${API_URL}/orders/${id}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const { order, items } = await res.json();
+            alert(
+            `Đơn hàng #${order.id}\nKhách: ${order.customer}\nTổng: ${order.total_price} VND\n` +
+            items.map(i => `- ${i.name} x${i.quantity} (${i.price} VND)`).join('\n')
+            );
+        } catch (err) {
+            alert('Không thể tải chi tiết đơn hàng.');
+        }
+        }
+
+        async function updateOrderStatus(id, status) {
+        const token = localStorage.getItem('authToken');
+        try {
+            const res = await fetch(`${API_URL}/orders/${id}/status`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ status })
+            });
+            const result = await res.json();
+            if (!res.ok) throw new Error(result.error);
+            alert('Cập nhật trạng thái thành công!');
+        } catch (err) {
+            alert('Lỗi: ' + err.message);
+        }
+        }
+
+        async function deleteOrder(id) {
+        const token = localStorage.getItem('authToken');
+        if (!confirm(`Bạn có chắc muốn xóa đơn hàng #${id}?`)) return;
+        try {
+            const res = await fetch(`${API_URL}/orders/${id}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const result = await res.json();
+            if (!res.ok) throw new Error(result.error);
+            alert(result.message);
+            fetchOrders(); // Reload
+        } catch (err) {
+            alert('Lỗi xóa đơn: ' + err.message);
+        }
+        }
+
+
+        // Hiển thị danh sách đơn hàng
+        function displayOrders(orders) {
+        const list = document.getElementById('orderList');
+        list.innerHTML = '';
+        orders.forEach(order => {
+            const div = document.createElement('div');
+            div.className = 'order-item';
+            div.innerHTML = `
+            <h3>Đơn #${order.id}</h3>
+            <p><strong>Khách:</strong> ${order.customer}</p>
+            <p><strong>Giá:</strong> ${order.total_price.toLocaleString()} VND</p>
+            <p><strong>Hình thức:</strong> ${order.dining_option}</p>
+            <p><strong>Thanh toán:</strong> ${order.payment_method}</p>
+            <p><strong>Trạng thái:</strong> 
+                <select onchange="updateOrderStatus(${order.id}, this.value)">
+                <option value="processing" ${order.status === 'processing' ? 'selected' : ''}>Đang xử lý</option>
+                <option value="completed" ${order.status === 'completed' ? 'selected' : ''}>Hoàn tất</option>
+                <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>Đã hủy</option>
+                </select>
+            </p>
+            <p><strong>Thời gian:</strong> ${new Date(order.created_at).toLocaleString()}</p>
+            <button onclick="viewOrderDetail(${order.id})">Chi tiết</button>
+            <button onclick="deleteOrder(${order.id})">Xóa</button>
+            `;
+            list.appendChild(div);
+        });
+        }
+
+        // Lọc đơn hàng theo tìm kiếm
+        document.getElementById('orderSearchInput').addEventListener('input', function () {
+        const keyword = this.value.toLowerCase();
+        const filtered = window.__allOrders.filter(order =>
+            order.customer.toLowerCase().includes(keyword) ||
+            order.id.toString().includes(keyword)
+        );
+        displayOrders(filtered);
+        });
+
+        // Gọi API danh sách
+        async function fetchOrders() {
+        const token = localStorage.getItem('authToken');
+        try {
+            const res = await fetch(`${API_URL}/orders`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const orders = await res.json();
+            window.__allOrders = orders; // lưu tạm để filter
+            displayOrders(orders);
+        } catch (err) {
+            alert('Lỗi tải đơn hàng: ' + err.message);
+        }
+        }
+
+
+
     </script>
 </body>
 

@@ -359,4 +359,110 @@ app.get('/api/bookings/rooms', authenticateToken, async (req, res) => {
   res.json(rows.map(r => r.room_id));
 });
 
+app.post('/api/orders', async (req, res) => {
+  try {
+    const { userId, summary, diningOption, paymentMethod, status, createdAt, items } = req.body;
+    // Tạo đơn hàng mới
+    const [result] = await pool.query(
+      'INSERT INTO orders (user_id, total_price, status, created_at, dining_option, payment_method) VALUES ( ?, ?, ?, ?, ?, ?)',
+      [userId, summary, status, createdAt, diningOption, paymentMethod]
+    );
+    const orderId = result.insertId;
+    // Thêm các món vào order_items
+    for (const item of items) {
+      await pool.query(
+        'INSERT INTO order_items (order_id, meal_id, quantity, price, name) VALUES (?, ?, ?, ?, ?)',
+        [orderId, item.id, item.quantity, item.price, item.name]
+      );
+    }
+    res.json({ success: true, orderId });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+// API: Lấy danh sách đơn hàng (chỉ admin)
+app.get('/api/orders', authenticateToken, isAdmin, async (req, res) => {
+  try {
+    const [orders] = await pool.query(`
+      SELECT o.id, o.total_price, o.status, o.created_at, o.dining_option, o.payment_method, u.username AS customer
+      FROM orders o
+      JOIN users u ON o.user_id = u.id
+      ORDER BY o.created_at DESC
+    `);
+    res.json(orders);
+  } catch (err) {
+    console.error('Get orders error:', err);
+    res.status(500).json({ error: 'Lỗi server' });
+  }
+});
+
+// API: Lấy chi tiết đơn hàng
+app.get('/api/orders/:id', authenticateToken, isAdmin, async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [[order]] = await pool.query(`
+      SELECT o.*, u.username AS customer
+      FROM orders o
+      JOIN users u ON o.user_id = u.id
+      WHERE o.id = ?
+    `, [id]);
+
+    if (!order) return res.status(404).json({ error: 'Không tìm thấy đơn hàng' });
+
+    const [items] = await pool.query(`
+      SELECT meal_id, name, quantity, price
+      FROM order_items
+      WHERE order_id = ?
+    `, [id]);
+
+    res.json({ order, items });
+  } catch (err) {
+    console.error('Get order detail error:', err);
+    res.status(500).json({ error: 'Lỗi server' });
+  }
+});
+
+// API: Cập nhật trạng thái đơn hàng (chỉ admin)
+app.put('/api/orders/:id/status', authenticateToken, isAdmin, async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  const validStatuses = ['processing', 'completed', 'cancelled'];
+
+  if (!validStatuses.includes(status)) {
+    return res.status(400).json({ error: 'Trạng thái không hợp lệ' });
+  }
+
+  try {
+    const [result] = await pool.query(
+      'UPDATE orders SET status = ? WHERE id = ?',
+      [status, id]
+    );
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Đơn hàng không tồn tại' });
+    }
+    res.json({ message: 'Cập nhật trạng thái thành công' });
+  } catch (err) {
+    res.status(500).json({ error: 'Lỗi server' });
+  }
+});
+
+// API: Xóa đơn hàng và các mục kèm theo
+app.delete('/api/orders/:id', authenticateToken, isAdmin, async (req, res) => {
+  const { id } = req.params;
+  try {
+    await pool.query('DELETE FROM order_items WHERE order_id = ?', [id]);
+    const [result] = await pool.query('DELETE FROM orders WHERE id = ?', [id]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Đơn hàng không tồn tại' });
+    }
+
+    res.json({ message: 'Xóa đơn hàng thành công' });
+  } catch (err) {
+    res.status(500).json({ error: 'Lỗi server' });
+  }
+});
+
 app.listen(4000, () => console.log('Server running'));

@@ -75,3 +75,57 @@ button:hover {
         opacity: 1;
     }
 }
+
+/* Đơn hàng */
+.order-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  padding: 10px;
+}
+
+.order-item {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.order-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.order-item h3 {
+  margin-top: 0;
+  color: #ff6347;
+}
+
+.order-item p {
+  margin: 5px 0;
+}
+
+.order-item select {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.order-item button {
+  margin-top: 10px;
+  margin-right: 10px;
+  background-color: #3498db;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.order-item button:last-child {
+  background-color: #e74c3c;
+}
+
+.order-controls {
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
