@@ -477,4 +477,35 @@ app.delete('/api/orders/:id', authenticateToken, isAdmin, async (req, res) => {
   }
 });
 
+
+
+// API: Lấy lịch sử đặt bàn của user (cần xác thực)
+app.get('/api/bookings/history', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const [rows] = await pool.query(
+      `SELECT
+         b.id,
+         b.booking_date   AS date,
+         b.booking_time   AS time,
+         b.party_size     AS guests,
+         b.status,
+         b.note,
+         r.name           AS room_name,
+         r.category       AS room_category
+       FROM bookings b
+       LEFT JOIN rooms r
+         ON b.room_id = r.id
+       WHERE b.user_id = ?
+       ORDER BY b.booking_date DESC, b.booking_time DESC`,
+      [userId]
+    );
+
+    res.json(rows);
+  } catch (err) {
+    console.error('Get booking history error:', err);
+    res.status(500).json({ error: 'Lỗi server: ' + err.message });
+  }
+});
+
 app.listen(4000, () => console.log('Server running'));

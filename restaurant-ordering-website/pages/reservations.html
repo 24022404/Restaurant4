@@ -54,9 +54,20 @@
             font-weight: bold;
             font-size: 1.1em;
         }
-        .booking-status {
+       .status-pending {
+        color: #e67e22;
+        padding: 2px 10px;
+        border-radius: 6px;
+        }
+        .status-confirmed {
             color: #27ae60;
-            font-weight: bold;
+            padding: 2px 10px;
+            border-radius: 6px;
+        }
+        .status-cancelled {
+            color: #f20d0d;
+            padding: 2px 10px;
+            border-radius: 6px;
         }
         .back-btn {
             display: inline-block;
@@ -93,30 +104,52 @@
         <div class="booking-list" id="bookingList"></div>
     </div>
     <script>
-        // Lấy user hiện tại
-        const user = JSON.parse(localStorage.getItem('user'));
-        // Lấy tất cả bookings
-        const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
-        // Lọc bookings của user hiện tại
-        const userBookings = bookings.filter(b => b.customer && b.customer.email === user.email);
+  // Lấy user hiện tại và token
+  const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem('authToken');
+  const bookingList = document.getElementById('bookingList');
 
-        const bookingList = document.getElementById('bookingList');
-        if (userBookings.length === 0) {
-            bookingList.innerHTML = '<p>Bạn chưa có lịch sử đặt bàn nào.</p>';
-        } else {
-            userBookings.reverse().forEach(b => {
-                bookingList.innerHTML += `
-                    <div class="booking-item">
-                        <div><span class="booking-id">Mã đặt bàn:</span> ${b.id}</div>
-                        <div><b>Ngày:</b> ${b.date} <b>Giờ:</b> ${b.time}</div>
-                        <div><b>Số người:</b> ${b.guests}</div>
-                        <div><b>Bàn/Phòng:</b> ${b.tables.map(t => t.name || t.number).join(', ')}</div>
-                        <div><b>Yêu cầu:</b> ${b.customer.requests || 'Không có'}</div>
-                        <div><b>Trạng thái:</b> <span class="booking-status">${b.status}</span></div>
-                    </div>
-                `;
-            });
+  async function loadBookingHistory() {
+    if (!user || !token) {
+      bookingList.innerHTML = '<p>Vui lòng đăng nhập để xem lịch sử đặt bàn.</p>';
+      return;
+    }
+
+    try {
+      const res = await fetch('http://localhost:4000/api/bookings/history', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
         }
-    </script>
+      });
+      if (!res.ok) throw new Error(await res.text());
+
+      const bookings = await res.json();
+      if (!bookings.length) {
+        bookingList.innerHTML = '<p>Bạn chưa có lịch sử đặt bàn nào.</p>';
+        return;
+      }
+
+      bookingList.innerHTML = '';
+      bookings.forEach(b => {
+        bookingList.innerHTML += `
+          <div class="booking-item">
+            <div><span class="booking-id">Mã đặt bàn:</span> ${b.id}</div>
+            <div><b>Ngày:</b> ${b.date} <b>Giờ:</b> ${b.time}</div>
+            <div><b>Số người:</b> ${b.guests}</div>
+            <div><b>Phòng:</b> ${b.room_name} <small>(${b.room_category})</small></div>
+            <div><b>Yêu cầu:</b> ${b.note || 'Không có'}</div>
+            <div><b>Trạng thái:</b> <span class="booking-status status-${b.status}">${b.status}</span></div>
+          </div>
+        `;
+      });
+    } catch (err) {
+      console.error(err);
+      bookingList.innerHTML = '<p>Lỗi khi tải lịch sử đặt bàn.</p>';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', loadBookingHistory);
+</script>
 </body>
 </html>

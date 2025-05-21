@@ -657,3 +657,10 @@
             display: flex;
             justify-content: center;
         }
+
+        .table-item.reserved, .room-item.reserved {
+    background: #ffdddd;
+    border: 2px solid #e74c3c;
+    color: #e74c3c;
+    cursor: not-allowed;
+}

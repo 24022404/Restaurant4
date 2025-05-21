@@ -51,6 +51,10 @@
                         <i class="fas fa-calendar-alt"></i>
                         Lịch đặt bàn
                     </a>
+                    <a href="orders.html" class="user-dropdown-item">
+                        <i class="fas fa-receipt"></i>
+                        Lịch sử đặt hàng
+                    </a>
                     <div class="user-dropdown-divider"></div>
                     <a href="#" class="user-dropdown-item" id="logoutBtn">
                         <i class="fas fa-sign-out-alt"></i>
@@ -425,8 +429,38 @@
 
             // Initialize the booking system
             initDateGrid();
+            markBookedTables();
             initTableLayouts();
             setupEventListeners();
+
+            async function markBookedTables() {
+                if (!selectedDate || !selectedTime) return;
+                try {
+                    const res = await fetch(`${API_URL}/bookings/rooms?date=${selectedDate}&time=${selectedTime}`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + localStorage.getItem('authToken')
+                        }
+                    });
+                    if (!res.ok) throw new Error(await res.text());
+                    const bookedIds = await res.json(); // mảng [room_id, ...]
+                    // Reset trạng thái trước
+                    document.querySelectorAll('.table-item, .room-item').forEach(el => {
+                        el.classList.remove('reserved');
+                        el.classList.add('available');
+                    });
+                    // Đánh dấu các bàn đã đặt
+                    document.querySelectorAll('.table-item, .room-item').forEach(el => {
+                        const id = parseInt(el.dataset.id, 10);
+                        if (bookedIds.includes(id)) {
+                            el.classList.add('reserved');
+                            el.classList.remove('available');
+                        }
+                    });
+                } catch (err) {
+                    console.error('Không mark được booked tables:', err);
+                }
+            }
 
 
             // Initialize date grid with next 14 days
@@ -485,15 +519,16 @@
 
                 // Reset all time slots
                 timeSlots.forEach(slot => {
-                    slot.classList.remove('disabled', 'selected');
-                });
-
-                // Randomly disable some time slots
-                timeSlots.forEach(slot => {
-                    if (Math.random() < 0.3) {
-                        slot.classList.add('disabled');
+                    if (!slot.classList.contains('disabled')) {
+                        slot.addEventListener('click', function () {
+                            timeSlots.forEach(s => s.classList.remove('selected'));
+                            this.classList.add('selected');
+                            selectedTime = this.dataset.time;
+                            markBookedTables(); // Gọi lại mỗi khi chọn giờ
+                        });
                     }
                 });
+
 
                 // Disable time slots for today that are in the past
                 if (selectedDate === new Date().toISOString().split('T')[0]) {
@@ -520,6 +555,7 @@
                             timeSlots.forEach(s => s.classList.remove('selected'));
                             this.classList.add('selected');
                             selectedTime = this.dataset.time;
+                            markBookedTables();
                         });
                     }
                 });
@@ -533,51 +569,40 @@
             }
 
             async function loadFloor(floor, containerId) {
-                const container = document.getElementById(containerId);
-                container.innerHTML = '';
-                const token = localStorage.getItem('authToken');
+                    const container = document.getElementById(containerId);
+                    container.innerHTML = '';
+                    const token = localStorage.getItem('authToken');
 
-                // 1) Lấy danh sách phòng/bàn floor
-                const resRooms = await fetch(`${API_URL}/rooms?floor=${floor}`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-                if (!resRooms.ok) { console.error(await resRooms.text()); return; }
-                const rooms = await resRooms.json();
+                    // Lấy danh sách phòng/bàn kèm status
+                    const resRooms = await fetch(`${API_URL}/rooms?floor=${floor}&date=${selectedDate || ''}&time=${selectedTime || ''}`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    if (!resRooms.ok) { console.error(await resRooms.text()); return; }
+                    const rooms = await resRooms.json();
 
-                // 2) Lấy danh sách room_id đã confirm cho ngày/giờ đã chọn
-                let reserved = [];
-                if (selectedDate && selectedTime) {
-                    const resBooked = await fetch(
-                        `${API_URL}/bookings/rooms?date=${selectedDate}&time=${selectedTime}`,
-                        { headers: { 'Authorization': `Bearer ${token}` } }
-                    );
-                    if (resBooked.ok) reserved = await resBooked.json();
+                    rooms.forEach(room => {
+                        const el = document.createElement('div');
+                        // className: available | reserved
+                        const isBooked = room.status === 'reserved';
+                        el.className = floor === 3
+                            ? `room-item ${isBooked ? 'reserved' : 'available'}`
+                            : `table-item ${isBooked ? 'reserved' : 'available'}`;
+                        el.dataset.id = room.id;
+                        el.dataset.capacity = room.capacity;
+                        el.innerHTML = floor === 3
+                            ? `<div class="room-name">${room.name}</div><div class="room-capacity">${room.capacity} người</div>`
+                            : `<div class="table-number">${room.name}</div><div class="table-capacity">${room.capacity} người</div>`;
+
+                        // Nếu reserved thì disable click, else gắn chọn
+                        if (!isBooked) {
+                            el.addEventListener('click', () => toggleTableSelection(el));
+                        }
+                        container.appendChild(el);
+                    });
                 }
-
-                // 3) Render từng room/table
-                rooms.forEach(room => {
-                    const el = document.createElement('div');
-                    const isBooked = reserved.includes(room.id);
-                    // className: available | reserved
-                    el.className = floor === 3
-                        ? `room-item ${isBooked ? 'reserved' : 'available'}`
-                        : `table-item ${isBooked ? 'reserved' : 'available'}`;
-                    el.dataset.id = room.id;
-                    el.dataset.capacity = room.capacity;
-                    el.innerHTML = floor === 3
-                        ? `<div class="room-name">${room.name}</div><div class="room-capacity">${room.capacity} người</div>`
-                        : `<div class="table-number">${room.name}</div><div class="table-capacity">${room.capacity} người</div>`;
-
-                    // nếu reserved thì disable click, else gắn chọn
-                    if (!isBooked) {
-                        el.addEventListener('click', () => toggleTableSelection(el));
-                    }
-                    container.appendChild(el);
-                });
-            }
 
             document.addEventListener('DOMContentLoaded', () => {
                 initDateGrid();
