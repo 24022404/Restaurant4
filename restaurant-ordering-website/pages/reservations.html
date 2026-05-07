@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Đặt Bàn - Việt Delights</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="../index.html"><img src="../assets/images/logo.svg" alt="Việt Delights Logo"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Trang Chủ</a></li>
+                    <li><a href="../menu.html">Thực Đơn</a></li>
+                    <li><a href="booking.html">Đặt Bàn</a></li>
+                    <li><a href="../cart.html">Giỏ Hàng</a></li>
+                    <li><a href="../about.html">Giới Thiệu</a></li>
+                    <li><a href="../contact.html">Liên Hệ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="reservations-page">
+        <section class="account-section">
+            <h1>Lịch Đặt Bàn</h1>
+            <div id="reservationsContainer" class="orders-list">
+                <p>Đang tải lịch đặt bàn...</p>
+            </div>
+            <a href="profile.html" class="btn btn-outline">Quay lại hồ sơ</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Việt Delights. Đã đăng ký bản quyền.</p>
+    </footer>
+
+    <script>
+        const reservationsContainer = document.getElementById('reservationsContainer');
+        const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+
+        if (bookings.length === 0) {
+            reservationsContainer.innerHTML = `
+                <div class="empty-message">
+                    <h2>Chưa có lịch đặt bàn</h2>
+                    <p>Bạn chưa đặt bàn nào. Vui lòng tạo đặt bàn để xem lịch sử.</p>
+                </div>
+            `;
+        } else {
+            reservationsContainer.innerHTML = bookings.map(booking => `
+                <div class="order-card">
+                    <div class="order-header">
+                        <h3>Mã đặt bàn: ${booking.id}</h3>
+                        <span>${booking.bookingType === 'privateRoom' ? 'Phòng riêng' : 'Bàn thường'}</span>
+                    </div>
+                    <div class="order-details">
+                        <p><strong>Ngày:</strong> ${booking.date || 'Chưa xác định'}</p>
+                        <p><strong>Giờ:</strong> ${booking.time || 'Chưa xác định'}</p>
+                        <p><strong>Số khách:</strong> ${booking.guests || 'Không rõ'}</p>
+                        <p><strong>Ghi chú:</strong> ${booking.note || 'Không có'}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>

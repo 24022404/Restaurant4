@@ -1,0 +1,18 @@
+{
+  "name": "restaurant-ordering-website",
+  "version": "1.0.0",
+  "description": "Dự án này là một ứng dụng web cho nhà hàng cho phép người dùng đặt món ăn trực tuyến và đặt bàn. Người dùng có thể duyệt thực đơn, thêm món ăn vào giỏ hàng và lựa chọn giao hàng hoặc đặt bàn để dùng bữa tại nhà hàng.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cypress run",
+    "cypress:open": "npx cypress open",
+    "cypress:run": "npx cypress run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "cypress": "^15.14.2"
+  }
+}

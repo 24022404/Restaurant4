@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đơn Hàng - Việt Delights</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="../index.html"><img src="../assets/images/logo.svg" alt="Việt Delights Logo"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Trang Chủ</a></li>
+                    <li><a href="../menu.html">Thực Đơn</a></li>
+                    <li><a href="booking.html">Đặt Bàn</a></li>
+                    <li><a href="../cart.html">Giỏ Hàng</a></li>
+                    <li><a href="../about.html">Giới Thiệu</a></li>
+                    <li><a href="../contact.html">Liên Hệ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="orders-page">
+        <section class="account-section">
+            <h1>Đơn Hàng Của Tôi</h1>
+            <div id="ordersContainer" class="orders-list">
+                <p>Đang tải đơn hàng...</p>
+            </div>
+            <a href="profile.html" class="btn btn-outline">Quay lại hồ sơ</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Việt Delights. Đã đăng ký bản quyền.</p>
+    </footer>
+
+    <script>
+        const ordersContainer = document.getElementById('ordersContainer');
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+        if (orders.length === 0) {
+            ordersContainer.innerHTML = `
+                <div class="empty-message">
+                    <h2>Chưa có đơn hàng</h2>
+                    <p>Bạn chưa thực hiện đơn hàng nào. Hãy đặt món ngay hôm nay.</p>
+                </div>
+            `;
+        } else {
+            ordersContainer.innerHTML = orders.map(order => `
+                <div class="order-card">
+                    <div class="order-header">
+                        <h3>Mã đơn hàng: ${order.id}</h3>
+                        <span>Trạng thái: ${order.status || 'Đang xử lý'}</span>
+                    </div>
+                    <div class="order-details">
+                        <p><strong>Ngày:</strong> ${new Date(order.createdAt).toLocaleString('vi-VN')}</p>
+                        <p><strong>Phương thức:</strong> ${order.paymentMethod === 'bankTransfer' ? 'Chuyển khoản' : 'Tiền mặt'}</p>
+                        <p><strong>Tổng:</strong> ${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 0 }).format(order.summary.total)}</p>
+                    </div>
+                    <div class="order-items">
+                        ${order.items.map(item => `
+                            <div class="order-item-row">
+                                <span>${item.name} x${item.quantity}</span>
+                                <span>${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND', maximumFractionDigits: 0 }).format(item.price * item.quantity)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>

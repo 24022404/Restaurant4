@@ -1363,6 +1363,13 @@
         
         const total = subtotal + deliveryFee;
         
+        const cartSummary = {
+            subtotal: subtotal,
+            deliveryFee: deliveryFee,
+            total: total
+        };
+        localStorage.setItem('cartSummary', JSON.stringify(cartSummary));
+        
         document.getElementById('subtotal').textContent = formatCurrency(subtotal);
         document.getElementById('deliveryFee').textContent = formatCurrency(deliveryFee);
         document.getElementById('total').textContent = formatCurrency(total);

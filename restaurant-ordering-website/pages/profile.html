@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ Sơ - Việt Delights</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="../index.html"><img src="../assets/images/logo.svg" alt="Việt Delights Logo"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Trang Chủ</a></li>
+                    <li><a href="../menu.html">Thực Đơn</a></li>
+                    <li><a href="booking.html">Đặt Bàn</a></li>
+                    <li><a href="../cart.html">Giỏ Hàng</a></li>
+                    <li><a href="../about.html">Giới Thiệu</a></li>
+                    <li><a href="../contact.html">Liên Hệ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="profile-page">
+        <section class="account-section">
+            <h1>Hồ Sơ Người Dùng</h1>
+            <div class="account-card" id="profileCard">
+                <p>Đang tải thông tin...</p>
+            </div>
+            <div class="account-actions">
+                <a href="../index.html" class="btn btn-outline">Về trang chủ</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Việt Delights. Đã đăng ký bản quyền.</p>
+    </footer>
+
+    <script>
+        const profileCard = document.getElementById('profileCard');
+        const loggedInUser = localStorage.getItem('loggedInUser');
+
+        if (!loggedInUser) {
+            profileCard.innerHTML = `
+                <h2>Chưa đăng nhập</h2>
+                <p>Vui lòng đăng nhập để xem hồ sơ của bạn.</p>
+                <a href="../index.html" class="btn">Đăng nhập / Đăng ký</a>
+            `;
+        } else {
+            const userData = JSON.parse(loggedInUser);
+            profileCard.innerHTML = `
+                <h2>${userData.fullName || 'Người dùng'}</h2>
+                <div class="profile-info">
+                    <p><strong>Email:</strong> ${userData.email || 'Không có'}</p>
+                    <p><strong>Điện thoại:</strong> ${userData.phone || 'Không có'}</p>
+                    <p><strong>Địa chỉ:</strong> ${userData.address || 'Không có'}</p>
+                    <p><strong>Ngày sinh:</strong> ${userData.birthDate || 'Không có'}</p>
+                </div>
+                <a href="orders.html" class="btn">Xem đơn hàng</a>
+                <a href="reservations.html" class="btn btn-outline">Xem lịch đặt bàn</a>
+            `;
+        }
+    </script>
+</body>
+</html>

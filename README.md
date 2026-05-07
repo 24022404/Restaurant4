@@ -90,3 +90,9 @@ restaurant-ordering-website
 - CSS
 - JavaScript
 
+Ae chạy thì mở 1 terminal lên chạy 
+cd restaurant-ordering-website
+python -m http.server 8000
+Sau đó mở 1 terminal mới lên chạy 
+cd restaurant-ordering-website
+npm run cypress:open

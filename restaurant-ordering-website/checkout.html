@@ -664,15 +664,23 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Get cart and summary information
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const cartSummary = JSON.parse(localStorage.getItem('cartSummary')) || {
-                subtotal: 0,
-                deliveryFee: 0,
-                total: 0
-            };
             
             // Get dining option
             const diningOption = localStorage.getItem('diningOption') || 'dineIn';
             const isDineIn = diningOption === 'dineIn';
+            
+            // Use stored summary when available, otherwise compute from cart
+            let cartSummary = JSON.parse(localStorage.getItem('cartSummary'));
+            if (!cartSummary || typeof cartSummary.total !== 'number' || cartSummary.total === 0) {
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const deliveryFee = isDineIn ? 0 : 20000;
+                cartSummary = {
+                    subtotal: subtotal,
+                    deliveryFee: deliveryFee,
+                    total: subtotal + deliveryFee
+                };
+                localStorage.setItem('cartSummary', JSON.stringify(cartSummary));
+            }
             
             // Show appropriate dining info
             document.getElementById('dineInInfo').style.display = isDineIn ? 'block' : 'none';
@@ -740,6 +748,10 @@
             document.getElementById('deliveryFee').textContent = formatCurrency(cartSummary.deliveryFee);
             document.getElementById('total').textContent = formatCurrency(cartSummary.total);
             document.getElementById('transferAmount').textContent = formatCurrency(cartSummary.total);
+            const transferAmountCopyBtn = document.getElementById('transferAmountCopyBtn');
+            if (transferAmountCopyBtn) {
+                transferAmountCopyBtn.dataset.copy = cartSummary.total;
+            }
             
             // Display order items
             const orderItemsContainer = document.getElementById('orderItems');
@@ -956,81 +968,6 @@
                 placeOrderBtn.disabled = true;
                 placeOrderBtn.textContent = 'Giỏ hàng trống';
             }
-        });
-        
-        // Format currency function
-        function formatCurrency(amount) {
-            return new Intl.NumberFormat('vi-VN', { 
-                style: 'currency', 
-                currency: 'VND',
-                maximumFractionDigits: 0
-            }).format(amount);
-        }
-
-        // Display order items
-        const orderItemsContainer = document.getElementById('orderItems');
-
-        cart.forEach(item => {
-            const itemElement = document.createElement('div');
-            itemElement.classList.add('order-item');
-            
-            itemElement.innerHTML = `
-                <img src="${item.image}" alt="${item.name}" class="order-item-image">
-                <div class="order-item-details">
-                    <div class="order-item-name">
-                        <span>${item.name}</span>
-                        <span>x${item.quantity}</span>
-                    </div>
-                    <div class="order-item-price">
-                        <span>${formatCurrency(item.price)}</span>
-                        <span>${formatCurrency(item.price * item.quantity)}</span>
-                    </div>
-                </div>
-            `;
-            
-            orderItemsContainer.appendChild(itemElement);
-        });
-
-        // Update the transfer amount copy button data
-        document.getElementById('transferAmountCopyBtn').dataset.copy = cartSummary.total;
-
-        // Enhanced copy button functionality
-        document.querySelectorAll('.copy-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const textToCopy = this.dataset.copy;
-                const textToDisplay = this.id === 'transferAmountCopyBtn' ? 
-                    formatCurrency(textToCopy) : textToCopy;
-                    
-                navigator.clipboard.writeText(textToCopy)
-                    .then(() => {
-                        // Show success message
-                        const successMsg = document.createElement('div');
-                        successMsg.className = 'copy-success';
-                        successMsg.innerHTML = `
-                            <i class="fas fa-check-circle"></i>
-                            Đã sao chép: ${textToDisplay}
-                        `;
-                        document.body.appendChild(successMsg);
-                        
-                        setTimeout(() => {
-                            successMsg.classList.add('show');
-                        }, 10);
-                        
-                        setTimeout(() => {
-                            successMsg.remove();
-                        }, 2000);
-                        
-                        // Change button icon
-                        const originalIcon = this.innerHTML;
-                        this.innerHTML = '<i class="fas fa-check"></i>';
-                        setTimeout(() => {
-                            this.innerHTML = originalIcon;
-                        }, 1500);
-                    })
-                    .catch(err => {
-                        console.error('Could not copy text: ', err);
-                    });
-            });
         });
     </script>
 </body>
